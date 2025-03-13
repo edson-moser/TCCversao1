@@ -1,0 +1,196 @@
+/*lista de tarefas*/
+.container {
+    width: 500px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    background: transparent;
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #ff4800;
+    margin-bottom: 20px;
+}
+
+.progress-container {
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #ff4800;
+    border-radius: 10px;
+    width: 0;
+    transition: width 0.5s ease-in-out;
+}
+
+#taskInputContainer {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 5px 20px;
+    border-radius: 50px;
+    border: 2px solid Irgba(255, 255, 255, .2);
+    font-size: 16px;
+}
+
+#taskInput::placeholder {
+    color: #aaa;
+}
+
+#taskInput:focus {
+    outline: none;
+}
+
+#taskInputContainer button {
+    height: 40px;
+    width: 40px;
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+    border-radius: 100%;
+    border: none;
+    cursor: pointer;
+
+}
+
+#taskInputContainer button:hover {
+    background-color: #ff4800;
+}
+
+.task-item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* quem somos nós */
+
+.quem-somos {
+    background-color: #2d6a4f;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 50px;
+}
+
+.quem-somos .container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.pessoa {
+    text-align: center;
+}
+
+.pessoa img {
+    width: 120px;
+    /* Define o tamanho da foto */
+    height: 120px;
+    /* Mantém a proporção */
+    border-radius: 50%;
+    /* Deixa a imagem completamente redonda */
+    border: 3px solid white;
+    /* Adiciona uma borda branca para destacar */
+    object-fit: cover;
+    /* Garante que a imagem cubra todo o espaço sem distorção */
+}
+
+.pessoa h3 {
+    margin: 10px 0 5px;
+    font-size: 20px;
+}
+
+.pessoa a {
+    color: #ffdd57;
+    text-decoration: none;
+}
+
+.pessoa a:hover {
+    text-decoration: underline;
+}
+
+.descricao {
+    max-width: 600px;
+    margin: 20px auto 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+nav.menu-lateral {
+    width: 300px;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 40px 0 40px 1%;
+    box-shadow: 3px 0 0 #428d42;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    overflow: hidden;
+}
+
+nav.menu-lateral.expandir {
+    width: 300px;
+}
+
+.btn-expandir {
+    width: 100%;
+    padding-left: 10px;
+}
+
+.btn-expandir>i {
+    color: #428d42;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+ul {
+    height: 100%;
+    list-style-type: none;
+}
+
+ul li.item-menu a {
+    color: #428d42;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 4%;
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 40px;
+}
+
+ul li.item-menu a .txt-link {
+    margin-left: 40px;
+}
+
+ul li.item-menu a .icon>i {
+    font-size: 30px;
+}
