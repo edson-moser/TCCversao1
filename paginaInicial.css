@@ -2,6 +2,15 @@
     width: 250px;  /* Define a largura */
     height: 150px; /* Define a altura */
 }
+.nav-link{
+    font-size:25px;
+   
+    
+}
+.nav-item{
+     display: flex;
+    justify-content: space-between;
+}
 
 
 /*lista de tarefas*/
