@@ -140,13 +140,15 @@ h1 {
 .quem-somos {
    /*  background-color: #2d6a4f;
     color: white; */
-    -webkit-backdrop-filter: blur(10px);
+    
     text-align: center;
     padding: 40px 20px;
     margin-top: 50px;
 }
 
 .quem-somos .container {
+    background: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente */
+    backdrop-filter: blur(10px); /* Aplica desfoque ao fundo */
     display: flex;
     justify-content: center;
     gap: 40px;
