@@ -26,7 +26,7 @@ body {
 .content::before {
     content: "";
     position: absolute;
-    background-color: #58af9b;
+    background-color: #428d42;
     width: 40%;
     height: 100%;
     border-top-left-radius: 15px;
@@ -44,7 +44,7 @@ body {
     color: #fff;
 }
 .title-second {
-    color: #58af9b;
+    color: #428d42;
 }
 .description {
     font-size: 14px;
@@ -77,11 +77,11 @@ body {
 }
 .btn-primary:hover {
     background-color: #fff;
-    color: #58af9b;
+    color: #428d42;
 }
 .btn-second {
-    background-color: #58af9b;
-    border: 1px solid #58af9b;
+    background-color: #428d42;
+    border: 1px solid #428d42;
     transition: background-color .5s;
     display: flex;
     justify-content: center; /* Alinha horizontalmente */
@@ -89,8 +89,8 @@ body {
 }
 .btn-second:hover {
     background-color: #fff;
-    border: 1px solid #58af9b;
-    color: #58af9b;
+    border: 1px solid #428d42;
+    color: #428d42;
 }
 .first-content {
     display: flex;
@@ -489,4 +489,17 @@ input:-webkit-autofill
     .form {
         width: 100%;
     }
+}
+
+.fundo-imagem {
+    background-image: url('NaturisLogo.png'); /* Caminho da imagem */
+    background-size: contain; /* Cobrir todo o elemento */
+    background-position: center; /* Centralizar a imagem */
+    background-repeat: no-repeat; /* Evitar repetição */
+    width: 100%; /* Largura do elemento */
+    height: 300px; /* Altura do elemento */
+    color: white; /* Cor do texto (se houver) */
+    padding: 20px; /* Espaçamento interno */
+    background-color: #f0f0f0; /* Cor de fundo */
+
 }
