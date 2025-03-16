@@ -136,7 +136,7 @@ h1 {
     background-position: center;
     background-repeat: no-repeat;
     padding: 50px 20px;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 .quem-somos {
@@ -180,7 +180,7 @@ h1 {
 }
 
 .pessoa a {
-    color: #ffdd57;
+    color: #000000;
     text-decoration: none;
 }
 
