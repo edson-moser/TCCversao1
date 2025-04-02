@@ -3,18 +3,99 @@
     /* Define a largura */
     height: 150px;
     /* Define a altura */
+    display: flex;
+    justify-content: start;
 }
-
-
-
-
 
 .nav-link {
     font-size: 25px;
-
 
 }
 
 .nav-item {
     margin-right: 15px;
+}
+
+.form-container {
+    background-color: #4CAF50;  /* Cor de fundo verde */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px%;  /* Ocupar metade da tela */
+    max-width: 500px; /* Limita a largura máxima */
+    min-width: 300px; /* Limita a largura mínima */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Garante que o conteúdo dentro do form-container seja alinhado de cima para baixo */
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white; /* Cor do título */
+  }
+  
+  .input-area {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .input-area input {
+    flex: 1;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .input-area select {
+    padding: 8px 12px;
+    background-color: #fff;
+    color: #4CAF50; /* Cor do texto */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .input-area select:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .confirm-button {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .confirm-button button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .confirm-button button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    width: 50%;
+    max-width: 500px;
+    min-width: 300px;
+    height: auto;
+  }
+
+
+
+.chart-container {
+    width: 80%;
+    margin: 40px auto;
+    text-align: center;
 }

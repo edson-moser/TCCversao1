@@ -40,7 +40,53 @@
         </div>
     </nav>
       
-      <div class="input-group mb-3">
+
+<div class="form-container">
+    <h2>Formulário de Inputs</h2>
+    <form>
+      <div class="input-area">
+        <input type="text" id="input1" placeholder="Digite algo...">
+        <select id="select1" onchange="changeType('input1', 'select1')">
+          <option value="text">Texto</option>
+          <option value="password">Senha</option>
+        </select>
+      </div>
+  
+      <div class="input-area">
+        <input type="text" id="input2" placeholder="Digite algo...">
+        <select id="select2" onchange="changeType('input2', 'select2')">
+          <option value="text">Texto</option>
+          <option value="password">Senha</option>
+        </select>
+      </div>
+  
+      <div class="input-area">
+        <input type="text" id="input3" placeholder="Digite algo...">
+        <select id="select3" onchange="changeType('input3', 'select3')">
+          <option value="text">Texto</option>
+          <option value="password">Senha</option>
+        </select>
+      </div>
+  
+      <div class="input-area">
+        <input type="text" id="input4" placeholder="Digite algo...">
+        <select id="select4" onchange="changeType('input4', 'select4')">
+          <option value="text">Texto</option>
+          <option value="password">Senha</option>
+        </select>
+      </div>
+  
+      <div class="confirm-button">
+        <button type="submit">Confirmar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="barChart"></canvas>
+</div>
+
+      <!--<div class="input-group mb-3">
         <input type="text" class="form-control" aria-label="Text input with dropdown button">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -91,8 +137,6 @@
 
         <div class="col-auto">
             <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
-        </div>
-
-        
+        </div> -->
 </body>
 </html>
