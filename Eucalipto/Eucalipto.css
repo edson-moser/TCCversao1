@@ -18,15 +18,14 @@
 
 .form-container {
     background-color: #4CAF50;  /* Cor de fundo verde */
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 500px%;  /* Ocupar metade da tela */
-    max-width: 500px; /* Limita a largura máxima */
-    min-width: 300px; /* Limita a largura mínima */
+    width: 50%;  /* Ocupar metade da tela */
     display: flex;
     flex-direction: column;
     justify-content: center;  /* Garante que o conteúdo dentro do form-container seja alinhado de cima para baixo */
+    padding: 20px;
+    margin-left: 450px;
   }
   
   h2 {
@@ -82,15 +81,7 @@
   
 
   
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: right;
-    width: 50%;
-    max-width: 500px;
-    min-width: 300px;
-    height: auto;
-  }
+
 
 
 
