@@ -9,6 +9,24 @@ function changeType(inputId, selectId) {
 
   var ctx = document.getElementsByClassName("line-chart")
 
-  var chartGrafico = new Chart(ctx, {
-    type: 'line'
-  })
+  const meuGrafico = new Chart(ctx, {
+    type: 'bar', // tipos: 'bar', 'line', 'pie', etc.
+    data: {
+      labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+      datasets: [{
+        label: 'Quantidades de pés plantados',
+        data: [50000, 19000, 30000, 22000, 43000, 67000],
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });

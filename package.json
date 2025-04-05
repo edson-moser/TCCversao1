@@ -1,0 +1,22 @@
+{
+  "name": "tccversao1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edson-moser/TCCversao1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edson-moser/TCCversao1/issues"
+  },
+  "homepage": "https://github.com/edson-moser/TCCversao1#readme",
+  "description": "",
+  "dependencies": {
+    "chart.js": "^4.4.8"
+  }
+}
