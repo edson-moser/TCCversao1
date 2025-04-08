@@ -40,39 +40,33 @@
       
 
 <div class="form-container">
-    <h2>Formulário de Inputs</h2>
+    <h2 class="titulo-eucalipto">Formulário de Inputs</h2>
     <form>
+      
       <div class="input-area">
-        <input type="text" id="input1" placeholder="Digite algo...">
+        <input type="number" id="input1" placeholder="Quantidade de pés">
         <select id="select1" onchange="changeType('input1', 'select1')">
-          <option value="text">Texto</option>
-          <option value="password">Senha</option>
+          <option value="number">Por Hectare</option>
+          <option value="number">Por metro quadrado</option>
         </select>
       </div>
   
       <div class="input-area">
-        <input type="text" id="input2" placeholder="Digite algo...">
+        <input type="number" id="input2" placeholder="Tamanho da Área">
         <select id="select2" onchange="changeType('input2', 'select2')">
-          <option value="text">Texto</option>
-          <option value="password">Senha</option>
+          <option value="number">Por Hectare</option>
+          <option value="number">Por metro quadrado</option>
         </select>
       </div>
   
       <div class="input-area">
-        <input type="text" id="input3" placeholder="Digite algo...">
-        <select id="select3" onchange="changeType('input3', 'select3')">
-          <option value="text">Texto</option>
-          <option value="password">Senha</option>
-        </select>
+        <input type="date" id="input3" placeholder="Data de Ínicio">
       </div>
   
       <div class="input-area">
-        <input type="text" id="input4" placeholder="Digite algo...">
-        <select id="select4" onchange="changeType('input4', 'select4')">
-          <option value="text">Texto</option>
-          <option value="password">Senha</option>
-        </select>
+        <input type="date" id="input4" placeholder="Data de finalização">
       </div>
+    
   
       <div class="confirm-button">
         <button type="submit">Confirmar</button>
@@ -80,9 +74,10 @@
     </form>
   </div>
 
+      <div class="grafico">
         <canvas class="line-chart" width="400" height="200"></canvas>
         <script src="Eucalipto.js"></script>
-        
+      </div>
         
 </body>
 </html>

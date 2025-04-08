@@ -27,6 +27,17 @@ function changeType(inputId, selectId) {
         y: {
           beginAtZero: true
         }
+      },
+      animation: {
+        duration: 2000,  // Duração total da animação (em milissegundos)
+        easing: 'easeOutBounce',  // Tipo de easing para a animação
+        delay: function(context) {
+          var delay = 0;
+          if (context.type === 'data' && context.mode === 'default' && context.datasetIndex === 0) {
+            delay = context.dataIndex * 200;  // Adiciona um delay incremental para cada barra
+          }
+          return delay;
+        }
       }
     }
   });
