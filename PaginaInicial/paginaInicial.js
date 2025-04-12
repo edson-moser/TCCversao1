@@ -52,9 +52,20 @@ function updateProgress() {
     progressBar.style.width = progressPercent + "%";
 }
 function toggleTaskCompletion(id) {
-    const task = tasks.find(task => task.id = id);
+    //const task = tasks.find(task => task.id = id);
+    var task = null;
+    var ind = 0;
+    for(i = 0; i < tasks.length; i++){
+        if(tasks[i].id == id){
+            task = tasks[i];
+            ind = i;
+            break;
+        }
+    }
+
     if (task) {
         task.completed = !task.completed;
+        tasks[ind] = task;
         updateTaskList();
     }
 }

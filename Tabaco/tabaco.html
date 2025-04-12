@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="tabaco.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="tabaco.js"></script>
+    <title>Tabaco - Naturis</title>
+</head>
+
+<body>
+    <main id="form_container">
+        <div id="form_header">
+            <h1 id="form_title">TABACO</h1>
+        </div>
+
+        <!--caracteristicas gerais-->
+        <form action="" id="form">
+            <div id="input_container">
+                <div class="input-box">
+                    <label for="total_plantado" class="form-label">TOTAL DE PÉS PLANTADOS</label>
+                    <div class="input-field">
+                        <input type="text" name="total_plantado" id="total_plantado" class="form-control"
+                            placeholder="mil pés">
+                            <img src="plantar (1).png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="quilos_produzidos" class="form-label">QUILOS PRODUZIDOS</label>
+                    <div class="input-field">
+                        <input type="text" name="quilos_produzidos" id="quilos_produzidos" class="form-control"
+                            placeholder="quilos">
+                            <img src="peso.png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="quantidade_estufadas" class="form-label">QUANTIDADE DE ESTUFADAS</label>
+                    <div class="input-field">
+                        <input type="text" name="quantidade_estufadas" id="quantidade_estufadas" class="form-control"
+                            placeholder="estufadas">
+                            <img src="folha (4).png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="total_hectares" class="form-label">TOTAL DE HECTARES</label>
+                    <div class="input-field">
+                        <input type="text" name="total_hectares" id="total_hectares" class="form-control"
+                            placeholder="hectares">
+                            <img src="campo.png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+            </div>
+
+            <!--adicionar area -->
+            
+            <div class="container mt-4">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="button-group">
+                    <button class="btn btn-primary" id="add-button">Adicionar Botão</button>
+                </div>
+            </div>
+
+            <!--Caracteristicas expcificas da área-->
+
+
+           
+                <div class="input-box">
+                    <label for="total_plantado" class="form-label">QUANTIDADE DE PÉS PLANTADOS NA ÁREA</label>
+                    <div class="input-field">
+                        <input type="text" name="total_plantado" id="total_plantado" class="form-control"
+                            placeholder="mil pés ">
+                            <img src="plantar (1).png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="total_hectares" class="form-label">TOTAL DE HECTARES DA ÁREA</label>
+                    <div class="input-field">
+                        <input type="text" name="total_hectares" id="total_hectares" class="form-control"
+                            placeholder="hectares">
+                            <img src="campo.png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label 
+                    for="data_plantio" 
+                    class="form-label"
+                >
+                    DATA PLANTIO
+                </label>
+                <div class="input-field">
+                    <input 
+                        type="date"
+                        name="data_plantio"
+                        id="data_plantio"
+                        class="form-control"
+                    >
+                </div>
+            </div>
+
+            
+            <div class="input-box">
+                <label 
+                    for="data_fimColheita" 
+                    class="form-label"
+                >
+                    DATA FIM DA COLHEITA
+                </label>
+                <div class="input-field">
+                    <input 
+                        type="date"
+                        name="data_fimColheita"
+                        id="data_fimColheita"
+                        class="form-control"
+                    >
+                </div>
+            </div>
+
+            <div class="input-box">
+                    <label for="variedades" class="form-label">VARIEDADES</label>
+                    <div class="input-field">
+                        <input type="text" name="variedades" id="variedades" class="form-control"
+                            placeholder="4707 BAT,401 Aliance One,.......">
+                            <img src="folha (2).png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+
+                <div class="input-box">
+                    <label for="produtos_utilizados" class="form-label">PRODUTOS UTILIZADOS</label>
+                    <div class="input-field">
+                        <input type="text" name="produtos_utilizados" id="produtos_utilizados" class="form-control"
+                            placeholder="salitre,ureia,calcário,........">
+                            <img src="carrinho.png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="pragas_doencas" class="form-label">PRAGAS E DOENÇAS PRESENTES</label>
+                    <div class="input-field">
+                        <input type="text" name="pragas_doencas" id="pragas_doencas" class="form-control"
+                            placeholder="lagarta,Nematóide,Podridão do caule,Mofo azul,.......">
+                            <img src="pragas.png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                
+
+             
+                <div class="input-box">
+                    <label for="agrotoxicos_defensivos" class="form-label">AGROTÓXICOS E DEFENSIVOS UTILIZADOS</label>
+                    <div class="input-field">
+                        <input type="text" name="agrotoxicos_defensivos" id="agrotoxicos_defensivos" class="form-control"
+                            placeholder="Nome do Produto">
+                            <img src="venenoso.png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="media_folhas" class="form-label">MÉDIA DE FOLHAS</label>
+                    <div class="input-field">
+                        <input type="text" name="media_folhas" id="media_folhas" class="form-control"
+                            placeholder="escolha alguns carreiros aleatorios conte a quantidade de folhas e depois divida o total pela quantidade de pés contados">
+                            <img src="folha (2).png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="quantidade_colhida" class="form-label">NÚMERO DE COLH</label>
+                    <div class="input-field">
+                        <input type="text" name="quantidade_colhida" id="quantidade_colhida" class="form-control"
+                            placeholder="1,2,3,4,5....">
+                        <img src="plantar (2).png" alt="ícone de plantio" width="24" height="24">
+                    </div>
+                </div>
+
+              
+            <button type="submit" class="btn-default">
+                <i class="fa-solid fa-check"></i>
+                SALVAR
+            </button>
+        </form>
+
+        <button type="finalizarSafra" class="btn-default">
+            <i class="fa-solid fa-check"></i>
+            FINALIZAR SAFRA
+        </button>
+    </form>
+
+    </main>
+
+ 
+</body>
+
+</html>
