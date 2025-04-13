@@ -1,20 +1,19 @@
 .imagemBarra {
-    width: 250px;
-    /* Define a largura */
-    height: 150px;
-    /* Define a altura */
-    display: flex;
-    justify-content: start;
+  width: 250px;
+  /* Define a largura */
+  height: 150px;
+  /* Define a altura */
 }
 
 .nav-link {
-    font-size: 25px;
-
+  font-size: 25px;
 }
 
 .nav-item {
-    margin-right: 15px;
+  margin-right: 15px;
 }
+
+
 
 .form-container {
     background-color: #4CAF50;  /* Cor de fundo verde */

@@ -1,4 +1,20 @@
 
+.imagemBarra {
+    width: 250px;
+    /* Define a largura */
+    height: 150px;
+    /* Define a altura */
+}
+
+.nav-link {
+    font-size: 25px;
+}
+
+.nav-item {
+    margin-right: 15px;
+}
+
+
 * {
     margin: 0;
     padding: 0;
