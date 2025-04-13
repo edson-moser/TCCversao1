@@ -1,44 +1,34 @@
-
-.imagemBarra {
-    width: 250px;
-    /* Define a largura */
-    height: 150px;
-    /* Define a altura */
+/* Altera a cor da barra de navegação para bege claro e o texto para verde */
+.navbar {
+    background-color: #F5F1E6 !important; /* Cor de fundo bege claro */
+    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
 }
 
 .nav-link {
+    color: #4C8F6E !important; /* Cor verde para as letras */
     font-size: 25px;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: #3E7859 !important; /* Cor verde mais escuro para o hover */
 }
 
 .nav-item {
     margin-right: 15px;
 }
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+.imagemBarra {
+    width: 250px;
+    height: 150px;
 }
 
-/* body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #6366f1;
-} */
 
-.btn-default:hover {
-    background-color: #818cf8;
-}
-
+/* Layout do formulário */
 #form_container {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    background-color: #f6f8ff;
+    background-color: #F9F4EC; /* Cor de fundo clara (bege claro) */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -51,8 +41,9 @@
 }
 
 #form_title {
+    font-family: 'Alegreya Sans SC', sans-serif; /* Fonte Alegreya Sans SC */
     font-weight: 500;
-    color: #272727;
+    color: #4C8F6E; /* Verde suave */
     position: relative;
 }
 
@@ -62,11 +53,12 @@
     width: 100px;
     height: 3px;
     border-radius: 30px;
-    background-color: #6366f1;
+    background-color: #4C8F6E; /* Verde suave */
     left: 0;
     bottom: 0;
 }
 
+/* Formulário */
 #form {
     display: flex;
     flex-direction: column;
@@ -80,6 +72,7 @@
 }
 
 .form-label {
+    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
     font-size: 12px;
     color: #404044;
     font-weight: 500;
@@ -106,15 +99,52 @@
     width: 100%;
     border: none;
     border-radius: 8px;
+    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+    color: #A1D3A6; /* Verde claro no texto dentro do input */
+}
+
+.form-control::placeholder {
+    color: #A1D3A6; /* Verde claro para o texto do placeholder também */
 }
 
 .form-control:focus {
     outline: none;
+    border: 2px solid #4C8F6E; /* Cor verde para os inputs focados */
 }
 
+/* Estilo de foco para a caixa de entrada */
 .input-box .input-field:focus-within {
-    outline: 2px solid #6366f1;
+    outline: 2px solid #4C8F6E;
 }
+
+/* Botões */
+.btn-default {
+    background-color: #2F6A4A; /* Verde escuro para os botões */
+    color: white; /* Cor do texto no botão */
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-default:hover {
+    background-color: #1F4B37; 
+}
+
+
+.btn-group .btn {
+    background-color: #2F6A4A; 
+    color: white; 
+}
+
+
+.btn-group .btn:hover {
+    background-color: #1F4B37; 
+}
+
+
 
 .container {
     background: white;
@@ -122,15 +152,36 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .btn-group {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
-.btn {
-    min-width: 120px;
+
+
+.btn-group .btn {
+    background-color: #2F6A4A; 
+    color: white; 
 }
 
+
+.btn-group .btn:hover {
+    background-color: #1F4B37; 
+}
+
+
+.btn-group .btn.btn-added {
+    background-color: #A1D3A6; 
+    color: white;
+}
+
+
+.btn-group .btn.btn-added:hover {
+    background-color: #7DAF8D; 
+}
+
+/* Responsividade */
 @media screen and (max-width: 500px) {
     #form_container {
         width: 100%;
@@ -141,5 +192,5 @@
         display: flex;
         flex-direction: column;
         gap: 38px;
-    }
+    }  
 }
