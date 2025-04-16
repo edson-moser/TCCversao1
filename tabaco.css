@@ -119,10 +119,10 @@
 
 /* Botões */
 .btn-default {
-    background-color: #2F6A4A; /* Verde escuro para os botões */
-    color: white; /* Cor do texto no botão */
+    background-color: #2F6A4A;
+    color: white; 
     border-radius: 8px;
-    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+    font-family: 'Poppins', sans-serif;
     border: none;
     padding: 10px 20px;
     cursor: pointer;

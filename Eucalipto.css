@@ -1,18 +1,26 @@
-.imagemBarra {
-  width: 250px;
-  /* Define a largura */
-  height: 150px;
-  /* Define a altura */
+/* NAVBAR */
+.navbar {
+  background-color: #F5F1E6 !important; 
+  font-family: 'Poppins', sans-serif; 
 }
 
 .nav-link {
+  color: #4C8F6E !important; 
   font-size: 25px;
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: #3E7859 !important; 
 }
 
 .nav-item {
   margin-right: 15px;
 }
-
+.imagemBarra {
+  width: 250px;
+  height: 150px;
+}
 
 
 .form-container {

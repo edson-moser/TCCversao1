@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #e1cbb1;
+    background-color:#fff;
 }
 .content {
     background-color: #fff;
@@ -23,7 +23,7 @@ body {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 .content::before {
     content: "";

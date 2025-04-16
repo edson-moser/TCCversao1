@@ -54,7 +54,7 @@ h3 {
 .listaTarefas {
     width: 100%;
     height: 75vh;
-    background-color: #C5B29D;
+    background-color: #F5F1E6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,7 +73,7 @@ h3 {
     flex: 1;
     padding: 5px 20px;
     border-radius: 50px;
-    border: 2px solid rgba(255, 255, 255, .2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     font-size: 16px;
     color: #7B5F28;
 }
@@ -96,7 +96,7 @@ h3 {
     height: 40px;
     width: 40px;
     font-size: 16px;
-    background-color: #4C8F6E;
+    background-color: #2F6544;
     color: white;
     border-radius: 100%;
     border: none;
@@ -105,7 +105,7 @@ h3 {
 }
 
 #taskInputContainer button:hover {
-    background-color: #3E7859;
+    background-color: #2F6544;
 }
 
 .task-item {
@@ -122,7 +122,7 @@ h3 {
 /* PROGRESS BAR */
 .progress-container {
     height: 20px;
-    background-color: #f0f0f0;
+    background-color: #d9d9d9;
     border-radius: 10px;
     overflow: hidden;
     margin: 20px auto;
