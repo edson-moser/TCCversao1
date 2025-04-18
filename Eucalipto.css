@@ -27,14 +27,39 @@
 
 /* Container principal */
 .form-container {
+
   display: flex;
   flex-direction: column;
   gap: 32px;
-  background-color: #F9F4EC;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  background-color: #F5F1E6;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+#titulo_caracteristicas {
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-size: 28px;
+  color: #4C8F6E;
+  margin-bottom: 10px;
+  text-align: center; /* CENTRALIZA O TEXTO */
+  position: relative;
+}
+
+#titulo_caracteristicas::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: #4C8F6E;
+  margin: 8px auto 0 auto; /* CENTRALIZA A LINHA */
+  border-radius: 30px;
+}
+
+
 
 /* Título */
 .titulo-eucalipto {

@@ -21,14 +21,27 @@
     width: 250px;
     height: 150px;
 }
+body{
+background-color: #F5F1E6;
+}
 
 
-/* Layout do formulário */
+hr.divisor {
+    border: none;
+    height: 3px;
+    background-color: #4C8F6E;
+    width: 100%;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+
+
 #form_container {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    background-color: #F9F4EC; /* Cor de fundo clara (bege claro) */
+    background-color: #F5F1E6; /* Cor de fundo clara (bege claro) */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -74,7 +87,7 @@
 .form-label {
     font-family: 'Poppins', sans-serif; /* Fonte Poppins */
     font-size: 12px;
-    color: #404044;
+    color: gray;
     font-weight: 500;
 }
 
@@ -120,7 +133,7 @@
 /* Botões */
 .btn-default {
     background-color: #2F6A4A;
-    color: white; 
+    color: white;
     border-radius: 8px;
     font-family: 'Poppins', sans-serif;
     border: none;
@@ -130,21 +143,17 @@
 }
 
 .btn-default:hover {
-    background-color: #1F4B37; 
+    background-color: #1F4B37;
 }
-
 
 .btn-group .btn {
-    background-color: #2F6A4A; 
-    color: white; 
+    background-color: #2F6A4A;
+    color: white;
 }
-
 
 .btn-group .btn:hover {
-    background-color: #1F4B37; 
+    background-color: #1F4B37;
 }
-
-
 
 .container {
     background: white;
@@ -159,26 +168,22 @@
     gap: 10px;
 }
 
-
 .btn-group .btn {
-    background-color: #2F6A4A; 
-    color: white; 
-}
-
-
-.btn-group .btn:hover {
-    background-color: #1F4B37; 
-}
-
-
-.btn-group .btn.btn-added {
-    background-color: #A1D3A6; 
+    background-color: #2F6A4A;
     color: white;
 }
 
+.btn-group .btn:hover {
+    background-color: #1F4B37;
+}
+
+.btn-group .btn.btn-added {
+    background-color: #A1D3A6;
+    color: white;
+}
 
 .btn-group .btn.btn-added:hover {
-    background-color: #7DAF8D; 
+    background-color: #7DAF8D;
 }
 
 /* Responsividade */
@@ -192,5 +197,5 @@
         display: flex;
         flex-direction: column;
         gap: 38px;
-    }  
+    }
 }
