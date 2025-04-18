@@ -21,18 +21,19 @@
     width: 250px;
     height: 150px;
 }
-body{
+/* body{
 background-color: #F5F1E6;
-}
+} */
 
 
 hr.divisor {
     border: none;
     height: 3px;
-    background-color: #4C8F6E;
+    background-color: #F5F1E6;
     width: 100%;
     border-radius: 5px;
     margin: 20px 0;
+
 }
 
 
