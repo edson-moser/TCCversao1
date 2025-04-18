@@ -72,7 +72,8 @@ body {
   padding: 2rem;
   color: #fdfdfd;
   border-radius: 1rem;
-  max-width: 400px;
+  max-width: 500px;
+  margin: 100px 100px;
 }
 
 .form h3 {
@@ -182,10 +183,10 @@ body {
   }
   
   #suggestions button {
-    min-width: 150px;
+    min-width: 200px;
     margin: 0.8rem;
     padding: 0.6rem 0.9rem;
-    border-radius: 10rem;
+    border-radius: 3rem;
     border: none;
     background-color: #4C8F6E;
     color: #000000;
@@ -195,5 +196,5 @@ body {
   }
   
   #suggestions button:hover {
-    opacity: 1;
+    opacity: 10;
   }

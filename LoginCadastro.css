@@ -13,10 +13,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color:#fff;
+    background-color:#F5F1E6;
 }
 .content {
-    background-color: #fff;
+    background-color: #f5f5f5;
     border-radius: 15px;
     width: 960px;
     height: 70%;

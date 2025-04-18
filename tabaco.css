@@ -1,6 +1,6 @@
 /* Altera a cor da barra de navegação para bege claro e o texto para verde */
 .navbar {
-    background-color: #F5F1E6 !important; /* Cor de fundo bege claro */
+    background-color: #dfdbce !important; /* Cor de fundo bege claro */
     font-family: 'Poppins', sans-serif; /* Fonte Poppins */
 }
 
@@ -21,21 +21,28 @@
     width: 250px;
     height: 150px;
 }
-/* body{
-background-color: #F5F1E6;
-} */
 
-
-hr.divisor {
-    border: none;
+.titulo-Tabaco {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-weight: 500;
+    color: #4C8F6E;
+    text-align: center;
+    position: relative;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .titulo-Tabaco::after {
+    content: '';
+    position: absolute;
+    width: 100px;
     height: 3px;
-    background-color: #F5F1E6;
-    width: 100%;
-    border-radius: 5px;
-    margin: 20px 0;
-
-}
-
+    border-radius: 30px;
+    background-color: #4C8F6E;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -8px;
+  }
 
 
 #form_container {
