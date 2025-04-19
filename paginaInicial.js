@@ -1,10 +1,9 @@
-
-
 //lista de tarefas//
 
 let tasks = [];
 let taskId = 1;
 let editingTaskId = null;
+
 
 function addTask() {
     const taskInput = document.getElementById("taskInput");
@@ -17,6 +16,8 @@ function addTask() {
     updateTaskList();
     taskInput.value = "";
 }
+
+
 function updateTaskList() {
 
     const taskList = document.getElementById("taskList");
@@ -44,6 +45,7 @@ function updateTaskList() {
     updateProgress();
 }
 
+
 function updateProgress() {
     const totalTasks = tasks.length;
     const completedTasks = tasks.filter(task => task.completed).length;
@@ -51,6 +53,8 @@ function updateProgress() {
     const progressBar = document.getElementById("progressBar");
     progressBar.style.width = progressPercent + "%";
 }
+
+
 function toggleTaskCompletion(id) {
     //const task = tasks.find(task => task.id = id);
     var task = null;
@@ -69,6 +73,8 @@ function toggleTaskCompletion(id) {
         updateTaskList();
     }
 }
+
+
 function editTask(id) {
     const task = tasks.find(task => task.id === id);
     if (task) {
@@ -92,5 +98,114 @@ function deleteTask(id) {
     tasks = tasks.filter(task => task.id !== id);
 
     updateTaskList();
+}
+
+
+//saldo
+let saldoAtual = 0;
+let registros = [];
+
+function formatarMoeda(valor) {
+  return `R$ ${valor.toFixed(2).replace('.', ',')}`;
+}
+
+function atualizarSaldo() {
+  const saldoElemento = document.getElementById('saldo-valor');
+  saldoElemento.textContent = formatarMoeda(saldoAtual);
+}
+
+function adicionarItemRegistro() {
+  const valorInput = document.getElementById('input-valor');
+  const tipoInput = document.getElementById('input-tipo');
+  const descricaoInput = document.getElementById('input-descricao');
+  const dataInput = document.getElementById('input-data');
+  const valor = parseFloat(valorInput.value);
+  const tipo = tipoInput.value;
+  const descricao = descricaoInput.value.trim();
+  const data = dataInput.value;
+
+  if (isNaN(valor) || descricao === "" || data === "") {
+    alert("Por favor, preencha todos os campos corretamente.");
+    return;
+  }
+
+  const registro = {
+    id: Date.now(),
+    valor,
+    tipo,
+    descricao,
+    data
+  };
+
+  registros.push(registro);
+
+  if (tipo === 'positivo') {
+    saldoAtual += valor;
+  } else {
+    saldoAtual -= valor;
+  }
+
+  atualizarSaldo();
+  exibirRegistros();
+
+  valorInput.value = '';
+  descricaoInput.value = '';
+  dataInput.value = '';
+  tipoInput.value = 'positivo';
+}
+
+function exibirRegistros(filtro = null) {
+  const lista = document.getElementById('lista-registro');
+  lista.innerHTML = "";
+
+  const registrosFiltrados = filtro
+    ? registros.filter(r => r.data === filtro)
+    : registros;
+
+  registrosFiltrados.slice().reverse().forEach(registro => {
+    const li = document.createElement('li');
+    li.classList.add(registro.tipo === 'positivo' ? 'registro-positivo' : 'registro-negativo');
+
+    const detalhes = document.createElement('div');
+    detalhes.className = 'detalhes-registro';
+    detalhes.innerHTML = `
+      <span><strong>${registro.tipo === 'positivo' ? '+' : '-'} ${formatarMoeda(Math.abs(registro.valor))}</strong> - ${registro.descricao}</span>
+      <small>${registro.data}</small>
+    `;
+
+    const botaoExcluir = document.createElement('button');
+    botaoExcluir.textContent = '🗑️';
+    botaoExcluir.classList.add('botao-excluir');
+    botaoExcluir.onclick = () => excluirRegistro(registro.id);
+
+    li.appendChild(detalhes);
+    li.appendChild(botaoExcluir);
+    lista.appendChild(li);
+  });
+}
+
+function excluirRegistro(id) {
+  const registro = registros.find(r => r.id === id);
+  if (!registro) return;
+
+  if (registro.tipo === 'positivo') {
+    saldoAtual -= registro.valor;
+  } else {
+    saldoAtual += registro.valor;
+  }
+
+  registros = registros.filter(r => r.id !== id);
+  atualizarSaldo();
+  exibirRegistros(document.getElementById('filtro-data-input').value || null);
+}
+
+function filtrarPorData() {
+  const dataSelecionada = document.getElementById('filtro-data-input').value;
+  exibirRegistros(dataSelecionada || null);
+}
+
+function limparFiltro() {
+  document.getElementById('filtro-data-input').value = "";
+  exibirRegistros();
 }
 
