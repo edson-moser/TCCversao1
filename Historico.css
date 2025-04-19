@@ -21,4 +21,111 @@
     width: 250px;
     height: 150px;
   }
+
+  .tela {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: #f5f1e6;
+    min-height: 100vh;
+  }
   
+  .container {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  .novo {
+    background-color: #2F6A4A;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 24px;
+  }
+  
+  .novo:hover {
+    background-color: #2F6A4A;
+  }
+  
+  #invoice-form table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+  }
+  
+  #invoice-form th,
+  #invoice-form td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  #invoice-form th {
+    background-color: #1F4B37;
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  #invoice-form td a.processos {
+    text-decoration: none;
+    background-color: #4C8F6E;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  #invoice-form td a.processos:hover {
+    background-color: #3b7058;
+  }
+  
+  /* Responsividade */
+  @media screen and (max-width: 768px) {
+    .container {
+      padding: 24px;
+    }
+  
+    #invoice-form table,
+    #invoice-form thead,
+    #invoice-form tbody,
+    #invoice-form th,
+    #invoice-form td,
+    #invoice-form tr {
+      display: block;
+      width: 100%;
+    }
+  
+    #invoice-form tr {
+      margin-bottom: 20px;
+    }
+  
+    #invoice-form td {
+      padding-left: 50%;
+      position: relative;
+    }
+  
+    #invoice-form td::before {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 45%;
+      white-space: nowrap;
+      font-weight: bold;
+      color: #555;
+    }
+  
+    #invoice-form td:nth-child(1)::before { content: "Nome"; }
+    #invoice-form td:nth-child(2)::before { content: "Ano"; }
+    #invoice-form td:nth-child(3)::before { content: "Documento de Histórico"; }
+  }
