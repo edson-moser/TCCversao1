@@ -39,3 +39,74 @@
     height: 150px;
   }
   
+  .tudo{
+    background-color: #F5F1E6;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+  }
+
+
+  .perfil-container {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .perfil-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .perfil-foto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #A1D3A6;
+    margin-right: 24px;
+  }
+
+  .perfil-info h2 {
+    color: #4C8F6E;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .perfil-info p {
+    color: #666;
+    font-size: 16px;
+  }
+
+  .secao {
+    margin-bottom: 24px;
+  }
+
+  .secao h3 {
+    color: #2F6A4A;
+    margin-bottom: 12px;
+    font-size: 20px;
+  }
+
+  .secao ul, .secao p {
+    margin-left: 16px;
+    color: #444;
+  }
+
+  .btn-editar {
+    background-color: #2F6A4A;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .btn-editar:hover {
+    background-color: #1F4B37;
+  }
