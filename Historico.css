@@ -40,17 +40,7 @@
     width: 100%;
   }
   
-  .novo {
-    background-color: #2F6A4A;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 24px;
-  }
+
   
   .novo:hover {
     background-color: #2F6A4A;
@@ -125,7 +115,7 @@
       color: #555;
     }
   
-    #invoice-form td:nth-child(1)::before { content: "Nome"; }
-    #invoice-form td:nth-child(2)::before { content: "Ano"; }
+    #invoice-form td:nth-child(1)::before { content: "Período"; }
+    /* #invoice-form td:nth-child(2)::before { content: "Ano"; } */
     #invoice-form td:nth-child(3)::before { content: "Documento de Histórico"; }
   }

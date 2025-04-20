@@ -110,12 +110,13 @@ h3 {
 }
 
 .containerTarefas{
-   flex: 1;
-   padding: 100px;
-   border: 8px solid #d9d9d9; /* largura, tipo e cor da borda */
-   padding: 20px;              /* espaço interno */
-   border-radius: 5px;
-   margin: 100px 100px;
+    width: 1000px; 
+    margin: 40px 40px;
+    padding: 20px;
+    background: #dfdbce;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-family: 'Arial', sans-serif;
 }
 
 .container {
@@ -137,7 +138,7 @@ h3 {
 }
 
 #taskInput::placeholder {
-    color: #8F7239;
+    color: #A1D3A6;
 }
 
 #taskInput:focus {
@@ -184,6 +185,7 @@ h3 {
     border-radius: 10px;
     overflow: hidden;
     margin: 20px auto;
+    border: 1px solid #a19c9c;
 }
 
 .progress-bar {
@@ -192,6 +194,7 @@ h3 {
     border-radius: 10px;
     width: 0;
     transition: width 0.5s ease-in-out;
+    
 }
 
 /* QUEM SOMOS */
@@ -199,6 +202,7 @@ h3 {
 h2 {
     font-size: 2rem;
     color: #6DAA7F;
+    font-family: 'Lilita One', sans-serif;
 }
 #quemSomos {
     background-image: url('fundoQuemSomos\ .png');
@@ -320,30 +324,31 @@ h2 {
         height: 45px;
     }
 }
-
+/* saldo da safra*/
 .registro-container {
-    max-width: 500px;
+    max-width: 650px; 
     margin: 40px auto;
     padding: 20px;
-    background: #fff8e7;
+    background: #dfdbce;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     font-family: 'Arial', sans-serif;
   }
   
   h1, h2 {
     text-align: center;
-    color: #333;
+    color: #503602;
+    font-family: 'Lilita One', sans-serif;
   }
   
   .painel-saldo {
     background-color: #f0fdf4;
-    border: 2px solid #4CAF50;
+    border: 2px solid #2F6544;
     padding: 15px;
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    color: #2e7d32;
+    color: #2F6544;
     border-radius: 10px;
     margin: 20px 0;
   }
@@ -367,7 +372,7 @@ h2 {
   }
   
   button {
-    background-color: #4CAF50;
+    background-color: #2F6544;
     color: white;
     border: none;
     font-weight: bold;
@@ -375,7 +380,7 @@ h2 {
   }
   
   button:hover {
-    background-color: #388e3c;
+    background-color: #2F6544;
   }
   
   .filtro-data {
@@ -383,6 +388,9 @@ h2 {
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
+  }
+  .filtro-data-input{
+    color:#503602;
   }
   
   .filtro-data label {
@@ -407,8 +415,8 @@ h2 {
   }
   
   .registro-positivo {
-    border-color: #4CAF50;
-    color: #2e7d32;
+    border-color: #2e7d32;
+    color: #2F6544;
   }
   
   .registro-negativo {
@@ -432,4 +440,9 @@ h2 {
     display: flex;
     flex-direction: column;
   }
+
+  .registro-form input::placeholder {
+    color: #A1D3A6;
+  }
+  
   

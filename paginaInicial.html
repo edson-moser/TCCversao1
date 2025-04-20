@@ -90,6 +90,36 @@
         </a>
     </div>
 
+    <!--saldo-->
+
+    <div class="registro-container">
+        <h1>Saldo da safra:</h1>
+    
+        <div class="painel-saldo">
+          Saldo Atual: <span id="saldo-valor">R$ 0,00</span>
+        </div>
+    
+        <div class="registro-form">
+          <input type="number" id="input-valor" placeholder="Valor" />
+          <select id="input-tipo">
+            <option value="positivo">Positivo |+|</option>
+            <option value="negativo">Negativo |-|</option>
+          </select>
+          <input type="text" id="input-descricao" placeholder="Descrição" />
+          <input type="date" id="input-data" />
+          <button onclick="adicionarItemRegistro()">Adicionar</button>
+        </div>
+    
+        <div class="filtro-data">
+          <label  class="filtro-data-input">Filtrar por data:</label>
+          <input type="date" id="filtro-data-input" onchange="filtrarPorData()" />
+          <button onclick="limparFiltro()">Limpar Filtro</button>
+        </div>
+    
+        <h2>Histórico:</h2>
+        <ul id="lista-registro"></ul>
+      </div>
+
     <!--lista de tarefas-->
     <div class="listaTarefas">
 
@@ -108,35 +138,7 @@
         </section>
 
     </div>
-    <!--saldo-->
-
-    <div class="registro-container">
-        <h1>Registro de Valores</h1>
     
-        <div class="painel-saldo">
-          Saldo Atual: <span id="saldo-valor">R$ 0,00</span>
-        </div>
-    
-        <div class="registro-form">
-          <input type="number" id="input-valor" placeholder="Valor" />
-          <select id="input-tipo">
-            <option value="positivo">Positivo</option>
-            <option value="negativo">Negativo</option>
-          </select>
-          <input type="text" id="input-descricao" placeholder="Descrição" />
-          <input type="date" id="input-data" />
-          <button onclick="adicionarItemRegistro()">Adicionar</button>
-        </div>
-    
-        <div class="filtro-data">
-          <label for="filtro-data-input">Filtrar por data:</label>
-          <input type="date" id="filtro-data-input" onchange="filtrarPorData()" />
-          <button onclick="limparFiltro()">Limpar Filtro</button>
-        </div>
-    
-        <h2>Histórico</h2>
-        <ul id="lista-registro"></ul>
-      </div>
       
     <!--quem somos nós-->
     <div id="quemSomos">
