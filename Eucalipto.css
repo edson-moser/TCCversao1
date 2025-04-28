@@ -1,17 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Poppins:wght@400;500&display=swap');
+
+
+
 /* NAVBAR */
 .navbar {
-  background-color: #dfdbce !important; 
-  font-family: 'Poppins', sans-serif; 
+  background-color: #dfdbce !important; /* Cor de fundo bege claro */
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
 }
 
 .nav-link {
-  color: #4C8F6E !important; 
-  font-size: 25px;
+  color: #4C8F6E !important; /* Cor verde para as letras */
+  font-size: 20px;
   font-weight: 600;
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
 }
 
 .nav-link:hover {
-  color: #3E7859 !important; 
+  color: #3E7859 !important; /* Cor verde mais escuro para o hover */
 }
 
 .nav-item {
@@ -21,10 +26,6 @@
   width: 250px;
   height: 150px;
 }
-
-
-
-@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Poppins:wght@400;500&display=swap');
 
 
 

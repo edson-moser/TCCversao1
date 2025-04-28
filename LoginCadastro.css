@@ -92,7 +92,7 @@ body {
 }
 .btn-second:hover {
     background-color: #fff;
-    border: 1px solid #4DA768;
+    border: 1px solid #006633;
     color: #4DA768;
 }
 .first-content {
@@ -127,6 +127,8 @@ body {
     padding: 0 15px;
     border-radius: 8px;
     font-family: 'Poppins', sans-serif;
+    border: 1px solid #cfc6c6;
+   
 }
 input:-webkit-autofill 
 {    
