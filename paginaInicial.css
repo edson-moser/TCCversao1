@@ -350,6 +350,9 @@ h2 {
         max-height: 400px;
         object-fit: cover;
     }
+    .registro-container{
+        width: 85%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -367,11 +370,17 @@ h2 {
         width: 30px;
         height: 30px;
     }
+    .registro-container{
+        width: 85%;
+    }
 }
 
 @media (max-width: 576px) {
     #carouselExampleIndicators .carousel-item img {
         max-height: 100%;
+    }
+    .registro-container{
+        width: 85%;
     }
 }
 
