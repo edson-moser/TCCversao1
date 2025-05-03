@@ -1,48 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Poppins:wght@400;500&display=swap');
 
-
-
 /* NAVBAR */
 .navbar {
-  background-color: #dfdbce !important; /* Cor de fundo bege claro */
-  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+  background-color: #dfdbce !important;
+  font-family: 'Poppins', sans-serif;
+  flex-wrap: wrap;
 }
 
 .nav-link {
-  color: #4C8F6E !important; /* Cor verde para as letras */
+  color: #4C8F6E !important;
   font-size: 20px;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+  font-family: 'Poppins', sans-serif;
 }
 
 .nav-link:hover {
-  color: #3E7859 !important; /* Cor verde mais escuro para o hover */
+  color: #3E7859 !important;
 }
 
 .nav-item {
   margin-right: 15px;
 }
+
 .imagemBarra {
   width: 250px;
   height: 150px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsividade da logo */
+@media (max-width: 768px) {
+  .imagemBarra {
+    width: 180px;
+    height: auto;
+  }
 }
 
 
 
 /* Container principal */
 .form-container {
-
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding: 20px;
+
+  
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.3);
   background-color: #F5F1E6;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
 
 
 /* Título */
@@ -68,6 +76,7 @@
   bottom: -8px;
 }
 
+
 /* Formulário em grid */
 form {
   display: grid;
@@ -75,18 +84,31 @@ form {
   gap: 24px;
 }
 
-/* Campo de entrada (tamanho da área, quantidade de pés) */
+/* Responsividade para o formulário */
+@media (max-width: 768px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  .imagemBarra {
+    width: 180px;
+    height: auto;
+  }
+}
+
+
+/* Campo de entrada */
 .input-area {
   display: flex;
   align-items: center;
-  gap: 12px; /* Espaçamento entre input e select */
+  gap: 12px;
   background-color: #ffffff;
   border-radius: 8px;
   padding: 12px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
 }
 
-/* Inputs e selects lado a lado */
 .input-area input {
   flex: 1;
   padding: 10px;
@@ -95,6 +117,7 @@ form {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   color: #4C8F6E;
+  min-width: 100px;
 }
 
 .input-area select {
@@ -117,10 +140,12 @@ form {
   border: 2px solid #4C8F6E;
 }
 
-/* Campo de data (fica em uma linha separada) */
+
+/* Campo de data */
 .input-area.date {
   grid-column: 1 / -1;
 }
+
 
 /* Botão */
 .confirm-button {
@@ -145,9 +170,11 @@ form {
   background-color: #3c745a;
 }
 
+
 /* Gráfico */
 .grafico {
   width: 80%;
+  max-width: 100%;
   margin: 40px auto;
   display: flex;
   justify-content: center;
