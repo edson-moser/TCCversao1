@@ -207,13 +207,43 @@ select:focus {
 
 
 /* Responsividade */
-@media screen and (max-width: 600px) {
-  .buttons {
-    flex-direction: column;
-  }
 
-  .container {
-    margin: 20px;
-    padding: 24px;
+  /* Responsividade */
+  @media (max-width: 768px) {
+
+    
+    .navbar-brand img.imagemBarra {
+        width: 190px;
+        height: 125px;
+    }
+
+    .nav-link {
+        font-size: 16px !important;
+        padding: 8px 10px !important;
+    }
+
+    .carousel-item img {
+        height: 350px;
+    }
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .carousel-item img {
+        height: 250px;
+    }
+
+    h1, .quem-somos h2 {
+        font-size: 2rem;
+    }
+
+    #suggestions button {
+      min-width: 130px;
+
   }
 }
