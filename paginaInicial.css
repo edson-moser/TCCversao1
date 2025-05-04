@@ -288,26 +288,24 @@ h2 {
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .navbar-brand img.imagemBarra {
-        width: 150px;
-    }
+
     
     
     
     .carousel-item img {
         height: 350px;
     }
-    
+
     .container {
         width: 90%;
         padding: 20px;
     }
-    
+
     .quem-somos .container {
         flex-direction: column;
         gap: 30px;
     }
-    
+
     .pessoa {
         min-width: 100%;
     }
@@ -317,33 +315,82 @@ h2 {
     .carousel-item img {
         height: 250px;
     }
-    
+
     h1, .quem-somos h2 {
         font-size: 2rem;
     }
-    
+
     #taskInputContainer {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     #taskInputContainer button {
         width: 100%;
         border-radius: 50px;
         height: 45px;
     }
 }
+@media (max-width: 992px) {
+    #carouselExampleIndicators {
+        width: 100vh;
+        height: 100%;
+    }
+
+    #carouselExampleIndicators .carousel-item img {
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+    }
+    .registro-container{
+        width: 85%;
+    }
+}
+
+@media (max-width: 768px) {
+    #carouselExampleIndicators {
+        width: 100%;
+        height: auto;
+    }
+
+    #carouselExampleIndicators .carousel-item img {
+        height: auto;
+        max-height: 100%;    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 30px;
+        height: 30px;
+    }
+    .registro-container{
+        width: 85%;
+    }
+}
+
+@media (max-width: 576px) {
+    #carouselExampleIndicators .carousel-item img {
+        max-height: 100%;
+    }
+    .registro-container{
+        width: 85%;
+    }
+}
+
+
 /* saldo da safra*/
 .registro-container {
-    max-width: 650px; 
-    margin: 40px auto;
+    max-width: 650px;
+    margin: 40px auto  40px auto;
     padding: 20px;
     background: #dfdbce;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     font-family: 'Arial', sans-serif;
-  }
-  
+    display: flex;
+    flex-direction: column;
+    
+}
+
   h1, h2 {
     text-align: center;
     color: #503602;
@@ -359,8 +406,10 @@ h2 {
     text-align: center;
     color: #2F6544;
     border-radius: 10px;
-    margin: 20px 0;
-  }
+    margin: 20px auto; /* Centraliza horizontalmente */
+    max-width: 400px;   /* Controla o tamanho em telas grandes */
+}
+
   
   #saldo-valor {
     font-size: 28px;
