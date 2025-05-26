@@ -101,17 +101,34 @@ function deleteTask(id) {
 }
 
 
-//saldo
-let saldoAtual = 0;
 let registros = [];
 
 function formatarMoeda(valor) {
   return `R$ ${valor.toFixed(2).replace('.', ',')}`;
 }
 
-function atualizarSaldo() {
-  const saldoElemento = document.getElementById('saldo-valor');
-  saldoElemento.textContent = formatarMoeda(saldoAtual);
+function atualizarSaldos() {
+  let saldoEucalipto = 0;
+  let saldoTabaco = 0;
+
+  registros.forEach(r => {
+    const valor = r.tipo === 'positivo' ? r.valor : -r.valor;
+
+    if (r.cultura === 'eucalipto') {
+      saldoEucalipto += valor;
+    } else if (r.cultura === 'tabaco') {
+      saldoTabaco += valor;
+    } else if (r.cultura === 'ambos') {
+      saldoEucalipto += valor / 2;
+      saldoTabaco += valor / 2;
+    }
+  });
+
+  const saldoTotal = saldoEucalipto + saldoTabaco;
+
+  document.getElementById('saldo-valor').textContent = formatarMoeda(saldoTotal);
+  document.getElementById('saldo-eucalipto').textContent = formatarMoeda(saldoEucalipto);
+  document.getElementById('saldo-tabaco').textContent = formatarMoeda(saldoTabaco);
 }
 
 function adicionarItemRegistro() {
@@ -119,12 +136,15 @@ function adicionarItemRegistro() {
   const tipoInput = document.getElementById('input-tipo');
   const descricaoInput = document.getElementById('input-descricao');
   const dataInput = document.getElementById('input-data');
+  const culturaInput = document.getElementById('input-cultura');
+
   const valor = parseFloat(valorInput.value);
   const tipo = tipoInput.value;
   const descricao = descricaoInput.value.trim();
   const data = dataInput.value;
+  const cultura = culturaInput.value;
 
-  if (isNaN(valor) || descricao === "" || data === "") {
+  if (isNaN(valor) || descricao === "" || data === "" || !cultura) {
     alert("Por favor, preencha todos os campos corretamente.");
     return;
   }
@@ -134,42 +154,43 @@ function adicionarItemRegistro() {
     valor,
     tipo,
     descricao,
-    data
+    data,
+    cultura
   };
 
   registros.push(registro);
 
-  if (tipo === 'positivo') {
-    saldoAtual += valor;
-  } else {
-    saldoAtual -= valor;
-  }
-
-  atualizarSaldo();
+  atualizarSaldos();
   exibirRegistros();
+  filtrarPorData();
 
+  // Limpar inputs
   valorInput.value = '';
   descricaoInput.value = '';
   dataInput.value = '';
   tipoInput.value = 'positivo';
+  culturaInput.value = 'ambos';
 }
 
-function exibirRegistros(filtro = null) {
+function exibirRegistros(filtrados = null) {
   const lista = document.getElementById('lista-registro');
   lista.innerHTML = "";
 
-  const registrosFiltrados = filtro
-    ? registros.filter(r => r.data === filtro)
-    : registros;
+  const listaFinal = filtrados || registros;
 
-  registrosFiltrados.slice().reverse().forEach(registro => {
+  if (listaFinal.length === 0) {
+    lista.innerHTML = "<li>Nenhum registro encontrado.</li>";
+    return;
+  }
+
+  listaFinal.slice().reverse().forEach(registro => {
     const li = document.createElement('li');
     li.classList.add(registro.tipo === 'positivo' ? 'registro-positivo' : 'registro-negativo');
 
     const detalhes = document.createElement('div');
     detalhes.className = 'detalhes-registro';
     detalhes.innerHTML = `
-      <span><strong>${registro.tipo === 'positivo' ? '+' : '-'} ${formatarMoeda(Math.abs(registro.valor))}</strong> - ${registro.descricao}</span>
+      <span><strong>${registro.tipo === 'positivo' ? '+' : '-'} ${formatarMoeda(Math.abs(registro.valor))}</strong> - ${registro.descricao} (${registro.cultura})</span>
       <small>${registro.data}</small>
     `;
 
@@ -185,27 +206,39 @@ function exibirRegistros(filtro = null) {
 }
 
 function excluirRegistro(id) {
-  const registro = registros.find(r => r.id === id);
-  if (!registro) return;
-
-  if (registro.tipo === 'positivo') {
-    saldoAtual -= registro.valor;
-  } else {
-    saldoAtual += registro.valor;
-  }
-
   registros = registros.filter(r => r.id !== id);
-  atualizarSaldo();
-  exibirRegistros(document.getElementById('filtro-data-input').value || null);
+  atualizarSaldos();
+  filtrarPorData(); // reaplica o filtro atual após a exclusão
 }
 
 function filtrarPorData() {
-  const dataSelecionada = document.getElementById('filtro-data-input').value;
-  exibirRegistros(dataSelecionada || null);
+  const dataInicio = document.getElementById('filtro-data-inicio').value;
+  const dataFim = document.getElementById('filtro-data-fim').value;
+  const culturaFiltro = document.getElementById('filtro-cultura').value;
+
+  let filtrados = registros.filter(r => {
+    const dataRegistro = new Date(r.data);
+    const dentroDoPeriodo =
+      (!dataInicio || new Date(dataInicio) <= dataRegistro) &&
+      (!dataFim || new Date(dataFim) >= dataRegistro);
+
+    const culturaCondicional =
+      culturaFiltro === "todos" ||
+      r.cultura === culturaFiltro ||
+      (culturaFiltro === "ambos" && r.cultura === "ambos");
+
+    return dentroDoPeriodo && culturaCondicional;
+  });
+
+  exibirRegistros(filtrados);
 }
 
 function limparFiltro() {
-  document.getElementById('filtro-data-input').value = "";
+  document.getElementById('filtro-data-inicio').value = "";
+  document.getElementById('filtro-data-fim').value = "";
+  document.getElementById('filtro-cultura').value = "todos";
   exibirRegistros();
 }
 
+atualizarSaldos();
+filtrarPorData();

@@ -94,11 +94,13 @@
 
     <div class="registro-container">
         <h1>Saldo da safra:</h1>
-    
+      
         <div class="painel-saldo">
-          Saldo Atual: <span id="saldo-valor">R$ 0,00</span>
+          <p>Saldo Total: <span id="saldo-total">R$ 0,00</span></p>
+          <p>Saldo Eucalipto: <span id="saldo-eucalipto">R$ 0,00</span></p>
+          <p>Saldo Tabaco: <span id="saldo-tabaco">R$ 0,00</span></p>
         </div>
-    
+      
         <div class="registro-form">
           <input type="number" id="input-valor" placeholder="Valor" />
           <select id="input-tipo">
@@ -107,19 +109,31 @@
           </select>
           <input type="text" id="input-descricao" placeholder="Descrição" />
           <input type="date" id="input-data" />
+          <select id="input-cultura">
+            <option value="ambos">Ambos</option>
+            <option value="eucalipto">Eucalipto</option>
+            <option value="tabaco">Tabaco</option>
+          </select>
           <button onclick="adicionarItemRegistro()">Adicionar</button>
         </div>
-    
+      
         <div class="filtro-data">
-          <label  class="filtro-data-input">Filtrar por data:</label>
-          <input type="date" id="filtro-data-input" onchange="filtrarPorData()" />
+          <label class="filtro-data-input">Filtrar por data:</label>
+          <input type="date" id="filtro-data-inicio" />
+          <input type="date" id="filtro-data-fim" />
+          <select id="filtro-cultura">
+            <option value="todos">Todos</option>
+            <option value="eucalipto">Eucalipto</option>
+            <option value="tabaco">Tabaco</option>
+          </select>
+          <button onclick="filtrarPorData()">Aplicar Filtro</button>
           <button onclick="limparFiltro()">Limpar Filtro</button>
         </div>
-    
+      
         <h2>Histórico:</h2>
         <ul id="lista-registro"></ul>
       </div>
-
+      
     <!--lista de tarefas-->
     <div class="listaTarefas">
 
