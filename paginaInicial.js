@@ -137,12 +137,14 @@ function adicionarItemRegistro() {
   const descricaoInput = document.getElementById('input-descricao');
   const dataInput = document.getElementById('input-data');
   const culturaInput = document.getElementById('input-cultura');
+  const categoriaInput = document.getElementById('input-categoria')
 
   const valor = parseFloat(valorInput.value);
   const tipo = tipoInput.value;
   const descricao = descricaoInput.value.trim();
   const data = dataInput.value;
   const cultura = culturaInput.value;
+  const categoria = categoriaInput.value;
 
   if (isNaN(valor) || descricao === "" || data === "" || !cultura) {
     alert("Por favor, preencha todos os campos corretamente.");
@@ -155,7 +157,8 @@ function adicionarItemRegistro() {
     tipo,
     descricao,
     data,
-    cultura
+    cultura,
+    categoria
   };
 
   registros.push(registro);
@@ -170,6 +173,7 @@ function adicionarItemRegistro() {
   dataInput.value = '';
   tipoInput.value = 'positivo';
   culturaInput.value = 'ambos';
+  categoriaInput.value = 'Outro'
 }
 
 function exibirRegistros(filtrados = null) {
