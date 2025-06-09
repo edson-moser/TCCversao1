@@ -9,7 +9,7 @@ $conecta = mysqli_connect($localhost, $user, $pass, $banco);
 
 //var_dump($conecta);
 $nome = "Teste de Nome";
-mysqli_query($conecta, "INSERT INTO cliente (nome) VALUES ('$nome')");
+mysqli_query($conecta, "INSERT INTO produtor (nome) VALUES ('$nome')");
 
 
 $sql = mysqli_query($conecta, "SELECT * FROM produtor");
