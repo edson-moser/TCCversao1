@@ -103,17 +103,23 @@
         </div>
       
         <div class="registro-form">
-          <input type="number" id="input-valor" placeholder="Valor" />
+          <input type="number" id="input-valor" placeholder="Valor a ser Inserido" />
           <select id="input-tipo">
-            <option value="positivo">Positivo |+|</option>
-            <option value="negativo">Negativo |-|</option>
+            <option value="positivo">Valor Positivo |+|</option>
+            <option value="negativo">Valor Negativo |-|</option>
           </select>
-          <input type="text" id="input-descricao" placeholder="Descrição" />
-          <input type="date" id="input-data" />
+          <input type="text" id="input-descricao" placeholder="Descrição do Valor Inserido" />
+          <input type="date" id="input-data"/>
           <select id="input-cultura">
             <option value="ambos">Ambos</option>
             <option value="eucalipto">Eucalipto</option>
             <option value="tabaco">Tabaco</option>
+          </select>
+          <select id="input-categoria">
+            <option value="insumos">Insumos</option>
+            <option value="empregados">Empregados</option>
+            <option value="maquinario">Maquinário</option>
+            <option value="Outro">Outro</option>
           </select>
           <button onclick="adicionarItemRegistro()">Adicionar</button>
         </div>
