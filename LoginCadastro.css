@@ -26,6 +26,8 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 .content::before {
+    background-image: url("NaturisLogo.png");
+    background-size: 100vh 100%;
     content: "";
     position: absolute;
     background-color: #006633;
