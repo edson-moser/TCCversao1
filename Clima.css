@@ -58,8 +58,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 50px;
+  padding-top: 100px;
   background-image: url("imagemClima.png");
+  background-size: 2000px;
 }
 
 .hide {
