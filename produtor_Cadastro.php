@@ -6,7 +6,6 @@ $nome = $_POST["nome"];
 $email = $_POST["email"];
 $senha = $_POST["senha"];
 $confirma_senha = $_POST["confirma_senha"];
-
 // Verificar se as senhas coincidem
 if ($senha != $confirma_senha) {
     echo "Erro: As senhas não coincidem.";
@@ -14,10 +13,11 @@ if ($senha != $confirma_senha) {
 }
 
 // Criptografar a senha
-$senha_criptografada = password_hash($senha, PASSWORD_DEFAULT);
+$senha_criptografada = (string)password_hash($senha, PASSWORD_DEFAULT);
+
 
 // Preparar o INSERT corretamente com placeholders
-$stmt = $conecta->prepare("INSERT INTO produtor (nome, email, senha) VALUES ('$nome','$email', '$senha')");
+$stmt = $conecta->prepare("INSERT INTO produtor (nome, email, senha) VALUES ('$nome','$email', '$senha_criptografada')");
 
 if (!$stmt) {
     echo "Erro na preparação do cadastro: " . $conecta->error;
@@ -25,7 +25,10 @@ if (!$stmt) {
 }
 
 // Bind dos parâmetros
-$stmt->bind_param("sss", $nome, $email, $senha_criptografada);
+//$stmt->bind_param("sss", $nome, $email, $senha_criptografada);
+
+
+
 
 // Executar e verificar
 if ($stmt->execute()) {
