@@ -1,3 +1,8 @@
+<?php
+
+include('protect.php')
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -36,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="paginaInicial.html">Inicio</a>
+                  <a class="nav-link" href="paginaInicial.php">Inicio</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="tabaco.html">Tabaco</a>
@@ -53,7 +58,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="produtor.html">Produtor</a>
                 </li>
-                
+                <li class="nav-item">
+                  <a class="nav-link" >Bem-vindo produtor, <?php echo $_SESSION['nome']?>!!</a>
+                </li>
               </ul>
         </div>
     </nav>
