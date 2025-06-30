@@ -13,11 +13,11 @@ if ($senha != $confirma_senha) {
 }
 
 // Criptografar a senha
-$senha_criptografada = (string)password_hash($senha, PASSWORD_DEFAULT);
+//$senha_criptografada = (string)password_hash($senha, PASSWORD_DEFAULT);
 
 
 // Preparar o INSERT corretamente com placeholders
-$stmt = $conecta->prepare("INSERT INTO produtor (nome, email, senha) VALUES ('$nome','$email', '$senha_criptografada')");
+$stmt = $conecta->prepare("INSERT INTO produtor (nome, email, senha) VALUES ('$nome','$email', '$senha')");
 
 if (!$stmt) {
     echo "Erro na preparação do cadastro: " . $conecta->error;

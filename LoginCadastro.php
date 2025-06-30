@@ -1,38 +1,3 @@
-<?php
-include('conexao.php');
-if(isset($_POST['email'])|| isset($_POST['senha'])){
-   if(strlen($_POST['email'])==0){
-    echo"Preencha seu e-mail";
-   }else if(strlens($_POST['senha'])==0){
-    echo"Preencha sua senha";
-   }else{
-
-    $email= mysqli->real_escape_string($_POST['email']);
-    $senha= mysqli->real_escape_string($_POST['senha']);
-
-   $sql_code= "SELECT * FROM produtor where email= '$email' and senha='$senha'";
-   $sql_query= $mysql->query($sql_code) or die("Falha na execussão no código SQL:" . mysqli->error);
-   $quantidade = $sql_query->num_rows;
-
- if($quantidade==1){
-    $usuario= $sql_query->fetch_assoc();
-
-    if(!isset($_SESSION)){
-        session_start();
-
-    }
-    $_SESSION['idprodutor']= $usuario['id'];
-    $_SESSION['nome']= $usuario['nome'];
-
-    header("Location: paginaInicial.php");
- }else{
-    echo"Falha ao logar! E-mail ou senha incorretos";
-    
-
-   }
-   } 
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -99,15 +64,15 @@ if(isset($_POST['email'])|| isset($_POST['senha'])){
                 
                 <p class="description description-second">Insira o Email e sua senha:</p>
                
-                <form class="form" method="POST" action="">
+                <form class="form" method="POST" action="login.php">
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" placeholder="Email">
+                        <input name="email" type="email" placeholder="email">
                     </label>
                 
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha">
+                        <input name="senha" type="password" placeholder="Senha">
                     </label>
                 
                     <a class="password" href="#">Esqueceu a senha?</a>

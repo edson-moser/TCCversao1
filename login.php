@@ -1,20 +1,39 @@
+ <?php
+// Turn off all error reporting
+error_reporting(0);
 
-<?php
+// Report simple running errors
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+// Reporting E_NOTICE can be good too (to report uninitialized
+// variables or catch variable name misspellings ...)
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
+// Report all errors except E_NOTICE
+error_reporting(E_ALL & ~E_NOTICE);
+
+// Report all PHP errors
+error_reporting(E_ALL);
+
+
+
+// Same as error_reporting(E_ALL);
+ini_set('error_reporting', E_ALL);
 include('conexao.php');
-if(isset($_POST['email'])|| isset($_POST['senha'])){
-   if(strlen($_POST['email'])==0){
-    echo"Preencha seu e-mail";
-   }else if(strlens($_POST['senha'])==0){
-    echo"Preencha sua senha";
-   }else{
 
-    $email= mysqli->real_escape_string($_POST['email']);
-    $senha= mysqli->real_escape_string($_POST['senha']);
 
-   $sql_code= "SELECT * FROM produtor where email= '$email' and senha='$senha'";
-   $sql_query= $mysql->query($sql_code) or die("Falha na execussão no código SQL:" . mysqli->error);
-   $quantidade = $sql_query->num_rows;
 
+    $email= $_POST['email'];
+    $senha=  $_POST['senha'];
+   // $senha = (string) password_hash($senha, PASSWORD_DEFAULT);
+
+    $sql_code= "SELECT * FROM produtor where email= '$email' and senha='$senha'";
+
+    //die ($sql_code);
+
+    
+    $sql_query= $conecta->query($sql_code) or die("Falha na execussão no código SQL:" . mysqli->error);
+    $quantidade = $sql_query->num_rows;
  if($quantidade==1){
     $usuario= $sql_query->fetch_assoc();
 
@@ -22,7 +41,7 @@ if(isset($_POST['email'])|| isset($_POST['senha'])){
         session_start();
 
     }
-    $_SESSION['idprodutor']= $usuario['id'];
+    $_SESSION['idprodutor']= $usuario['idprodutor'];
     $_SESSION['nome']= $usuario['nome'];
 
     header("Location: paginaInicial.php");
@@ -31,6 +50,6 @@ if(isset($_POST['email'])|| isset($_POST['senha'])){
     
 
    }
-   } 
-}
+   
+
 ?>
