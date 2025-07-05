@@ -39,14 +39,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="clima.html">Clima</a>
-                </li> 
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Historico.html">Históricos</a>
-                  </li>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="produtor.html">Produtor</a>
                 </li>
-               
+
             </ul>
         </div>
     </nav>
@@ -55,15 +55,43 @@
         <h2 class="titulo-Tabaco">ADICIONAR INFORMAÇÕES DA PRODUÇÃO DE TABACO:</h2>
 
         <!--caracteristicas gerais-->
-        <form action="" id="form">
-            
+        <form action="cadastrarTabaco.php" method="post" id="form">
+
             <div id="input_container">
+
+                <div class="input-field">
+                    <label for="periodo">Período</label>
+                    <select id="periodo" name="periodo">
+                        <option value="">Selecione o período</option>
+                        <script>
+                            const select = document.getElementById("periodo");
+                            const selectedPeriodo = "<?= $periodo ?? '' ?>"; // Se estiver usando PHP
+
+                            for (let ano = 1950; ano < 2080; ano++) {
+                                const valor = `${ano}-${ano + 1}`;
+                                const option = document.createElement("option");
+                                option.value = valor;
+                                option.textContent = valor;
+
+                                // Marcar como selecionado se for edição
+                                if (valor === selectedPeriodo) {
+                                    option.selected = true;
+                                }
+
+                                select.appendChild(option);
+                            }
+                        </script>
+                    </select>
+
+
+                </div>
+
                 <div class="input-box">
                     <label for="total_plantado" class="form-label">TOTAL DE PÉS PLANTADOS</label>
                     <div class="input-field">
                         <input type="text" name="total_plantado" id="total_plantado" class="form-control"
                             placeholder="Mil pés">
-                        
+
                     </div>
                 </div>
 
@@ -80,7 +108,7 @@
                     <div class="input-field">
                         <input type="text" name="quantidade_estufadas" id="quantidade_estufadas" class="form-control"
                             placeholder="1, 2, 3, 4, 5...">
-                        
+
                     </div>
                 </div>
 
@@ -89,7 +117,7 @@
                     <div class="input-field">
                         <input type="text" name="total_hectares" id="total_hectares" class="form-control"
                             placeholder="Hectares">
-                        
+
                     </div>
                 </div>
             </div>
@@ -112,7 +140,7 @@
                     <input type="text" name="total_plantado" id="total_plantado" class="form-control"
                         placeholder="Mil pés ">
 
-                    </div>
+                </div>
             </div>
 
             <div class="input-box">
@@ -184,7 +212,7 @@
                 <div class="input-field">
                     <input type="text" name="media_folhas" id="media_folhas" class="form-control"
                         placeholder="Escolha alguns carreiros aleatorios conte a quantidade de folhas e depois divida o total pela quantidade de pés contados">
-                    
+
                 </div>
             </div>
 
@@ -201,6 +229,11 @@
                 <i class="fa-solid fa-check"></i>
                 SALVAR
             </button>
+        </form>
+        <button type="submit" class="btn-default">
+            <i class="fa-solid fa-check"></i>
+            EDITAR
+        </button>
         </form>
 
         <button type="finalizarSafra" class="btn-default">
