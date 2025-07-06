@@ -18,6 +18,7 @@ $(document).ready(function() {
             let newButton = `<label class="btn btn-secondary">
                                 <input type="radio" name="options" autocomplete="off"> ${nomeBotao}
                              </label>`;
+                             <input type="hidden" name="nome" value="nomeArea"></input>
             $(newButton).insertBefore('#add-button');
         }
     });

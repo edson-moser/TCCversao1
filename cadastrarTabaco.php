@@ -4,58 +4,59 @@
 
 // VERIFICA ENVIO DO FORMULÁRIO
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $safra_id = $_POST['safra_id'] ?? '';
-    $periodo = $_POST['periodo'];
-    $total_plantado = $_POST['total_plantado'];
-    $quilos_produzidos = $_POST['quilos_produzidos'];
-    $quantidade_estufadas = $_POST['quantidade_estufadas'];
-    $total_hectares = $_POST['total_hectares'];
+    $tabaco_id = $_POST['tabaco_idtabaco'] ?? '';
+    $periodo = $_POST['periodoSafra'];
+    $total_plantado = $_POST['total'];
+    $quilos_produzidos = $_POST['kilos'];
+    $quantidade_estufadas = $_POST['estufadas'];
+    $total_hectares = $_POST['totalHectares'];
 
     // INSERIR ou ATUALIZAR SAFRA
-    if ($safra_id) {
-        $stmt = $conn->prepare("UPDATE safras SET periodo=?, total_plantado=?, quilos_produzidos=?, quantidade_estufadas=?, total_hectares=? WHERE id=?");
-        $stmt->bind_param("sssssi", $periodo, $total_plantado, $quilos_produzidos, $quantidade_estufadas, $total_hectares, $safra_id);
+    if ($tabaco_id) {
+        $stmt = $conn->prepare("UPDATE tabaco SET periodoSafra=?, total=?, kilos=?, estufadas=?, totalHectares=? WHERE id=?");
+        $stmt->bind_param("sssssi", $periodo, $total_plantado, $quilos_produzidos, $quantidade_estufadas, $total_hectares, $tabaco_id);
         $stmt->execute();
     } else {
-        $stmt = $conn->prepare("INSERT INTO safras (periodo, total_plantado, quilos_produzidos, quantidade_estufadas, total_hectares) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO tabaco (periodoSafra, total, kilos, estufadas, totalHectares) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $periodo, $total_plantado, $quilos_produzidos, $quantidade_estufadas, $total_hectares);
         $stmt->execute();
-        $safra_id = $stmt->insert_id;
+        $tabaco_id = $stmt->insert_id; // Agora recebe o novo ID corretamente
     }
 
     // INSERIR/ATUALIZAR ÁREAS
-    $area_ids = $_POST['area_id'] ?? [];
+    $area_ids = $_POST['idarea'] ?? [];
     foreach ($area_ids as $i => $area_id) {
-        $total_plantado_area = $_POST['total_plantado_area'][$i];
-        $total_hectares_area = $_POST['total_hectares_area'][$i];
-        $data_plantio = $_POST['data_plantio'][$i];
-        $data_fimColheita = $_POST['data_fimColheita'][$i];
+        $nomeArea = $_POST['nome'][$i];
+        $total_plantado_area = $_POST['qtdPes'][$i];
+        $total_hectares_area = $_POST['hectares'][$i];
+        $data_plantio = $_POST['dataInicio'][$i];
+        $data_fimColheita = $_POST['dataFim'][$i];
         $variedades = $_POST['variedades'][$i];
-        $produtos_utilizados = $_POST['produtos_utilizados'][$i];
-        $pragas_doencas = $_POST['pragas_doencas'][$i];
-        $agrotoxicos_defensivos = $_POST['agrotoxicos_defensivos'][$i];
-        $media_folhas = $_POST['media_folhas'][$i];
-        $quantidade_colhida = $_POST['quantidade_colhida'][$i];
+        $produtos_utilizados = $_POST['produtos'][$i];
+        $pragas_doencas = $_POST['pragasDoencas'][$i];
+        $agrotoxicos_defensivos = $_POST['agrotoxicos'][$i];
+        $media_folhas = $_POST['mediaFolhas'][$i];
+        $quantidade_colhida = $_POST['colheitas'][$i];
 
         if ($area_id) {
             // EDITA ÁREA
-            $stmt2 = $conn->prepare("UPDATE areas_safra SET 
-                total_plantado_area=?, total_hectares_area=?, data_plantio=?, data_fim_colheita=?, 
-                variedades=?, produtos_utilizados=?, pragas_doencas=?, agrotoxicos_defensivos=?, 
-                media_folhas=?, quantidade_colhida=?
-                WHERE id=? AND safra_id=?");
-            $stmt2->bind_param("ssssssssssii", $total_plantado_area, $total_hectares_area, $data_plantio, $data_fimColheita,
+            $stmt2 = $conn->prepare("UPDATE area SET 
+                nomeArea=?, qtdPes=?, hectares=?, dataInicio=?, dataFim=?, 
+                variedades=?, produtos=?, pragasDoencas=?, agrotoxicos=?, 
+                mediaFolhas=?, colheitas=?
+                WHERE idarea=? AND tabaco_idtabaco=?");
+            $stmt2->bind_param("ssssssssssii", $nomeArea, $total_plantado_area, $total_hectares_area, $data_plantio, $data_fimColheita,
                 $variedades, $produtos_utilizados, $pragas_doencas, $agrotoxicos_defensivos,
-                $media_folhas, $quantidade_colhida, $area_id, $safra_id);
+                $media_folhas, $quantidade_colhida, $area_id, $tabaco_id);
             $stmt2->execute();
         } else {
             // INSERE NOVA ÁREA
-            $stmt2 = $conn->prepare("INSERT INTO areas_safra (
-                safra_id, total_plantado_area, total_hectares_area, data_plantio,
-                data_fim_colheita, variedades, produtos_utilizados, pragas_doencas,
-                agrotoxicos_defensivos, media_folhas, quantidade_colhida
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt2->bind_param("issssssssss", $safra_id, $total_plantado_area, $total_hectares_area, $data_plantio,
+            $stmt2 = $conn->prepare("INSERT INTO area (
+                tabaco_idtabaco, nomeArea, qtdPes, hectares, dataInicio, dataFim, 
+                variedades, produtos, pragasDoencas, agrotoxicos, 
+                mediaFolhas, colheitas
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt2->bind_param("isssssssssss", $tabaco_id, $nomeArea, $total_plantado_area, $total_hectares_area, $data_plantio,
                 $data_fimColheita, $variedades, $produtos_utilizados, $pragas_doencas,
                 $agrotoxicos_defensivos, $media_folhas, $quantidade_colhida);
             $stmt2->execute();
@@ -64,5 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "Dados salvos com sucesso!";
 }
+
 
 ?>
