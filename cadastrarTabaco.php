@@ -7,18 +7,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tabaco_id = $_POST['tabaco_idtabaco'] ?? '';
     $periodo = $_POST['periodoSafra'];
     $total_plantado = $_POST['total'];
+    $precoTotal=$_POST['precoTotal'];
     $quilos_produzidos = $_POST['kilos'];
     $quantidade_estufadas = $_POST['estufadas'];
     $total_hectares = $_POST['totalHectares'];
 
     // INSERIR ou ATUALIZAR SAFRA
     if ($tabaco_id) {
-        $stmt = $conn->prepare("UPDATE tabaco SET periodoSafra=?, total=?, kilos=?, estufadas=?, totalHectares=? WHERE id=?");
-        $stmt->bind_param("sssssi", $periodo, $total_plantado, $quilos_produzidos, $quantidade_estufadas, $total_hectares, $tabaco_id);
+        $stmt = $conn->prepare("UPDATE tabaco SET periodoSafra=?, total=?,precoTotal=?, kilos=?, estufadas=?, totalHectares=? WHERE id=?");
+        $stmt->bind_param("sssssi", $periodo, $total_plantado,$precoTotal, $quilos_produzidos, $quantidade_estufadas, $total_hectares, $tabaco_id);
         $stmt->execute();
     } else {
-        $stmt = $conn->prepare("INSERT INTO tabaco (periodoSafra, total, kilos, estufadas, totalHectares) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $periodo, $total_plantado, $quilos_produzidos, $quantidade_estufadas, $total_hectares);
+        $stmt = $conn->prepare("INSERT INTO tabaco (periodoSafra, total,precoTotal, kilos, estufadas, totalHectares) VALUES (?, ?, ?, ?, ?,?)");
+        $stmt->bind_param("sssss", $periodo, $total_plantado,$precoTotal, $quilos_produzidos, $quantidade_estufadas, $total_hectares);
         $stmt->execute();
         $tabaco_id = $stmt->insert_id; // Agora recebe o novo ID corretamente
     }
