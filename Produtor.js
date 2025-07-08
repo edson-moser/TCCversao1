@@ -31,3 +31,26 @@ imgInput.addEventListener('change', function () {
 
     e.target.value = value;
   });
+
+// Mostrar/ocultar botões e ativar/desativar campos
+const btnAlterar = document.getElementById('btnAlterar');
+const btnSalvar = document.getElementById('btnSalvar');
+const formInputs = document.querySelectorAll('input:not([type="submit"]):not([type="file"]), select');
+
+btnAlterar.addEventListener('click', () => {
+  btnAlterar.style.display = 'none';
+  btnSalvar.style.display = 'inline-block';
+
+  formInputs.forEach(input => {
+    input.disabled = false;
+  });
+});
+
+btnSalvar.addEventListener('click', () => {
+  btnSalvar.style.display = 'none';
+  btnAlterar.style.display = 'inline-block';
+
+  formInputs.forEach(input => {
+    input.disabled = true;
+  });
+});
