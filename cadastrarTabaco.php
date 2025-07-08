@@ -1,94 +1,49 @@
-<?php 
-    require 'conexao.php';
+<?php
+require 'conexao.php';
 include('protect.php');
 
+$produtor_id = $_SESSION['idprodutor'] ?? null;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $produtor_id = $_SESSION['idprodutor'] ?? null;
+    $periodo = $_POST['periodoSafra'] ?? '';
+    $total_plantado = floatval($_POST['total'] ?? 0);
+    $precoTotal = floatval($_POST['precoTotal'] ?? 0);
+    $kilos = floatval($_POST['kilos'] ?? 0);
+    $estufadas = intval($_POST['estufadas'] ?? 0);
+    $hectares = floatval($_POST['totalHectares'] ?? 0);
 
-$dados = [
-    'idtabaco' => '',
-    'periodoSafra' => '',
-    'total' => '',
-    'precoTotal' => '',
-    'kilos' => '',
-    'estufadas' => '',
-    'totalHectares' => ''
-];
-
-// Carrega os dados se for edição via ?id
-if (isset($_GET['id'])) {
-    $tabaco_id = $_GET['id'];
-    $sql = "SELECT * FROM tabaco WHERE idtabaco = ? AND produtor_idprodutor = ?";
+    // Verifica se já existe esse período
+    $sql = "SELECT idtabaco FROM tabaco WHERE periodoSafra = ? AND produtor_idprodutor = ?";
     $stmt = $conecta->prepare($sql);
-    $stmt->bind_param("ii", $tabaco_id, $produtor_id);
+    $stmt->bind_param("si", $periodo, $produtor_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    if ($result->num_rows) {
-        $dados = $result->fetch_assoc();
-    } else {
-        echo "Registro não encontrado.";
-        exit;
-    }
-}
 
-// Se o formulário for enviado
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $tabaco_id = $_POST['tabaco_idtabaco'] ?? null;
-    $periodo = $_POST['periodoSafra'] ?? '';
-    $total_plantado = $_POST['total'] ?? 0;
-    $precoTotal = $_POST['precoTotal'] ?? 0;
-    $kilos = $_POST['kilos'] ?? 0;
-    $estufadas = $_POST['estufadas'] ?? 0;
-    $hectares = $_POST['totalHectares'] ?? 0;
+    if ($result->num_rows > 0) {
+        // Já existe, faz UPDATE
+        $row = $result->fetch_assoc();
+        $tabaco_id = $row['idtabaco'];
 
-    if ($tabaco_id) {
-        // Atualiza
-        $sql = "UPDATE tabaco SET total = ?, estufadas = ?, kilos = ?, totalHectares = ?, precoTotal = ?, periodoSafra = ?
+        $sql = "UPDATE tabaco SET total = ?, estufadas = ?, kilos = ?, totalHectares = ?, precoTotal = ?
                 WHERE idtabaco = ? AND produtor_idprodutor = ?";
         $stmt = $conecta->prepare($sql);
-        $stmt->bind_param("iiddssii", $total_plantado, $estufadas, $kilos, $hectares, $precoTotal, $periodo, $tabaco_id, $produtor_id);
+        $stmt->bind_param("iiddsii", $total_plantado, $estufadas, $kilos, $hectares, $precoTotal, $tabaco_id, $produtor_id);
         if ($stmt->execute()) {
-           header("Location: tabaco.php");
-
-            // Atualiza os dados preenchidos no formulário
-            $dados = [
-                'idtabaco' => $tabaco_id,
-                'periodoSafra' => $periodo,
-                'total' => $total_plantado,
-                'precoTotal' => $precoTotal,
-                'kilos' => $kilos,
-                'estufadas' => $estufadas,
-                'totalHectares' => $hectares
-            ];
-                      
+            header('Location: tabaco.php');
         } else {
             echo "<p style='color:red;'>Erro ao atualizar.</p>";
         }
     } else {
-        // Insere novo
+        // Não existe, faz INSERT
         $sql = "INSERT INTO tabaco (total, estufadas, kilos, totalHectares, precoTotal, produtor_idprodutor, periodoSafra)
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conecta->prepare($sql);
         $stmt->bind_param("iidddis", $total_plantado, $estufadas, $kilos, $hectares, $precoTotal, $produtor_id, $periodo);
         if ($stmt->execute()) {
-            header("Location: tabaco.php");
-            $novo_id = $stmt->insert_id;
-            // Preenche o formulário com os dados recém-salvos
-            $dados = [
-                'idtabaco' => $novo_id,
-                'periodoSafra' => $periodo,
-                'total' => $total_plantado,
-                'precoTotal' => $precoTotal,
-                'kilos' => $kilos,
-                'estufadas' => $estufadas,
-                'totalHectares' => $hectares
-            ];
-             
+            header('Location: tabaco.php');
         } else {
             echo "<p style='color:red;'>Erro ao salvar.</p>";
         }
     }
 }
-}
 ?>
-

@@ -8,7 +8,7 @@ require 'conexao.php';
     $periodoSafra = 0;
 
 $sqlTabaco = "SELECT * FROM tabaco WHERE idtabaco = ?";
-$stmt = $conn->prepare($sqlTabaco);
+$stmt = $conecta->prepare($sqlTabaco);
 $stmt->bind_param("i", $idtabaco);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
 }
 
 $sqlArea = "SELECT * FROM area WHERE tabaco_idtabaco = ?";
-$stmt2 = $conn->prepare($sqlArea);
+$stmt2 = $conecta->prepare($sqlArea);
 $stmt2->bind_param("i", $idtabaco);
 $stmt2->execute();
 $resultArea = $stmt2->get_result();

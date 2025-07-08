@@ -57,88 +57,107 @@
     </header>
 
     <div class="container">
-        <h2 class="titulo-eucalipto">Perfil do Agricultor</h2>
+    <h2 class="titulo-eucalipto">Perfil do Agricultor</h2>
 
-        <div class="profile-img">
-            <input type="file" id="imgUpload" accept="image/*" />
-            <label for="imgUpload" id="imgLabel">Adicionar Imagem</label>
+    <div class="profile-img">
+        <input type="file" id="imgUpload" accept="image/*" />
+        <label for="imgUpload" id="imgLabel">Adicionar Imagem</label>
+    </div>
+
+    <form method="post" action="cadastrar_produtor.php">
+        <div class="form-group">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome completo" disabled />
         </div>
 
-        <form method="post" action="cadastrar_produtor.php">
-            <div class="form-group">
-                <label for="nome">Nome completo</label>
-                <input type="text" id="nome" name="nome" placeholder="Seu nome completo" disabled/>
-            </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Seu e-mail" disabled />
+        </div>
 
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Seu e-mail" disabled/>
-            </div>
+        <div class="form-group">
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" name="cidade" placeholder="Sua cidade" disabled />
+        </div>
 
+        <div class="form-group">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado" disabled>
+                <option value="">Selecione seu estado</option>
+                <option value="AC">Acre (AC)</option>
+                <option value="AL">Alagoas (AL)</option>
+                <option value="AP">Amapá (AP)</option>
+                <option value="AM">Amazonas (AM)</option>
+                <option value="BA">Bahia (BA)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="DF">Distrito Federal (DF)</option>
+                <option value="ES">Espírito Santo (ES)</option>
+                <option value="GO">Goiás (GO)</option>
+                <option value="MA">Maranhão (MA)</option>
+                <option value="MT">Mato Grosso (MT)</option>
+                <option value="MS">Mato Grosso do Sul (MS)</option>
+                <option value="MG">Minas Gerais (MG)</option>
+                <option value="PA">Pará (PA)</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PR">Paraná (PR)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="PI">Piauí (PI)</option>
+                <option value="RJ">Rio de Janeiro (RJ)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="RS">Rio Grande do Sul (RS)</option>
+                <option value="RO">Rondônia (RO)</option>
+                <option value="RR">Roraima (RR)</option>
+                <option value="SC">Santa Catarina (SC)</option>
+                <option value="SP">São Paulo (SP)</option>
+                <option value="SE">Sergipe (SE)</option>
+                <option value="TO">Tocantins (TO)</option>
+            </select>
+        </div>
 
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" minlength="15" disabled>
+        </div>
 
-            <div class="form-group">
-                <label for="cidade">Cidade</label>
-                <input type="text" id="cidade" name="cidade" placeholder="Sua cidade" disabled/>
-            </div>
+        <div class="form-group">
+            <label for="data_nascimento">Data de nascimento</label>
+            <input type="date" name="dataNascimento" id="data_nascimento" required disabled>
+        </div>
 
-            <div class="form-group">
-                <label for="estado">Estado</label>
-                <select id="estado" name="estado" disabled>
-                    <option value="">Selecione seu estado</option>
-                    <option value="AC">Acre (AC)</option>
-                    <option value="AL">Alagoas (AL)</option>
-                    <option value="AP">Amapá (AP)</option>
-                    <option value="AM">Amazonas (AM)</option>
-                    <option value="BA">Bahia (BA)</option>
-                    <option value="CE">Ceará (CE)</option>
-                    <option value="DF">Distrito Federal (DF)</option>
-                    <option value="ES">Espírito Santo (ES)</option>
-                    <option value="GO">Goiás (GO)</option>
-                    <option value="MA">Maranhão (MA)</option>
-                    <option value="MT">Mato Grosso (MT)</option>
-                    <option value="MS">Mato Grosso do Sul (MS)</option>
-                    <option value="MG">Minas Gerais (MG)</option>
-                    <option value="PA">Pará (PA)</option>
-                    <option value="PB">Paraíba (PB)</option>
-                    <option value="PR">Paraná (PR)</option>
-                    <option value="PE">Pernambuco (PE)</option>
-                    <option value="PI">Piauí (PI)</option>
-                    <option value="RJ">Rio de Janeiro (RJ)</option>
-                    <option value="RN">Rio Grande do Norte (RN)</option>
-                    <option value="RS">Rio Grande do Sul (RS)</option>
-                    <option value="RO">Rondônia (RO)</option>
-                    <option value="RR">Roraima (RR)</option>
-                    <option value="SC">Santa Catarina (SC)</option>
-                    <option value="SP">São Paulo (SP)</option>
-                    <option value="SE">Sergipe (SE)</option>
-                    <option value="TO">Tocantins (TO)</option>
-                </select>
-            </div>
+        <div class="buttons">
+            <button type="button" id="btnAlterar" class="btn-action">ALTERAR DADOS</button>
+            <button type="button" id="btnSalvar" class="btn-action" style="display: none;">SALVAR DADOS</button>
 
+            <button type="button" class="link-button" onclick="location.href='logout.php'">Sair do site</button>
+            <button type="button" class="link-button">Alterar Senha</button>
+        </div>
+    </form>
+</div>
 
-            <div class="form-group">
-                <label for="telefone">Telefone</label>
-                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" minlength="15" disabled>
-              </div>
+<!-- Script para alternar entre editar e salvar -->
+<script>
+    document.getElementById("btnAlterar").addEventListener("click", function () {
+        // Habilita todos os campos do formulário
+        document.querySelectorAll("form input, form select").forEach(el => {
+            el.disabled = false;
+        });
 
-            <div class="form-group">
-                <label for="data_nascimento">Data de nascimento</label>
-                <input type="date" id="data_nascimento" name="data_nascimento" disabled/>
-            </div>
+        // Alterna os botões
+        document.getElementById("btnAlterar").style.display = "none";
+        document.getElementById("btnSalvar").style.display = "inline-block";
+    });
 
-           <div class="buttons">
-                <button type="button" id="btnAlterar" class="btn-action">ALTERAR DADOS</button>
-                <button type="submit" id="btnSalvar" class="btn-action" style="display: none;">SALVAR DADOS</button>
-                
-                <button type="button" class="link-button" onclick="location.href='logout.php'">Sair do site</button>
-                <button type="button" class="link-button">Alterar Senha</button>
-            </div>
+    document.getElementById("btnSalvar").addEventListener("click", function () {
+        // Garante que tudo está habilitado no momento do envio
+        document.querySelectorAll("form input, form select").forEach(el => {
+            el.disabled = false;
+        });
 
+        // Envia o formulário manualmente
+        document.querySelector("form").submit();
+    });
+</script>
 
-
-        </form>
-    </div>
 </body>
 
 </html>
