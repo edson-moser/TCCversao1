@@ -1,5 +1,7 @@
 <?php
 
+
+
 //include('protect.php')
 ?>
 <head>
@@ -128,7 +130,7 @@
            <div class="buttons">
                 <button type="button" id="btnAlterar" class="btn-action">ALTERAR DADOS</button>
                 <button type="submit" id="btnSalvar" class="btn-action" style="display: none;">SALVAR DADOS</button>
-                <input type="submit" value="CADASTRAR">
+                
                 <button type="button" class="link-button" onclick="location.href='logout.php'">Sair do site</button>
                 <button type="button" class="link-button">Alterar Senha</button>
             </div>

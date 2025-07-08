@@ -518,3 +518,103 @@ button:hover {
 .registro-form input::placeholder {
     color: #A1D3A6;
 }
+
+.registro-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f7f3;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.registro-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.registro-left,
+.registro-right {
+  flex: 1;
+  min-width: 300px;
+}
+
+.registro-left h3,
+.registro-right h3 {
+  color: #2F6544;
+  margin-bottom: 10px;
+  font-family: 'Lilita One', sans-serif;
+  text-align: center;
+}
+
+.painel-saldo {
+  background: linear-gradient(135deg, #d7f3e3, #edf7ef);
+  border: 2px solid #2F6544;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: #2F6544;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.registro-form,
+.filtro-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.registro-form input,
+.registro-form select,
+.filtro-data input,
+.filtro-data select,
+.filtro-data button,
+.registro-form button {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: 0.2s;
+}
+
+.registro-form button,
+.filtro-data button {
+  background-color: #2F6544;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.registro-form button:hover,
+.filtro-data button:hover {
+  background-color: #24523b;
+}
+
+#lista-registro {
+  list-style: none;
+  padding: 0;
+}
+
+#lista-registro li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-left: 5px solid;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .registro-grid {
+    flex-direction: column;
+  }
+}

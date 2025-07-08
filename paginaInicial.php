@@ -98,55 +98,65 @@ include('protect.php')
         </a>
     </div>
 
-    <!--saldo-->
-
     <div class="registro-container">
-        <h1>Saldo da safra:</h1>
-      
-        <div class="painel-saldo">
-          <p>Saldo Total: <span id="saldo-total">R$ 0,00</span></p>
-          <p>Saldo Eucalipto: <span id="saldo-eucalipto">R$ 0,00</span></p>
-          <p>Saldo Tabaco: <span id="saldo-tabaco">R$ 0,00</span></p>
-        </div>
-      
-        <div class="registro-form">
-          <input type="number" id="input-valor" placeholder="Valor a ser Inserido" />
-          <select id="input-tipo">
-            <option value="positivo">Valor Positivo |+|</option>
-            <option value="negativo">Valor Negativo |-|</option>
-          </select>
-          <input type="text" id="input-descricao" placeholder="Descrição do Valor Inserido" />
-          <input type="date" id="input-data"/>
-          <select id="input-cultura">
-            <option value="ambos">Ambos</option>
-            <option value="eucalipto">Eucalipto</option>
-            <option value="tabaco">Tabaco</option>
-          </select>
-          <select id="input-categoria">
-            <option value="insumos">Insumos</option>
-            <option value="empregados">Empregados</option>
-            <option value="maquinario">Maquinário</option>
-            <option value="Outro">Outro</option>
-          </select>
-          <button onclick="adicionarItemRegistro()">Adicionar</button>
-        </div>
-      
-        <div class="filtro-data">
-          <label class="filtro-data-input">Filtrar por data:</label>
-          <input type="date" id="filtro-data-inicio" />
-          <input type="date" id="filtro-data-fim" />
-          <select id="filtro-cultura">
-            <option value="todos">Todos</option>
-            <option value="eucalipto">Eucalipto</option>
-            <option value="tabaco">Tabaco</option>
-          </select>
-          <button onclick="filtrarPorData()">Aplicar Filtro</button>
-          <button onclick="limparFiltro()">Limpar Filtro</button>
-        </div>
-      
-        <h2>Histórico:</h2>
-        <ul id="lista-registro"></ul>
+  <h1>Saldo da Safra</h1>
+  <div class="registro-grid">
+    <!-- Coluna de Inserção e Filtros -->
+    <div class="registro-left">
+      <h3>Adicionar Valor</h3>
+      <div class="registro-form">
+        <input type="number" id="input-valor" placeholder="Valor a ser inserido" />
+        <select id="input-tipo">
+          <option value="positivo">Valor Positivo |+|</option>
+          <option value="negativo">Valor Negativo |-|</option>
+        </select>
+        <input type="text" id="input-descricao" placeholder="Descrição do valor" />
+        <input type="date" id="input-data" />
+        <select id="input-cultura">
+          <option value="ambos">Ambos</option>
+          <option value="eucalipto">Eucalipto</option>
+          <option value="tabaco">Tabaco</option>
+        </select>
+        <select id="input-categoria">
+          <option value="insumos">Insumos</option>
+          <option value="empregados">Empregados</option>
+          <option value="maquinario">Maquinário</option>
+          <option value="outro">Outro</option>
+        </select>
+        <button onclick="adicionarItemRegistro()">Adicionar</button>
       </div>
+
+      <h3>Filtrar por Data</h3>
+      <div class="filtro-data">
+        <label>De:</label>
+        <input type="date" id="filtro-data-inicio" />
+        <label>Até:</label>
+        <input type="date" id="filtro-data-fim" />
+        <label>Cultura:</label>
+        <select id="filtro-cultura">
+          <option value="todos">Todos</option>
+          <option value="eucalipto">Eucalipto</option>
+          <option value="tabaco">Tabaco</option>
+        </select>
+        <button onclick="filtrarPorData()">Aplicar Filtro</button>
+        <button onclick="limparFiltro()">Limpar Filtro</button>
+      </div>
+    </div>
+
+    <!-- Coluna de Resultado e Histórico -->
+    <div class="registro-right">
+      <div class="painel-saldo">
+        <h3>Resumo</h3>
+        <p>Saldo Total: <span id="saldo-total">R$ 0,00</span></p>
+        <p>Saldo Eucalipto: <span id="saldo-eucalipto">R$ 0,00</span></p>
+        <p>Saldo Tabaco: <span id="saldo-tabaco">R$ 0,00</span></p>
+      </div>
+
+      <h3>Histórico</h3>
+      <ul id="lista-registro"></ul>
+    </div>
+  </div>
+</div>
       
     <!--lista de tarefas-->
     <div class="listaTarefas">

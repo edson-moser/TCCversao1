@@ -64,10 +64,18 @@
 
             <div id="input_container">
 
+<<<<<<< HEAD
                 <div class="input-field">
                     <label for="periodo">Período</label>
                     <select id="periodo"  name="periodoSafra">
                         <option >Selecione o período</option>
+=======
+                <div class="input-box">
+                    <label for="periodo" class="form-label">Período</label>
+                    <div class="input-field">
+                    <select id="periodo" name="periodoSafra" class="form-control">
+                        <option value="">Selecione o período</option>
+>>>>>>> 4618205316d1428394cc60afdb6b5d3376382ffa
                         <script>
                             const select = document.getElementById("periodo");
                             const selectedPeriodo = "<?= $periodo ?? '' ?>"; // Se estiver usando PHP
@@ -87,7 +95,7 @@
                             }
                         </script>
                     </select>
-
+                    </div>
 
                 </div>
 
