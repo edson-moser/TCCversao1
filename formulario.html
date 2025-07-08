@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Características da Safra</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { background-color: #f2f2f2; padding: 10px; }
+    .section { margin-bottom: 30px; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea { width: 100%; padding: 5px; margin-top: 4px; }
+    .area-block { border: 1px solid #ccc; padding: 15px; margin-top: 15px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+  <h2>Características Gerais da Safra</h2>
+  <form id="form-safra">
+    <div class="section">
+      <label for="periodo">Período:</label>
+      <input type="text" id="periodo" name="periodo">
+
+      <label for="total_pes">Total de pés:</label>
+      <input type="number" id="total_pes" name="total_pes">
+
+      <label for="total_quilos">Total de quilos:</label>
+      <input type="number" id="total_quilos" name="total_quilos">
+
+      <label for="total_hectares">Total de hectares:</label>
+      <input type="number" id="total_hectares" name="total_hectares">
+
+      <label for="arrobas_mil_pes">Total de arrobas por mil pés:</label>
+      <input type="number" id="arrobas_mil_pes" name="arrobas_mil_pes">
+
+      <label for="total_estufadas">Total de estufadas:</label>
+      <input type="number" id="total_estufadas" name="total_estufadas">
+
+      <label for="valor_liquido">Valor líquido:</label>
+      <input type="number" id="valor_liquido" name="valor_liquido" step="0.01">
+
+      <label for="total_arrobas">Total de arrobas:</label>
+      <input type="number" id="total_arrobas" name="total_arrobas">
+
+      <label for="preco_medio">Preço médio por arroba:</label>
+      <input type="number" id="preco_medio" name="preco_medio" step="0.01">
+
+      <label for="arrobas_mil">Arrobas por mil pés:</label>
+      <input type="number" id="arrobas_mil" name="arrobas_mil">
+
+      <label for="media_folhas">Média das médias de folha:</label>
+      <input type="number" id="media_folhas" name="media_folhas" step="0.01">
+
+      <label for="valor_vendas">Valor das vendas:</label>
+      <input type="number" id="valor_vendas" name="valor_vendas" step="0.01">
+    </div>
+
+    <h2>Dados por Área</h2>
+
+    <div class="area-block">
+        <label for="nome_da_area">Nome:</label>
+      <input type="text" id="nome_da_area" name="nome_da_area[]">
+
+
+      <label for="area_pes">Total de pés:</label>
+      <input type="number" id="area_pes" name="area_pes[]">
+
+      <label for="area_hectares">Hectares:</label>
+      <input type="number" id="area_hectares" name="area_hectares[]">
+
+      <label for="data_plantio">Data de plantio:</label>
+      <input type="date" id="data_plantio" name="data_plantio[]">
+
+      <label for="data_colheita">Data do fim da colheita:</label>
+      <input type="date" id="data_colheita" name="data_colheita[]">
+
+      <label for="variedades_tabaco">Variedades de tabaco:</label>
+      <input type="text" id="variedades_tabaco" name="variedades_tabaco[]">
+
+      <label for="produtos_utilizados">Produtos utilizados:</label>
+      <textarea id="produtos_utilizados" name="produtos_utilizados[]"></textarea>
+
+      <label for="agrotoxicos">Agrotóxicos e defensivos utilizados:</label>
+      <textarea id="agrotoxicos" name="agrotoxicos[]"></textarea>
+
+      <label for="media_folhas_area">Média de folhas:</label>
+      <input type="number" id="media_folhas_area" name="media_folhas_area[]" step="0.01">
+
+      <label for="numero_colheitas">Número de colheitas:</label>
+      <input type="number" id="numero_colheitas" name="numero_colheitas[]">
+    </div>
+
+  </form>
+
+</body>
+</html>

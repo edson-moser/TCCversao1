@@ -1,4 +1,7 @@
+<?php
 
+//include('protect.php')
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,22 +31,22 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="paginaInicial.html">Inicio</a>
+                        <a class="nav-link" href="paginaInicial.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tabaco.html">Tabaco</a>
+                        <a class="nav-link" href="tabaco.php">Tabaco</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="eucalipto.html">Eucalipto</a>
+                        <a class="nav-link" href="eucalipto.php">Eucalipto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="clima.html">Clima</a>
+                        <a class="nav-link" href="clima.php">Clima</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Historico.html">Históricos</a>
+                        <a class="nav-link" href="Historico.php">Históricos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="produtor.html">Produtor</a>
+                        <a class="nav-link" href="produtor.php">Produtor</a>
                     </li>
                     
                 </ul>

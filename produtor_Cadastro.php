@@ -32,7 +32,14 @@ if (!$stmt) {
 
 // Executar e verificar
 if ($stmt->execute()) {
-    echo "Produtor cadastrado com sucesso!";
+    if(!isset($_SESSION)){
+        session_start();
+
+    }
+    $_SESSION['idprodutor']= $usuario['idprodutor'];
+    $_SESSION['nome']= $usuario['nome'];
+
+    header("Location: paginaInicial.php");
 } else {
     if ($conecta->errno === 1062) { 
         echo "Erro: Este e-mail já está cadastrado.";

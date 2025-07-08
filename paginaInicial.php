@@ -1,6 +1,6 @@
 <?php
 
-//include('protect.php')
+include('protect.php')
 ?>
 
 <!DOCTYPE html>
@@ -44,22 +44,22 @@
                   <a class="nav-link" href="paginaInicial.php">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="tabaco.html">Tabaco</a>
+                  <a class="nav-link" href="tabaco.php">Tabaco</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="eucalipto.html">Eucalipto</a>
+                  <a class="nav-link" href="eucalipto.php">Eucalipto</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="clima.html">Clima</a>
+                  <a class="nav-link" href="clima.php">Clima</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Historico.html">Históricos</a>
+                    <a class="nav-link" href="Historico.php">Históricos</a>
                   </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="produtor.html">Produtor</a>
+                  <a class="nav-link" href="produtor.php">Produtor</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" >Bem-vindo produtor, <?php echo $_SESSION['nome']?>!!</a>
+                  <a class="nav-link" >Bem-vindo produtor(a), <?php echo $_SESSION['nome']?>!!</a>
                 </li>
               </ul>
         </div>
