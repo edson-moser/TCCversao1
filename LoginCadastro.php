@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="LoginCadastro.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <link rel="icon" sizes="32X32" href="NaturisLogo.png">
+        <!--<link rel="icon" sizes="32X32" href="NaturisLogo.png">!-->
 </head>
 <body>
 
@@ -17,6 +17,8 @@
     <div class="container">
         <div class="content first-content">
             <div class="first-column">
+                <!-- ✅ LOGO ADICIONADA E CENTRALIZADA -->
+                <img src="NaturisLogo.png" alt="Logo" class="logo">
              
                 <h2 class="title title-primary">Bem-vindo produtor!</h2>
                 <p class="description description-primary">Se você já possui cadastro,</p>
@@ -25,46 +27,45 @@
             </div>    
             <div class="second-column">
                 <h2 class="title title-second">Cadastre-se</h2>
-               
                 <p class="description description-second">Informe seus dados e crie uma senha:</p>
-<form method="post" action="produtor_Cadastro.php">
-    <label class="label-input">
-        <i class="far fa-user icon-modify"></i>
-        <input type="text" name="nome" placeholder="Nome" required>
-    </label>
-    
-    <label class="label-input">
-        <i class="far fa-envelope icon-modify"></i>
-        <input type="email" name="email" placeholder="Email" required>
-    </label>
-    
-    <label class="label-input">
-        <i class="fas fa-lock icon-modify"></i>
-        <input type="password" name="senha" placeholder="Senha" required>
-    </label>
-    
-    <label class="label-input">
-        <i class="fas fa-lock icon-modify"></i>
-        <input type="password" name="confirma_senha" placeholder="Confirmar senha" required>
-    </label>
-    
-    <button type="submit" class="btn btn-second">Cadastrar</button>        
-</form>
+                <form method="post" action="produtor_Cadastro.php">
+                    <label class="label-input">
+                        <i class="far fa-user icon-modify"></i>
+                        <input type="text" name="nome" placeholder="Nome" required>
+                    </label>
+                    
+                    <label class="label-input">
+                        <i class="far fa-envelope icon-modify"></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </label>
+                    
+                    <label class="label-input">
+                        <i class="fas fa-lock icon-modify"></i>
+                        <input type="password" name="senha" placeholder="Senha" required>
+                    </label>
+                    
+                    <label class="label-input">
+                        <i class="fas fa-lock icon-modify"></i>
+                        <input type="password" name="confirma_senha" placeholder="Confirmar senha" required>
+                    </label>
+                    
+                    <button type="submit" class="btn btn-second">Cadastrar</button>        
+                </form>
             </div><!-- second column -->
         </div><!-- first content -->
         <div class="content second-content">
             <div class="first-column">
+                <!-- ✅ LOGO ADICIONADA E CENTRALIZADA -->
+                <img src="NaturisLogo.png" alt="Logo" class="logo">
+
                 <h2 class="title title-primary">Olá produtor!</h2>
-                <p class="description description-primary">Caso ainda não esteje cadastrado insira seus dados
-                    </p>
+                <p class="description description-primary">Caso ainda não esteja cadastrado insira seus dados</p>
                 <p class="description description-primary">e vamos transformar sua propriedade.</p>
                 <button id="signup" class="btn btn-primary">Cadastrar</button>
             </div>
             <div class="second-column">
                 <h2 class="title title-second">Faça o login</h2>
-                
                 <p class="description description-second">Insira o Email e sua senha:</p>
-               
                 <form class="form" method="POST" action="login.php">
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
@@ -77,14 +78,13 @@
                     </label>
                 
                     <a class="password" href="#">Esqueceu a senha?</a>
-                    <button type="submit" name="login">Entrar</button>
-                        <a class="nav-link" href="paginaInicial.php">Inicio</a>
-                
+                    <button type="submit" name="login" class="btn btn-second">Entrar</button>
                 </form>
             </div><!-- second column -->
         </div><!-- second-content -->
     </div>
 </div>
-    <script src="LoginCadastro.js"></script>
+
+<script src="LoginCadastro.js"></script>
 </body>
 </html>

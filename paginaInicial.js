@@ -165,7 +165,7 @@ function adicionarItemRegistro() {
 
   atualizarSaldos();
   exibirRegistros();
-  filtrarPorData();
+  //limparFiltro();
 
   // Limpar inputs
   valorInput.value = '';
@@ -245,4 +245,4 @@ function limparFiltro() {
 }
 
 atualizarSaldos();
-filtrarPorData();
+//filtrarPorData();

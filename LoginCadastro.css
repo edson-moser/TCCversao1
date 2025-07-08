@@ -26,8 +26,9 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 .content::before {
-    background-image: url("NaturisLogo.png");
-    background-size: 100vh 100%;
+    /*background-image: url("NaturisLogo.png");
+    background-size: 570px 430px;
+    background-position: 50%;*/
     content: "";
     position: absolute;
     background-color: #006633;
@@ -36,6 +37,8 @@ body {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     left: 0;
+    
+
 }
 .title {
     font-size: 28px;
@@ -471,4 +474,69 @@ input:-webkit-autofill
 .nav-link:hover {
     color: #422a14;
     text-decoration: underline;
+}
+
+/* Logo centralizada */
+.first-column img.logo {
+    width: 270px;
+    margin-bottom: 0px;
+}
+
+
+.label-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 10px;
+    margin-right: 0;
+}
+
+.label-input i {
+    margin-right: 10px;
+    color: #8b572a;
+}
+
+.label-input input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+}
+
+
+.btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 80%;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #fff;
+    color: #006837;
+}
+
+.btn-second {
+    background: #57a773;
+    color: #fff;
+}
+
+.btn-second:hover {
+    background: #3b8659;
+}
+
+a.nav-link {
+    display: none;
 }
