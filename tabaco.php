@@ -66,8 +66,8 @@
 
                 <div class="input-field">
                     <label for="periodo">Período</label>
-                    <select id="periodo" name="periodoSafra">
-                        <option value="">Selecione o período</option>
+                    <select id="periodo"  name="periodoSafra">
+                        <option >Selecione o período</option>
                         <script>
                             const select = document.getElementById("periodo");
                             const selectedPeriodo = "<?= $periodo ?? '' ?>"; // Se estiver usando PHP
@@ -94,7 +94,7 @@
                 <div class="input-box">
                     <label for="total_plantado" class="form-label">TOTAL DE PÉS PLANTADOS</label>
                     <div class="input-field">
-                        <input type="number" name="total" id="total_plantado" class="form-control"
+                        <input type="number"  name="total" id="total_plantado" class="form-control"
                             placeholder="Mil pés">
 
                     </div>
@@ -102,7 +102,7 @@
                   <div class="input-box">
                     <label for="quilos_produzidos" class="form-label">VALOR TOTAL DA VENDA</label>
                     <div class="input-field">
-                        <input type="number" name="precoTotal" id="precoTotal" class="form-control"
+                        <input type="number"  name="precoTotal" id="precoTotal" class="form-control"
                             placeholder="Preços das vendas">
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                 <div class="input-box">
                     <label for="quilos_produzidos" class="form-label">QUILOS PRODUZIDOS</label>
                     <div class="input-field">
-                        <input type="number" name="kilos" id="quilos_produzidos" class="form-control"
+                        <input type="number"  name="kilos" id="quilos_produzidos" class="form-control"
                             placeholder="Quilos">
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                 <div class="input-box">
                     <label for="quantidade_estufadas" class="form-label">TOTAL DE ESTUFADAS</label>
                     <div class="input-field">
-                        <input type="number" name="estufadas" id="quantidade_estufadas" class="form-control"
+                        <input type="number"  name="estufadas" id="quantidade_estufadas" class="form-control"
                             placeholder="1, 2, 3, 4, 5...">
 
                     </div>
@@ -127,7 +127,7 @@
                 <div class="input-box">
                     <label for="total_hectares" class="form-label">TOTAL DE HECTARES</label>
                     <div class="input-field">
-                        <input type="number" name="totalHectares" id="total_hectares" class="form-control"
+                        <input type="number"  name="totalHectares" id="total_hectares" class="form-control"
                             placeholder="Hectares">
 
                     </div>
@@ -155,7 +155,7 @@
             <div class="input-box">
                 <label for="total_plantado" class="form-label">QUANTIDADE DE PÉS PLANTADOS NA ÁREA</label>
                 <div class="input-field">
-                    <input type="number" name="qtdPes" id="total_plantado" class="form-control"
+                    <input type="number"  name="qtdPes" id="total_plantado" class="form-control"
                         placeholder="Mil pés ">
 
                 </div>
