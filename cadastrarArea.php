@@ -1,51 +1,28 @@
 <?php
-
-    require 'conexao.php';
+require ('conexao.php');
 include('protect.php');
 include('cadastrarTabaco.php');
 
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-// Obtem o tabaco_id passado via GET ou POST
-$tabaco_id = $_GET['tabaco'] ?? $_POST['tabaco_idtabaco'] ?? null;
-if (!$tabaco_id) {
-    die("ID do tabaco não fornecido.");
-}
-
-// Inicializa dados
-$dados = [
-    'idarea' => '',
-    'qtdPes' => '',
-    'hectares' => '',
-    'dataFim' => '',
-    'variedades' => '',
-    'produtos' => '',
-    'pragasDoencas' => '',
-    'agrotoxicos' => '',
-    'mediaFolhas' => '',
-    'colheitas' => '',
-];
-
-// Se for edição
-if (isset($_GET['id'])) {
-    $area_id = $_GET['id'];
-    $sql = "SELECT * FROM area WHERE idarea = ? AND tabaco_idtabaco = ?";
+    $produtor_id = $_SESSION['idprodutor'] ?? null;
+    $periodoSafra=$_POST['periodoEscondido'] ?? null;
+   
+    $sql = "SELECT idtabaco FROM tabaco WHERE periodoSafra = ? AND produtor_idprodutor = ?";
     $stmt = $conecta->prepare($sql);
-    $stmt->bind_param("ii", $area_id, $tabaco_id);
+    $stmt->bind_param("si", $periodoSafra, $produtor_id);
     $stmt->execute();
     $res = $stmt->get_result();
-    if ($res->num_rows) {
-        $dados = $res->fetch_assoc();
-    } else {
-        echo "Área não encontrada.";
-        exit;
-    }
-}
 
-// Se for envio do formulário
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $area_id = $_POST['idarea'] ?? null;
+    if ($res->num_rows === 0) {
+        die("Safra não encontrada para este período.");
+    }
+
+    $tabaco = $res->fetch_assoc();
+    $tabaco_id = $tabaco['idtabaco'];
+
+    // Dados do formulário
     $qtdPes = $_POST['qtdPes'] ?? 0;
     $hectares = $_POST['hectares'] ?? '';
     $dataFim = $_POST['dataFim'] ?? '';
@@ -56,33 +33,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mediaFolhas = $_POST['mediaFolhas'] ?? 0;
     $colheitas = $_POST['colheitas'] ?? 0;
 
-    if ($area_id) {
-        // Atualiza
-        $sql = "UPDATE area SET qtdPes = ?, hectares = ?, dataFim = ?, variedades = ?, produtos = ?, pragasDoencas = ?, agrotoxicos = ?, mediaFolhas = ?, colheitas = ?
-                WHERE idarea = ? AND tabaco_idtabaco = ?";
-        $stmt = $conecta->prepare($sql);
-        $stmt->bind_param("issssssiiii", $qtdPes, $hectares, $dataFim, $variedades, $produtos, $pragas, $agrotoxicos, $mediaFolhas, $colheitas, $area_id, $tabaco_id);
-        if ($stmt->execute()) {
-            echo "<p style='color:green;'>Área atualizada com sucesso.</p>";
-            $dados = $_POST;
-            $dados['idarea'] = $area_id;
-        } else {
-            echo "<p style='color:red;'>Erro ao atualizar a área.</p>";
-        }
+    // Inserção
+    $sql = "INSERT INTO area (qtdPes, hectares, dataFim, variedades, produtos, pragasDoencas, agrotoxicos, mediaFolhas, colheitas, tabaco_idtabaco)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conecta->prepare($sql);
+    $stmt->bind_param("issssssiii", $qtdPes, $hectares, $dataFim, $variedades, $produtos, $pragas, $agrotoxicos, $mediaFolhas, $colheitas, $tabaco_id);
+
+    if ($stmt->execute()) {
+        echo "<p style='color:green;'>Área cadastrada com sucesso.</p>";
     } else {
-        // Inserção
-        $sql = "INSERT INTO area (qtdPes, hectares, dataFim, variedades, produtos, pragasDoencas, agrotoxicos, mediaFolhas, colheitas, tabaco_idtabaco)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conecta->prepare($sql);
-        $stmt->bind_param("issssssiii", $qtdPes, $hectares, $dataFim, $variedades, $produtos, $pragas, $agrotoxicos, $mediaFolhas, $colheitas, $tabaco_id);
-        if ($stmt->execute()) {
-            echo "<p style='color:green;'>Área cadastrada com sucesso.</p>";
-            $nova_id = $stmt->insert_id;
-            $dados = $_POST;
-            $dados['idarea'] = $nova_id;
-        } else {
-            echo "<p style='color:red;'>Erro ao salvar a área.</p>";
-        }
+        echo "<p style='color:red;'>Erro ao salvar a área.</p>";
     }
 }
 

@@ -2,8 +2,14 @@
 
 
 
-//include('protect.php')
-?>
+include('protect.php');
+include('conexao.php');
+$produtor_id = $_SESSION['idprodutor'] ?? null;
+
+    $pdp = $conecta->query("SELECT*FROM produtor WHERE idprodutor=$produtor_id")->fetch_assoc(); ?>
+
+    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,61 +73,71 @@
     <form method="post" action="cadastrar_produtor.php">
         <div class="form-group">
             <label for="nome">Nome completo</label>
-            <input type="text" id="nome" name="nome" placeholder="Seu nome completo" disabled />
+            <input type="text" value="<?=$pdp['nome'] ?>" id="nome" name="nome" placeholder="Seu nome completo" disabled />
         </div>
 
         <div class="form-group">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="Seu e-mail" disabled />
+            <input type="email" value="<?=$pdp['email'] ?>" id="email" name="email" placeholder="Seu e-mail" disabled />
         </div>
 
         <div class="form-group">
             <label for="cidade">Cidade</label>
-            <input type="text" id="cidade" name="cidade" placeholder="Sua cidade" disabled />
+            <input type="text" value="<?=$pdp['cidade'] ?>" id="cidade" name="cidade" placeholder="Sua cidade" disabled />
         </div>
 
-        <div class="form-group">
-            <label for="estado">Estado</label>
-            <select id="estado" name="estado" disabled>
-                <option value="">Selecione seu estado</option>
-                <option value="AC">Acre (AC)</option>
-                <option value="AL">Alagoas (AL)</option>
-                <option value="AP">Amapá (AP)</option>
-                <option value="AM">Amazonas (AM)</option>
-                <option value="BA">Bahia (BA)</option>
-                <option value="CE">Ceará (CE)</option>
-                <option value="DF">Distrito Federal (DF)</option>
-                <option value="ES">Espírito Santo (ES)</option>
-                <option value="GO">Goiás (GO)</option>
-                <option value="MA">Maranhão (MA)</option>
-                <option value="MT">Mato Grosso (MT)</option>
-                <option value="MS">Mato Grosso do Sul (MS)</option>
-                <option value="MG">Minas Gerais (MG)</option>
-                <option value="PA">Pará (PA)</option>
-                <option value="PB">Paraíba (PB)</option>
-                <option value="PR">Paraná (PR)</option>
-                <option value="PE">Pernambuco (PE)</option>
-                <option value="PI">Piauí (PI)</option>
-                <option value="RJ">Rio de Janeiro (RJ)</option>
-                <option value="RN">Rio Grande do Norte (RN)</option>
-                <option value="RS">Rio Grande do Sul (RS)</option>
-                <option value="RO">Rondônia (RO)</option>
-                <option value="RR">Roraima (RR)</option>
-                <option value="SC">Santa Catarina (SC)</option>
-                <option value="SP">São Paulo (SP)</option>
-                <option value="SE">Sergipe (SE)</option>
-                <option value="TO">Tocantins (TO)</option>
-            </select>
-        </div>
+        <?php
+$estados = [
+    "AC" => "Acre (AC)",
+    "AL" => "Alagoas (AL)",
+    "AP" => "Amapá (AP)",
+    "AM" => "Amazonas (AM)",
+    "BA" => "Bahia (BA)",
+    "CE" => "Ceará (CE)",
+    "DF" => "Distrito Federal (DF)",
+    "ES" => "Espírito Santo (ES)",
+    "GO" => "Goiás (GO)",
+    "MA" => "Maranhão (MA)",
+    "MT" => "Mato Grosso (MT)",
+    "MS" => "Mato Grosso do Sul (MS)",
+    "MG" => "Minas Gerais (MG)",
+    "PA" => "Pará (PA)",
+    "PB" => "Paraíba (PB)",
+    "PR" => "Paraná (PR)",
+    "PE" => "Pernambuco (PE)",
+    "PI" => "Piauí (PI)",
+    "RJ" => "Rio de Janeiro (RJ)",
+    "RN" => "Rio Grande do Norte (RN)",
+    "RS" => "Rio Grande do Sul (RS)",
+    "RO" => "Rondônia (RO)",
+    "RR" => "Roraima (RR)",
+    "SC" => "Santa Catarina (SC)",
+    "SP" => "São Paulo (SP)",
+    "SE" => "Sergipe (SE)",
+    "TO" => "Tocantins (TO)"
+];
+?>
+
+<div class="form-group">
+    <label for="estado">Estado</label>
+    <select id="estado" name="estado" disabled>
+        <option>Selecione seu estado</option>
+        <?php foreach ($estados as $sigla => $nome): ?>
+            <option value="<?= $sigla ?>" <?= $pdp['estado'] == $sigla ? 'selected' : '' ?>>
+                <?= $nome ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
 
         <div class="form-group">
             <label for="telefone">Telefone</label>
-            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" minlength="15" disabled>
+            <input type="tel" value="<?=$pdp['telefone'] ?>" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" minlength="15" disabled>
         </div>
 
         <div class="form-group">
             <label for="data_nascimento">Data de nascimento</label>
-            <input type="date" name="dataNascimento" id="data_nascimento" required disabled>
+            <input type="date" value="<?=$pdp['dataNascimento'] ?>" name="dataNascimento" id="data_nascimento" required disabled>
         </div>
 
         <div class="buttons">

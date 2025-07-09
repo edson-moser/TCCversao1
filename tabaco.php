@@ -1,6 +1,9 @@
 <?php
 
 //include('protect.php')
+include('conexao.php');
+
+
 ?>
 
 <!DOCTYPE html>
@@ -243,6 +246,7 @@
                 </div>
             </div>
 
+                            <input type="hidden" name="periodoEscondido" id="periodoEscondido">
 
             <button type="submit" class="btn-default">
                 <i class="fa-solid fa-check"></i>
@@ -258,6 +262,11 @@
 
     </main>
 
+    <script>
+        const sel = document.getElementById('periodo');
+        const hid = document.getElementById('periodoEscondido');
+        sel.addEventListener('change', () => hid.value = sel.value);
+    </script>
 
 </body>
 

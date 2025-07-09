@@ -5,9 +5,6 @@ include('protect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    echo "<pre>";
-print_r($_POST);
-echo "</pre>";
     $produtor_id = $_SESSION['idprodutor'] ?? null;
 
     $nome = $_POST["nome"] ?? '';
