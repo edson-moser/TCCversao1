@@ -1,49 +1,75 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require 'conexao.php';
 include('protect.php');
+include('cadastrarTabaco.php');
 
 $produtor_id = $_SESSION['idprodutor'] ?? null;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $periodo = $_POST['periodoSafra'] ?? '';
-    $total_plantado = floatval($_POST['total'] ?? 0);
-    $precoTotal = floatval($_POST['precoTotal'] ?? 0);
-    $kilos = floatval($_POST['kilos'] ?? 0);
-    $estufadas = intval($_POST['estufadas'] ?? 0);
-    $hectares = floatval($_POST['totalHectares'] ?? 0);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $acao = $_POST['acao'] ?? '';
+    $periodoSafra = $_POST['periodoEscondido'] ?? '';
 
-    // Verifica se já existe esse período
+    if (!$produtor_id || !$periodoSafra) {
+        die("Produtor ou período não informado.");
+    }
+
     $sql = "SELECT idtabaco FROM tabaco WHERE periodoSafra = ? AND produtor_idprodutor = ?";
     $stmt = $conecta->prepare($sql);
-    $stmt->bind_param("si", $periodo, $produtor_id);
+    $stmt->bind_param("si", $periodoSafra, $produtor_id);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $res = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        // Já existe, faz UPDATE
-        $row = $result->fetch_assoc();
-        $tabaco_id = $row['idtabaco'];
+    if ($res->num_rows === 0) {
+        die("Safra não encontrada para este período.");
+    }
 
-        $sql = "UPDATE tabaco SET total = ?, estufadas = ?, kilos = ?, totalHectares = ?, precoTotal = ?
-                WHERE idtabaco = ? AND produtor_idprodutor = ?";
+    $tabaco_id = $res->fetch_assoc()['idtabaco'];
+
+    $nome = $_POST['nome'] ?? 'Área sem nome';
+    $qtdPes = $_POST['qtdPes'] ?? 0;
+    $hectares = $_POST['hectares'] ?? 0;
+    $dataInicio = $_POST['dataInicio'] ?? '';
+    $dataFim = $_POST['dataFim'] ?? '';
+    $variedades = $_POST['variedades'] ?? '';
+    $produtos = $_POST['produtos'] ?? '';
+    $pragas = $_POST['pragasDoencas'] ?? '';
+    $agrotoxicos = $_POST['agrotoxicos'] ?? '';
+    $mediaFolhas = $_POST['mediaFolhas'] ?? 0;
+    $colheitas = $_POST['colheitas'] ?? 0;
+
+    if ($acao === 'cadastrar') {
+        $sql = "INSERT INTO area (
+            nome, qtdPes, hectares, dataInicio, dataFim, variedades, produtos, 
+            pragasDoencas, agrotoxicos, mediaFolhas, colheitas, tabaco_idtabaco
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         $stmt = $conecta->prepare($sql);
-        $stmt->bind_param("iiddsii", $total_plantado, $estufadas, $kilos, $hectares, $precoTotal, $tabaco_id, $produtor_id);
+        $stmt->bind_param(
+            "sissssssssii",
+            $nome,
+            $qtdPes,
+            $hectares,
+            $dataInicio,
+            $dataFim,
+            $variedades,
+            $produtos,
+            $pragas,
+            $agrotoxicos,
+            $mediaFolhas,
+            $colheitas,
+            $tabaco_id
+        );
+
         if ($stmt->execute()) {
-            header('Location: tabaco.php');
+            echo "Área cadastrada com sucesso.";
         } else {
-            echo "<p style='color:red;'>Erro ao atualizar.</p>";
+            echo "Erro ao salvar a área: " . $stmt->error;
         }
     } else {
-        // Não existe, faz INSERT
-        $sql = "INSERT INTO tabaco (total, estufadas, kilos, totalHectares, precoTotal, produtor_idprodutor, periodoSafra)
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conecta->prepare($sql);
-        $stmt->bind_param("iidddis", $total_plantado, $estufadas, $kilos, $hectares, $precoTotal, $produtor_id, $periodo);
-        if ($stmt->execute()) {
-            header('Location: tabaco.php');
-        } else {
-            echo "<p style='color:red;'>Erro ao salvar.</p>";
-        }
+        echo "Ação inválida.";
     }
 }
 ?>

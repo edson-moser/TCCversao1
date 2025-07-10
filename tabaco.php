@@ -175,110 +175,160 @@ if ($produtor_id && $periodoSelecionado) {
             </form>
         
 
-         <!-- Botões e botão de adicionar nova área -->
-<div type="submit" class="container mt-4">
-    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="button-group">
-        <!-- Os botões serão adicionados aqui -->
-        <button class="btn btn-primary" name="nome" id="add-button">ADICIONAR NOVA ÁREA</button>
+<h2>Cadastro de Áreas da Safra</h2>
+
+<form method="post" id="form-areas">
+  <div class="area-form">
+    <input type="hidden" name="acao" value="cadastrar">
+    <input type="hidden" name="periodoEscondido" value="2025/2026">
+
+    <div class="input-box">
+      <label>Nome da Área</label>
+      <input type="text" name="nome" class="form-control" placeholder="Ex: Área 1" onblur="notificarNome(this)">
     </div>
-</div>
-<form action="cadastrarArea.php" method="post" id="form">
-<!-- Inputs de dados da área -->
-<div class="input-box">
-    <label for="total_plantado" class="form-label">QUANTIDADE DE PÉS PLANTADOS NA ÁREA</label>
-    <div class="input-field">
-        <input type="number" name="qtdPes" id="total_plantado" class="form-control" placeholder="Mil pés">
+
+    <div class="input-box">
+      <label>QUANTIDADE DE PÉS PLANTADOS NA ÁREA</label>
+      <input type="number" name="qtdPes" class="form-control" placeholder="Mil pés">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="total_hectares" class="form-label">TOTAL DE HECTARES DA ÁREA</label>
-    <div class="input-field">
-        <input type="number" name="hectares" id="total_hectares" class="form-control" placeholder="Hectares">
+    <div class="input-box">
+      <label>TOTAL DE HECTARES DA ÁREA</label>
+      <input type="number" name="hectares" class="form-control" placeholder="Hectares">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="data_plantio" class="form-label">DATA PLANTIO</label>
-    <div class="input-field">
-        <input type="date" name="dataInicio" id="dataInicio" class="form-control">
+    <div class="input-box">
+      <label>DATA PLANTIO</label>
+      <input type="date" name="dataInicio" class="form-control">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="data_fimColheita" class="form-label">DATA FIM DA COLHEITA</label>
-    <div class="input-field">
-        <input type="date" name="dataFim" id="data_fimColheita" class="form-control">
+    <div class="input-box">
+      <label>DATA FIM DA COLHEITA</label>
+      <input type="date" name="dataFim" class="form-control">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="variedades" class="form-label">VARIEDADES</label>
-    <div class="input-field">
-        <input type="text" name="variedades" id="variedades" class="form-control"
-            placeholder="4707 BAT, 401 Aliance One...">
+    <div class="input-box">
+      <label>VARIEDADES</label>
+      <input type="text" name="variedades" class="form-control" placeholder="4707 BAT, 401 Aliance One...">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="produtos_utilizados" class="form-label">PRODUTOS UTILIZADOS</label>
-    <div class="input-field">
-        <input type="text" name="produtos" id="produtos_utilizados" class="form-control"
-            placeholder="Salitro, ureia, calcário,........">
+    <div class="input-box">
+      <label>PRODUTOS UTILIZADOS</label>
+      <input type="text" name="produtos" class="form-control" placeholder="Salitro, ureia, calcário...">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="pragas_doencas" class="form-label">PRAGAS E DOENÇAS PRESENTES</label>
-    <div class="input-field">
-        <input type="text" name="pragasDoencas" id="pragas_doencas" class="form-control"
-            placeholder="Lagarta, Nematóide, Podridão do caule, Mofo azul,.......">
+    <div class="input-box">
+      <label>PRAGAS E DOENÇAS PRESENTES</label>
+      <input type="text" name="pragasDoencas" class="form-control" placeholder="Lagarta, Mofo azul, etc.">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="agrotoxicos_defensivos" class="form-label">AGROTÓXICOS E DEFENSIVOS UTILIZADOS</label>
-    <div class="input-field">
-        <input type="text" name="agrotoxicos" id="agrotoxicos_defensivos" class="form-control"
-            placeholder="Nome do Produto">
+    <div class="input-box">
+      <label>AGROTÓXICOS E DEFENSIVOS UTILIZADOS</label>
+      <input type="text" name="agrotoxicos" class="form-control" placeholder="Nome do Produto">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="media_folhas" class="form-label">MÉDIA DE FOLHAS</label>
-    <div class="input-field">
-        <input type="number" name="mediaFolhas" id="media_folhas" class="form-control"
-            placeholder="Escolha alguns carreiros aleatórios e divida o total de folhas pela quantidade de pés">
+    <div class="input-box">
+      <label>MÉDIA DE FOLHAS</label>
+      <input type="number" name="mediaFolhas" class="form-control" placeholder="Ex: 20">
     </div>
-</div>
 
-<div class="input-box">
-    <label for="quantidade_colhida" class="form-label">NÚMERO DE COLHIDAS</label>
-    <div class="input-field">
-        <input type="number" name="colheitas" id="quantidade_colhida" class="form-control"
-            placeholder="1, 2, 3, 4, 5....">
+    <div class="input-box">
+      <label>NÚMERO DE COLHIDAS</label>
+      <input type="number" name="colheitas" class="form-control" placeholder="1, 2, 3...">
     </div>
-</div>
 
-<!-- Input oculto que armazena o nome da área (do botão) -->
-<input type="hidden" name="nome" id="nome_area">
+    <!-- Botões de ação da área -->
+    <div class="input-box">
+      <button type="button" class="btn btn-save" onclick="salvarAreaEspecifica(this)">
+        <i class="fa-solid fa-check"></i> SALVAR DADOS DA ÁREA
+      </button>
+      <button type="button" class="btn btn-remove" onclick="removerArea(this)">
+        <i class="fa-solid fa-trash"></i> EXCLUIR ÁREA
+      </button>
+    </div>
+  </div>
+</form>
 
-<input type="hidden" name="periodoEscondido" id="periodoEscondido">
-
-<button type="submit" class="btn-default">
-    <i class="fa-solid fa-check"></i>
-    SALVAR DADOS DAS ÁREAS
+<!-- Botões fora do form -->
+<br>
+<button type="button" class="btn-default" onclick="adicionarArea()">
+  <i class="fa-solid fa-plus"></i> ADICIONAR NOVA ÁREA
 </button>
 
-        </form>
+<br><br>
 
-        <button type="finalizarSafra" class="btn-default">
-            <i class="fa-solid fa-check"></i>
-            FINALIZAR SAFRA
-        </button>
-    </form>
+<button type="button" class="btn-default" onclick="finalizarSafra()">
+  <i class="fa-solid fa-check"></i> FINALIZAR SAFRA
+</button>
 
-    </main>
+<!-- JavaScript -->
+<script>
+  function notificarNome(input) {
+    const nome = input.value.trim();
+    if (nome !== "") {
+      alert("Nome da área definido como: " + nome);
+    }
+  }
+
+  function adicionarArea() {
+    const form = document.querySelector('.area-form');
+    const clone = form.cloneNode(true);
+
+    clone.querySelectorAll('input').forEach(input => {
+      if (input.type !== "hidden") input.value = '';
+    });
+
+    clone.querySelector('[name="nome"]').onblur = function () {
+      notificarNome(this);
+    };
+    clone.querySelector('.btn-remove').onclick = function () {
+      removerArea(this);
+    };
+    clone.querySelector('.btn-save').onclick = function () {
+      salvarAreaEspecifica(this);
+    };
+
+    document.getElementById('form-areas').appendChild(clone);
+  }
+
+  function removerArea(botao) {
+    const areas = document.querySelectorAll('.area-form');
+    if (areas.length > 1) {
+      botao.closest('.area-form').remove();
+    } else {
+      alert("Você precisa ter pelo menos uma área!");
+    }
+  }
+
+  function salvarAreaEspecifica(botao) {
+    const area = botao.closest('.area-form');
+    const formData = new FormData();
+
+    area.querySelectorAll('input').forEach(input => {
+      if (input.name && input.name !== '') {
+        formData.append(input.name, input.value);
+      }
+    });
+
+    fetch('cadastrarArea.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(resp => resp.text())
+    .then(msg => {
+      alert("Resposta do servidor:\n" + msg);
+    })
+    .catch(err => alert("Erro ao salvar: " + err));
+  }
+
+  function finalizarSafra() {
+    alert("Safra finalizada (implemente o envio no backend)");
+  }
+</script>
+
+</script>
+
+
     <script>
 function carregarSafra() {
     let periodo = document.getElementById("periodoSafra").value;
