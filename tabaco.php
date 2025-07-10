@@ -1,10 +1,40 @@
 <?php
 
-//include('protect.php')
+include('cadastrarTabaco.php');
+include('protect.php');
 include('conexao.php');
 
+$produtor_id = $_SESSION['idprodutor'] ?? null;
+$periodoSelecionado = $_GET['periodoSafra'] ?? null; // Passado via GET ao selecionar a safra
 
+if ($produtor_id && $periodoSelecionado) {
+    // 1. Buscar a safra de tabaco do produtor
+    $stmtTabaco = $conecta->prepare("SELECT * FROM tabaco WHERE produtor_idprodutor = ? AND periodoSafra = ?");
+    $stmtTabaco->bind_param("is", $produtor_id, $periodoSelecionado);
+    $stmtTabaco->execute();
+    $resultTabaco = $stmtTabaco->get_result();
+
+    if ($resultTabaco->num_rows > 0) {
+        $tabaco = $resultTabaco->fetch_assoc();
+
+//         // 2. Buscar as áreas relacionadas a esse tabaco
+//         $stmtAreas = $conecta->prepare("SELECT * FROM area WHERE tabaco_idtabaco = ?");
+//         $stmtAreas->bind_param("i", $tabaco['idtabaco']);
+//         $stmtAreas->execute();
+//         $resultAreas = $stmtAreas->get_result();
+
+//         $areas = [];
+//         while ($row = $resultAreas->fetch_assoc()) {
+//             $areas[] = $row;
+//         }
+
+//     } else {
+//         echo "<p>Nenhuma safra encontrada para o período selecionado.</p>";
+    }
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -68,37 +98,38 @@ include('conexao.php');
             <div id="input_container">
 
                 <div class="input-box">
-                    <label for="periodo" class="form-label">Período</label>
-                    <div class="input-field">
-                    <select id="periodo" name="periodoSafra" class="form-control">
-                        <option value="">Selecione o período</option>
-                        <script>
-                            const select = document.getElementById("periodo");
-                            const selectedPeriodo = "<?= $periodo ?? '' ?>"; // Se estiver usando PHP
+    <label for="periodoSafra" class="form-label">Período</label>
+    <div class="input-field">
+        <select id="periodoSafra" name="periodoSafra" class="form-control" onchange="carregarSafra()">
+            <option value="">Selecione o período</option>
+        </select>
+    </div>
+</div>
 
-                            for (let ano = 1950; ano < 2080; ano++) {
-                                const valor = `${ano}-${ano + 1}`;
-                                const option = document.createElement("option");
-                                option.value = valor;
-                                option.textContent = valor;
+<script>
+    const select = document.getElementById("periodoSafra");
+    const selectedPeriodo = "<?= $periodoSelecionado ?? '' ?>";
 
-                                // Marcar como selecionado se for edição
-                                if (valor === selectedPeriodo) {
-                                    option.selected = true;
-                                }
+    for (let ano = 1950; ano < 2080; ano++) {
+        const valor = `${ano}-${ano + 1}`;
+        const option = document.createElement("option");
+        option.value = valor;
+        option.textContent = valor;
 
-                                select.appendChild(option);
-                            }
-                        </script>
-                    </select>
-                    </div>
+        if (valor === selectedPeriodo) {
+            option.selected = true;
+        }
+
+        select.appendChild(option);
+    }
+</script>
 
                 </div>
 
                 <div class="input-box">
                     <label for="total_plantado" class="form-label">TOTAL DE PÉS PLANTADOS</label>
                     <div class="input-field">
-                        <input type="number"  name="total" id="total_plantado" class="form-control"
+                        <input type="number" value="<?=$tabaco['total'] ?>" name="total" id="total_plantado" class="form-control"
                             placeholder="Mil pés">
 
                     </div>
@@ -106,7 +137,7 @@ include('conexao.php');
                   <div class="input-box">
                     <label for="quilos_produzidos" class="form-label">VALOR TOTAL DA VENDA</label>
                     <div class="input-field">
-                        <input type="number"  name="precoTotal" id="precoTotal" class="form-control"
+                        <input type="number" value="<?=$tabaco['precoTotal'] ?>" name="precoTotal" id="precoTotal" class="form-control"
                             placeholder="Preços das vendas">
                     </div>
                 </div>
@@ -114,7 +145,7 @@ include('conexao.php');
                 <div class="input-box">
                     <label for="quilos_produzidos" class="form-label">QUILOS PRODUZIDOS</label>
                     <div class="input-field">
-                        <input type="number"  name="kilos" id="quilos_produzidos" class="form-control"
+                        <input type="number" value="<?=$tabaco['kilos'] ?>" name="kilos" id="quilos_produzidos" class="form-control"
                             placeholder="Quilos">
                     </div>
                 </div>
@@ -122,7 +153,7 @@ include('conexao.php');
                 <div class="input-box">
                     <label for="quantidade_estufadas" class="form-label">TOTAL DE ESTUFADAS</label>
                     <div class="input-field">
-                        <input type="number"  name="estufadas" id="quantidade_estufadas" class="form-control"
+                        <input type="number" value="<?=$tabaco['estufadas'] ?>"  name="estufadas" id="quantidade_estufadas" class="form-control"
                             placeholder="1, 2, 3, 4, 5...">
 
                     </div>
@@ -131,7 +162,7 @@ include('conexao.php');
                 <div class="input-box">
                     <label for="total_hectares" class="form-label">TOTAL DE HECTARES</label>
                     <div class="input-field">
-                        <input type="number"  name="totalHectares" id="total_hectares" class="form-control"
+                        <input type="number" value="<?=$tabaco['totalHectares'] ?>" name="totalHectares" id="total_hectares" class="form-control"
                             placeholder="Hectares">
 
                     </div>
@@ -142,116 +173,103 @@ include('conexao.php');
                 SALVAR DADOS DA SAFRA
             </button>
             </form>
-        <form action="cadastrarArea.php" method="post" id="form">
+        
 
-            <!--adicionar area -->
+         <!-- Botões e botão de adicionar nova área -->
+<div type="submit" class="container mt-4">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="button-group">
+        <!-- Os botões serão adicionados aqui -->
+        <button class="btn btn-primary" name="nome" id="add-button">ADICIONAR NOVA ÁREA</button>
+    </div>
+</div>
+<form action="cadastrarArea.php" method="post" id="form">
+<!-- Inputs de dados da área -->
+<div class="input-box">
+    <label for="total_plantado" class="form-label">QUANTIDADE DE PÉS PLANTADOS NA ÁREA</label>
+    <div class="input-field">
+        <input type="number" name="qtdPes" id="total_plantado" class="form-control" placeholder="Mil pés">
+    </div>
+</div>
 
-            <div type="submit" class="container mt-4">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="button-group">
-                    <button class="btn btn-primary" name="nome" id="add-button">ADICIONAR NOVA ÁREA</button>
-                </div>
-            </div>
+<div class="input-box">
+    <label for="total_hectares" class="form-label">TOTAL DE HECTARES DA ÁREA</label>
+    <div class="input-field">
+        <input type="number" name="hectares" id="total_hectares" class="form-control" placeholder="Hectares">
+    </div>
+</div>
 
-            <!--Caracteristicas expcificas da área-->
+<div class="input-box">
+    <label for="data_plantio" class="form-label">DATA PLANTIO</label>
+    <div class="input-field">
+        <input type="date" name="dataInicio" id="dataInicio" class="form-control">
+    </div>
+</div>
 
+<div class="input-box">
+    <label for="data_fimColheita" class="form-label">DATA FIM DA COLHEITA</label>
+    <div class="input-field">
+        <input type="date" name="dataFim" id="data_fimColheita" class="form-control">
+    </div>
+</div>
 
+<div class="input-box">
+    <label for="variedades" class="form-label">VARIEDADES</label>
+    <div class="input-field">
+        <input type="text" name="variedades" id="variedades" class="form-control"
+            placeholder="4707 BAT, 401 Aliance One...">
+    </div>
+</div>
 
-            <div class="input-box">
-                <label for="total_plantado" class="form-label">QUANTIDADE DE PÉS PLANTADOS NA ÁREA</label>
-                <div class="input-field">
-                    <input type="number"  name="qtdPes" id="total_plantado" class="form-control"
-                        placeholder="Mil pés ">
+<div class="input-box">
+    <label for="produtos_utilizados" class="form-label">PRODUTOS UTILIZADOS</label>
+    <div class="input-field">
+        <input type="text" name="produtos" id="produtos_utilizados" class="form-control"
+            placeholder="Salitro, ureia, calcário,........">
+    </div>
+</div>
 
-                </div>
-            </div>
+<div class="input-box">
+    <label for="pragas_doencas" class="form-label">PRAGAS E DOENÇAS PRESENTES</label>
+    <div class="input-field">
+        <input type="text" name="pragasDoencas" id="pragas_doencas" class="form-control"
+            placeholder="Lagarta, Nematóide, Podridão do caule, Mofo azul,.......">
+    </div>
+</div>
 
-            <div class="input-box">
-                <label for="total_hectares" class="form-label">TOTAL DE HECTARES DA ÁREA</label>
-                <div class="input-field">
-                    <input type="number" name="hectares" id="total_hectares" class="form-control"
-                        placeholder="Hectares">
-                </div>
-            </div>
-            </div>
+<div class="input-box">
+    <label for="agrotoxicos_defensivos" class="form-label">AGROTÓXICOS E DEFENSIVOS UTILIZADOS</label>
+    <div class="input-field">
+        <input type="text" name="agrotoxicos" id="agrotoxicos_defensivos" class="form-control"
+            placeholder="Nome do Produto">
+    </div>
+</div>
 
-            <div class="input-box">
-                <label for="data_plantio" class="form-label">
-                    DATA PLANTIO
-                </label>
-                <div class="input-field">
-                    <input type="date" name="dataInicio" id="data_plantio" class="form-control">
-                </div>
-            </div>
+<div class="input-box">
+    <label for="media_folhas" class="form-label">MÉDIA DE FOLHAS</label>
+    <div class="input-field">
+        <input type="number" name="mediaFolhas" id="media_folhas" class="form-control"
+            placeholder="Escolha alguns carreiros aleatórios e divida o total de folhas pela quantidade de pés">
+    </div>
+</div>
 
+<div class="input-box">
+    <label for="quantidade_colhida" class="form-label">NÚMERO DE COLHIDAS</label>
+    <div class="input-field">
+        <input type="number" name="colheitas" id="quantidade_colhida" class="form-control"
+            placeholder="1, 2, 3, 4, 5....">
+    </div>
+</div>
 
-            <div class="input-box">
-                <label for="data_fimColheita" class="form-label">
-                    DATA FIM DA COLHEITA
-                </label>
-                <div class="input-field">
-                    <input type="date" name="dataFim" id="data_fimColheita" class="form-control">
-                </div>
-            </div>
+<!-- Input oculto que armazena o nome da área (do botão) -->
+<input type="hidden" name="nome" id="nome_area">
 
-            <div class="input-box">
-                <label for="variedades" class="form-label">VARIEDADES</label>
-                <div class="input-field">
-                    <input type="text" name="variedades" id="variedades" class="form-control"
-                        placeholder="4707 BAT, 401 Aliance One...">
-                </div>
-            </div>
+<input type="hidden" name="periodoEscondido" id="periodoEscondido">
 
+<button type="submit" class="btn-default">
+    <i class="fa-solid fa-check"></i>
+    SALVAR DADOS DAS ÁREAS
+</button>
 
-            <div class="input-box">
-                <label for="produtos_utilizados" class="form-label">PRODUTOS UTILIZADOS</label>
-                <div class="input-field">
-                    <input type="text" name="produtos" id="produtos_utilizados" class="form-control"
-                        placeholder="Salitro, ureia, calcário,........">
-                </div>
-            </div>
-
-            <div class="input-box">
-                <label for="pragas_doencas" class="form-label">PRAGAS E DOENÇAS PRESENTES</label>
-                <div class="input-field">
-                    <input type="text" name="pragasDoencas" id="pragas_doencas" class="form-control"
-                        placeholder="Lagarta, Nematóide, Podridão do caule, Mofo azul,.......">
-                </div>
-            </div>
-
-
-
-
-            <div class="input-box">
-                <label for="agrotoxicos_defensivos" class="form-label">AGROTÓXICOS E DEFENSIVOS UTILIZADOS</label>
-                <div class="input-field">
-                    <input type="text" name="agrotoxicos" id="agrotoxicos_defensivos" class="form-control"
-                        placeholder="Nome do Produto">
-                </div>
-            </div>
-
-            <div class="input-box">
-                <label for="media_folhas" class="form-label">MÉDIA DE FOLHAS</label>
-                <div class="input-field">
-                    <input type="number" name="mediaFolhas" id="media_folhas" class="form-control"
-                        placeholder="Escolha alguns carreiros aleatorios conte a quantidade de folhas e depois divida o total pela quantidade de pés contados">
-
-                </div>
-            </div>
-
-            <div class="input-box">
-                <label for="quantidade_colhida" class="form-label">NÚMERO DE COLHIDAS</label>
-                <div class="input-field">
-                    <input type="number" name="colheitas" id="quantidade_colhida" class="form-control"
-                        placeholder="1, 2, 3, 4, 5....">
-                </div>
-            </div>
-
-                            <input type="hidden" name="periodoEscondido" id="periodoEscondido">
-
-            <button type="submit" class="btn-default">
-                <i class="fa-solid fa-check"></i>
-                SALVAR DADOS DAS ÁREAS
-            </button>
         </form>
 
         <button type="finalizarSafra" class="btn-default">
@@ -261,6 +279,32 @@ include('conexao.php');
     </form>
 
     </main>
+    <script>
+function carregarSafra() {
+    let periodo = document.getElementById("periodoSafra").value;
+    if (periodo !== "") {
+        window.location.href = "?periodoSafra=" + encodeURIComponent(periodo);
+    }
+}
+</script>
+    <script>
+    $(document).ready(function () {
+        let count = 1;
+
+        $('#add-button').click(function () {
+            let nomeBotao = prompt("Digite o nome do novo botão:");
+            if (nomeBotao) {
+                let newButton = `<label class="btn btn-secondary">
+                                    <input type="radio" name="options" value="${nomeBotao}" checked autocomplete="off"> ${nomeBotao}
+                                </label>
+                                <input type="hidden" name="nome" value="${nomeBotao}">`;
+
+                $(newButton).insertBefore('#add-button');
+                $('#nome_area').val(nomeBotao); // atualiza o campo hidden com o nome do botão
+            }
+        });
+    });
+</script>
 
     <script>
         const sel = document.getElementById('periodo');
