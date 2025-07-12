@@ -1,75 +1,80 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require 'conexao.php';
-include('protect.php');
-include('cadastrarTabaco.php');
+session_start();
 
 $produtor_id = $_SESSION['idprodutor'] ?? null;
+$periodo = $_POST['periodoEscondido'] ?? null;
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $acao = $_POST['acao'] ?? '';
-    $periodoSafra = $_POST['periodoEscondido'] ?? '';
+// Buscar idtabaco da safra
+$stmt = $conecta->prepare("SELECT idtabaco FROM tabaco WHERE periodoSafra = ? AND produtor_idprodutor = ?");
+$stmt->bind_param("si", $periodo, $produtor_id);
+$stmt->execute();
+$tabaco = $stmt->get_result()->fetch_assoc();
+$idtabaco = $tabaco['idtabaco'] ?? null;
 
-    // Verifica produtor e período
-    if (!$produtor_id || !$periodoSafra) {
-        die("Produtor ou período não informado.");
-    }
-
-    // Busca o tabaco_id correspondente
-    $sql = "SELECT idtabaco FROM tabaco WHERE periodoSafra = ? AND produtor_idprodutor = ?";
-    $stmt = $conecta->prepare($sql);
-    $stmt->bind_param("si", $periodoSafra, $produtor_id);
-    $stmt->execute();
-    $res = $stmt->get_result();
-
-    if ($res->num_rows === 0) {
-        die("Safra não encontrada para este período.");
-    }
-
-    $tabaco_id = $res->fetch_assoc()['idtabaco'];
-
-    // Dados da área
-    $nome = $_POST['nome'] ?? 'Área sem nome';
-    $qtdPes = $_POST['qtdPes'] ?? 0;
-    $hectares = $_POST['hectares'] ?? '';
-    $dataInicio = $_POST['dataInicio'] ?? '';
-    $dataFim = $_POST['dataFim'] ?? '';
-    $variedades = $_POST['variedades'] ?? '';
-    $produtos = $_POST['produtos'] ?? '';
-    $pragas = $_POST['pragasDoencas'] ?? '';
-    $agrotoxicos = $_POST['agrotoxicos'] ?? '';
-    $mediaFolhas = $_POST['mediaFolhas'] ?? 0;
-    $colheitas = $_POST['colheitas'] ?? 0;
-
-    if ($acao === 'cadastrar') {
-        $sql = "INSERT INTO area (nome, qtdPes, hectares, dataInicio, dataFim, variedades, produtos, pragasDoencas, agrotoxicos, mediaFolhas, colheitas, tabaco_idtabaco)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conecta->prepare($sql);
-        $stmt->bind_param(
-            "sissssssssii",
-            $nome,
-            $qtdPes,
-            $hectares,
-            $dataInicio,
-            $dataFim,
-            $variedades,
-            $produtos,
-            $pragas,
-            $agrotoxicos,
-            $mediaFolhas,
-            $colheitas,
-            $tabaco_id
-        );
-
-        if ($stmt->execute()) {
-            echo " Área cadastrada com sucesso.";
-        } else {
-            echo " Erro ao salvar a área: " . $stmt->error;
-        }
-    } else {
-        echo "Ação inválida.";
-    }
+if (!$idtabaco) {
+    header("Location: tabaco.php?mensagem=Safra não encontrada.");
+    exit;
 }
-?>
+
+if (isset($_POST['salvar'])) {
+    $idarea = $_POST['idarea'] ?? null;
+    $sql = $idarea
+        ? "UPDATE area SET nome=?, qtdPes=?, hectares=?, dataInicio=?, dataFim=?, variedades=?, produtos=?, pragasDoencas=?, agrotoxicos=?, mediaFolhas=?, colheitas=? WHERE idarea=?"
+        : "INSERT INTO area (nome, qtdPes, hectares, dataInicio, dataFim, variedades, produtos, pragasDoencas, agrotoxicos, mediaFolhas, colheitas, tabaco_idtabaco)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conecta->prepare($sql);
+    if ($idarea) {
+        $stmt->bind_param(
+            "sissssssiiii",
+            $_POST['nome'],
+            $_POST['qtdPes'],
+            $_POST['hectares'],
+            $_POST['dataInicio'],
+            $_POST['dataFim'],
+            $_POST['variedades'],
+            $_POST['produtos'],
+            $_POST['pragasDoencas'],
+            $_POST['agrotoxicos'],
+            $_POST['mediaFolhas'],
+            $_POST['colheitas'],
+            $idarea
+        );
+    } else {
+        $stmt->bind_param(
+            "sissssssiiii",
+            $_POST['nome'],
+            $_POST['qtdPes'],
+            $_POST['hectares'],
+            $_POST['dataInicio'],
+            $_POST['dataFim'],
+            $_POST['variedades'],
+            $_POST['produtos'],
+            $_POST['pragasDoencas'],
+            $_POST['agrotoxicos'],
+            $_POST['mediaFolhas'],
+            $_POST['colheitas'],
+            $idtabaco
+        );
+    }
+
+    if ($stmt->execute()) {
+        $msg = $idarea ? 'Área atualizada com sucesso.' : 'Área cadastrada com sucesso.';
+    } else {
+        $msg = 'Erro ao salvar a área.';
+    }
+
+    header("Location: tabaco.php?mensagem=" . urlencode($msg));
+    exit;
+}
+
+if (isset($_POST['excluir']) && $_POST['idarea']) {
+    $stmt = $conecta->prepare("DELETE FROM area WHERE idarea = ?");
+    $stmt->bind_param("i", $_POST['idarea']);
+    $stmt->execute();
+
+    $msg = 'Área excluída com sucesso.';
+    header("Location: tabaco.php?mensagem=" . urlencode($msg));
+    exit;
+}

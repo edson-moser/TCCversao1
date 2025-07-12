@@ -1,10 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 require 'conexao.php';
 include('protect.php');
-include('cadastrarTabaco.php');
 
 $produtor_id = $_SESSION['idprodutor'] ?? null;
 

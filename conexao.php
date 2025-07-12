@@ -1,12 +1,12 @@
-<?php 
+<?php
 $localhost = "localhost";
 $user = "root";
 $pass = "root";
 $banco = "naturis";
 
-$conecta = mysqli_connect($localhost, $user, $pass, $banco);
+$conecta = new mysqli($localhost, $user, $pass, $banco);
 
-
-
-
+if ($conecta->connect_error) {
+    die("Erro na conexão: " . $conecta->connect_error);
+}
 ?>

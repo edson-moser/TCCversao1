@@ -1,3 +1,4 @@
+
 <?php
 
 include('cadastrarTabaco.php');
@@ -174,161 +175,66 @@ if ($produtor_id && $periodoSelecionado) {
             </button>
             </form>
         
+        <form action="cadastrarArea.php" method="post" id="form">
 
-<h2>Cadastro de Áreas da Safra</h2>
+<?php
+require 'conexao.php';
+include 'protect.php';
+include 'cadastrarTabaco.php';
 
-<form method="post" id="form-areas">
-  <div class="area-form">
-    <input type="hidden" name="acao" value="cadastrar">
-    <input type="hidden" name="periodoEscondido" value="2025/2026">
+// Buscar lista de áreas
+$areas = $conecta->query("SELECT idarea, nome FROM area")->fetch_all(MYSQLI_ASSOC);
 
-    <div class="input-box">
-      <label>Nome da Área</label>
-      <input type="text" name="nome" class="form-control" placeholder="Ex: Área 1" onblur="notificarNome(this)">
-    </div>
+// Se `idarea` veio via GET, buscar dados
+$dados = null;
+if (isset($_GET['idarea'])) {
+    $idarea = $_GET['idarea'];
+    $stmt = $conecta->prepare("SELECT * FROM area WHERE idarea = ?");
+    $stmt->bind_param("i", $idarea);
+    $stmt->execute();
+    $dados = $stmt->get_result()->fetch_assoc();
+}
 
-    <div class="input-box">
-      <label>QUANTIDADE DE PÉS PLANTADOS NA ÁREA</label>
-      <input type="number" name="qtdPes" class="form-control" placeholder="Mil pés">
-    </div>
+// Mensagem de resultado
+$mensagem = $_GET['mensagem'] ?? '';
+?>
 
-    <div class="input-box">
-      <label>TOTAL DE HECTARES DA ÁREA</label>
-      <input type="number" name="hectares" class="form-control" placeholder="Hectares">
-    </div>
+<form method="POST" action="cadastrarArea.php">
+    <label>Selecionar Área para Editar:</label>
+    <select name="idareaSelecionada" onchange="location = '?idarea=' + this.value">
+        <option value="">-- Nova Área --</option>
+        <?php foreach ($areas as $a): ?>
+            <option value="<?= $a['idarea'] ?>" <?= ($dados && $dados['idarea'] == $a['idarea']) ? 'selected' : '' ?>>
+                <?= htmlspecialchars($a['nome']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
 
-    <div class="input-box">
-      <label>DATA PLANTIO</label>
-      <input type="date" name="dataInicio" class="form-control">
-    </div>
+    <input type="hidden" name="idarea" value="<?= $dados['idarea'] ?? '' ?>">
+    <input type="text" name="nome" placeholder="Nome da Área" value="<?= $dados['nome'] ?? '' ?>">
+    <input type="number" name="qtdPes" placeholder="Qtd Pés" value="<?= $dados['qtdPes'] ?? '' ?>">
+    <input type="number" name="hectares" placeholder="Hectares" value="<?= $dados['hectares'] ?? '' ?>">
+    <input type="date" name="dataInicio" value="<?= $dados['dataInicio'] ?? '' ?>">
+    <input type="date" name="dataFim" value="<?= $dados['dataFim'] ?? '' ?>">
+    <input type="text" name="variedades" placeholder="Variedades" value="<?= $dados['variedades'] ?? '' ?>">
+    <input type="text" name="produtos" placeholder="Produtos" value="<?= $dados['produtos'] ?? '' ?>">
+    <input type="text" name="pragasDoencas" placeholder="Pragas" value="<?= $dados['pragasDoencas'] ?? '' ?>">
+    <input type="text" name="agrotoxicos" placeholder="Agrotóxicos" value="<?= $dados['agrotoxicos'] ?? '' ?>">
+    <input type="number" name="mediaFolhas" placeholder="Média de Folhas" value="<?= $dados['mediaFolhas'] ?? '' ?>">
+    <input type="number" name="colheitas" placeholder="Colheitas" value="<?= $dados['colheitas'] ?? '' ?>">
+    <input type="text" name="periodoEscondido" value="<?= $_GET['periodo'] ?? '' ?>" hidden>
 
-    <div class="input-box">
-      <label>DATA FIM DA COLHEITA</label>
-      <input type="date" name="dataFim" class="form-control">
-    </div>
-
-    <div class="input-box">
-      <label>VARIEDADES</label>
-      <input type="text" name="variedades" class="form-control" placeholder="4707 BAT, 401 Aliance One...">
-    </div>
-
-    <div class="input-box">
-      <label>PRODUTOS UTILIZADOS</label>
-      <input type="text" name="produtos" class="form-control" placeholder="Salitro, ureia, calcário...">
-    </div>
-
-    <div class="input-box">
-      <label>PRAGAS E DOENÇAS PRESENTES</label>
-      <input type="text" name="pragasDoencas" class="form-control" placeholder="Lagarta, Mofo azul, etc.">
-    </div>
-
-    <div class="input-box">
-      <label>AGROTÓXICOS E DEFENSIVOS UTILIZADOS</label>
-      <input type="text" name="agrotoxicos" class="form-control" placeholder="Nome do Produto">
-    </div>
-
-    <div class="input-box">
-      <label>MÉDIA DE FOLHAS</label>
-      <input type="number" name="mediaFolhas" class="form-control" placeholder="Ex: 20">
-    </div>
-
-    <div class="input-box">
-      <label>NÚMERO DE COLHIDAS</label>
-      <input type="number" name="colheitas" class="form-control" placeholder="1, 2, 3...">
-    </div>
-
-    <!-- Botões de ação da área -->
-    <div class="input-box">
-      <button type="button" class="btn btn-save" onclick="salvarAreaEspecifica(this)">
-        <i class="fa-solid fa-check"></i> SALVAR DADOS DA ÁREA
-      </button>
-      <button type="button" class="btn btn-remove" onclick="removerArea(this)">
-        <i class="fa-solid fa-trash"></i> EXCLUIR ÁREA
-      </button>
-    </div>
-  </div>
+    <button type="submit" name="salvar">Salvar</button>
+    <?php if ($dados): ?>
+        <button type="submit" name="excluir" onclick="return confirm('Excluir esta área?')">Excluir</button>
+    <?php endif; ?>
 </form>
 
-<!-- Botões fora do form -->
-<br>
-<button type="button" class="btn-default" onclick="adicionarArea()">
-  <i class="fa-solid fa-plus"></i> ADICIONAR NOVA ÁREA
-</button>
-
-<br><br>
-
-<button type="button" class="btn-default" onclick="finalizarSafra()">
-  <i class="fa-solid fa-check"></i> FINALIZAR SAFRA
-</button>
-
-<!-- JavaScript -->
-<script>
-  function notificarNome(input) {
-    const nome = input.value.trim();
-    if (nome !== "") {
-      alert("Nome da área definido como: " + nome);
-    }
-  }
-
-  function adicionarArea() {
-    const form = document.querySelector('.area-form');
-    const clone = form.cloneNode(true);
-
-    clone.querySelectorAll('input').forEach(input => {
-      if (input.type !== "hidden") input.value = '';
-    });
-
-    clone.querySelector('[name="nome"]').onblur = function () {
-      notificarNome(this);
-    };
-    clone.querySelector('.btn-remove').onclick = function () {
-      removerArea(this);
-    };
-    clone.querySelector('.btn-save').onclick = function () {
-      salvarAreaEspecifica(this);
-    };
-
-    document.getElementById('form-areas').appendChild(clone);
-  }
-
-  function removerArea(botao) {
-    const areas = document.querySelectorAll('.area-form');
-    if (areas.length > 1) {
-      botao.closest('.area-form').remove();
-    } else {
-      alert("Você precisa ter pelo menos uma área!");
-    }
-  }
-
-  function salvarAreaEspecifica(botao) {
-    const area = botao.closest('.area-form');
-    const formData = new FormData();
-
-    area.querySelectorAll('input').forEach(input => {
-      if (input.name && input.name !== '') {
-        formData.append(input.name, input.value);
-      }
-    });
-
-    fetch('cadastrarArea.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then(resp => resp.text())
-    .then(msg => {
-      alert("Resposta do servidor:\n" + msg);
-    })
-    .catch(err => alert("Erro ao salvar: " + err));
-  }
-
-  function finalizarSafra() {
-    alert("Safra finalizada (implemente o envio no backend)");
-  }
-</script>
-
-</script>
+<p><?= htmlspecialchars($mensagem) ?></p>
 
 
+
+    </main>
     <script>
 function carregarSafra() {
     let periodo = document.getElementById("periodoSafra").value;
