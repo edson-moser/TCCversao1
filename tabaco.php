@@ -202,7 +202,7 @@ $mensagem = $_GET['mensagem'] ?? '';
 <form method="POST" action="cadastrarArea.php">
     <label>Selecionar Área para Editar:</label>
     <select name="idareaSelecionada" onchange="location = '?idarea=' + this.value">
-        <option value="">-- Nova Área --</option>
+        <option value="">Selecione a área</option>\
         <?php foreach ($areas as $a): ?>
             <option value="<?= $a['idarea'] ?>" <?= ($dados && $dados['idarea'] == $a['idarea']) ? 'selected' : '' ?>>
                 <?= htmlspecialchars($a['nome']) ?>
