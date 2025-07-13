@@ -18,19 +18,19 @@ if ($produtor_id && $periodoSelecionado) {
     if ($resultTabaco->num_rows > 0) {
         $tabaco = $resultTabaco->fetch_assoc();
 
-//         // 2. Buscar as áreas relacionadas a esse tabaco
-//         $stmtAreas = $conecta->prepare("SELECT * FROM area WHERE tabaco_idtabaco = ?");
-//         $stmtAreas->bind_param("i", $tabaco['idtabaco']);
-//         $stmtAreas->execute();
-//         $resultAreas = $stmtAreas->get_result();
+         // 2. Buscar as áreas relacionadas a esse tabaco
+         $stmtAreas = $conecta->prepare("SELECT * FROM area WHERE tabaco_idtabaco = ?");
+         $stmtAreas->bind_param("i", $tabaco['idtabaco']);
+         $stmtAreas->execute();
+         $resultAreas = $stmtAreas->get_result();
 
-//         $areas = [];
-//         while ($row = $resultAreas->fetch_assoc()) {
-//             $areas[] = $row;
-//         }
+         $areas = [];
+         while ($row = $resultAreas->fetch_assoc()) {
+             $areas[] = $row;
+         }
 
-//     } else {
-//         echo "<p>Nenhuma safra encontrada para o período selecionado.</p>";
+     } else {
+         echo "<p>Nenhuma safra encontrada para o período selecionado.</p>";
     }
 }
 ?>
@@ -199,36 +199,60 @@ if (isset($_GET['idarea'])) {
 $mensagem = $_GET['mensagem'] ?? '';
 ?>
 
-<form method="POST" action="cadastrarArea.php">
-    <label>Selecionar Área para Editar:</label>
-    <select name="idareaSelecionada" onchange="location = '?idarea=' + this.value">
-        <option value="">Selecione a área</option>\
-        <?php foreach ($areas as $a): ?>
-            <option value="<?= $a['idarea'] ?>" <?= ($dados && $dados['idarea'] == $a['idarea']) ? 'selected' : '' ?>>
-                <?= htmlspecialchars($a['nome']) ?>
-            </option>
+<form method="POST" action="cadastrarArea.php" id="form">
+    <div id="input_container">
+        <div class="input-box">
+            <label class="form-label">Selecionar Área para Editar:</label>
+            <div class="input-field">
+                <select name="idareaSelecionada" onchange="location = '?idarea=' + this.value" class="form-control">
+                    <option value="">Selecione a área</option>
+                    <?php foreach ($areas as $a): ?>
+                        <option value="<?= $a['idarea'] ?>" <?= ($dados && $dados['idarea'] == $a['idarea']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($a['nome']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <input type="hidden" name="idarea" value="<?= $dados['idarea'] ?? '' ?>">
+
+        <?php
+        // Campos da área
+        $campos = [
+            ['nome', 'Nome da Área', 'text'],
+            ['qtdPes', 'Qtd Pés', 'number'],
+            ['hectares', 'Hectares', 'number'],
+            ['dataInicio', 'Data de Início', 'date'],
+            ['dataFim', 'Data de Fim', 'date'],
+            ['variedades', 'Variedades', 'text'],
+            ['produtos', 'Produtos', 'text'],
+            ['pragasDoencas', 'Pragas', 'text'],
+            ['agrotoxicos', 'Agrotóxicos', 'text'],
+            ['mediaFolhas', 'Média de Folhas', 'number'],
+            ['colheitas', 'Colheitas', 'number'],
+        ];
+
+        foreach ($campos as [$nome, $label, $tipo]): ?>
+            <div class="input-box">
+                <label for="<?= $nome ?>" class="form-label"><?= $label ?></label>
+                <div class="input-field">
+                    <input type="<?= $tipo ?>" name="<?= $nome ?>" id="<?= $nome ?>" value="<?= $dados[$nome] ?? '' ?>" class="form-control" placeholder="<?= $label ?>">
+                </div>
+            </div>
         <?php endforeach; ?>
-    </select>
 
-    <input type="hidden" name="idarea" value="<?= $dados['idarea'] ?? '' ?>">
-    <input type="text" name="nome" placeholder="Nome da Área" value="<?= $dados['nome'] ?? '' ?>">
-    <input type="number" name="qtdPes" placeholder="Qtd Pés" value="<?= $dados['qtdPes'] ?? '' ?>">
-    <input type="number" name="hectares" placeholder="Hectares" value="<?= $dados['hectares'] ?? '' ?>">
-    <input type="date" name="dataInicio" value="<?= $dados['dataInicio'] ?? '' ?>">
-    <input type="date" name="dataFim" value="<?= $dados['dataFim'] ?? '' ?>">
-    <input type="text" name="variedades" placeholder="Variedades" value="<?= $dados['variedades'] ?? '' ?>">
-    <input type="text" name="produtos" placeholder="Produtos" value="<?= $dados['produtos'] ?? '' ?>">
-    <input type="text" name="pragasDoencas" placeholder="Pragas" value="<?= $dados['pragasDoencas'] ?? '' ?>">
-    <input type="text" name="agrotoxicos" placeholder="Agrotóxicos" value="<?= $dados['agrotoxicos'] ?? '' ?>">
-    <input type="number" name="mediaFolhas" placeholder="Média de Folhas" value="<?= $dados['mediaFolhas'] ?? '' ?>">
-    <input type="number" name="colheitas" placeholder="Colheitas" value="<?= $dados['colheitas'] ?? '' ?>">
-    <input type="text" name="periodoEscondido" value="<?= $_GET['periodo'] ?? '' ?>" hidden>
+        <input type="text" name="periodoEscondido" value="<?= $_GET['periodo'] ?? '' ?>" hidden>
+    </div>
 
-    <button type="submit" name="salvar">Salvar</button>
+    <button type="submit" name="salvar" class="btn-default"><i class="fa-solid fa-check"></i> SALVAR ÁREA</button>
     <?php if ($dados): ?>
-        <button type="submit" name="excluir" onclick="return confirm('Excluir esta área?')">Excluir</button>
+        <button type="submit" name="excluir" class="btn-default" style="background-color:#8b0000;" onclick="return confirm('Excluir esta área?')">
+            <i class="fa-solid fa-trash"></i> EXCLUIR ÁREA
+        </button>
     <?php endif; ?>
 </form>
+
 
 <p><?= htmlspecialchars($mensagem) ?></p>
 
