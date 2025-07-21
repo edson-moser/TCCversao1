@@ -39,7 +39,7 @@ if ($stmt->execute()) {
     $_SESSION['idprodutor']= $usuario['idprodutor'];
     $_SESSION['nome']= $usuario['nome'];
 
-    header("Location: paginaInicial.php");
+    header("Location: LoginCadastro.php");
 } else {
     if ($conecta->errno === 1062) { 
         echo "Erro: Este e-mail já está cadastrado.";

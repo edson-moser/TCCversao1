@@ -15,26 +15,32 @@ if ($produtor_id && $periodoSelecionado) {
     $stmtTabaco->execute();
     $resultTabaco = $stmtTabaco->get_result();
 
-    if ($resultTabaco->num_rows > 0) {
+    // Se não existir, cria nova safra de tabaco
+    if ($resultTabaco->num_rows === 0) {
+        $stmtInsert = $conecta->prepare("INSERT INTO tabaco (produtor_idprodutor, periodoSafra) VALUES (?, ?)");
+        $stmtInsert->bind_param("is", $produtor_id, $periodoSelecionado);
+        $stmtInsert->execute();
+
+        $idtabaco = $stmtInsert->insert_id;
+    } else {
         $tabaco = $resultTabaco->fetch_assoc();
-
-         // 2. Buscar as áreas relacionadas a esse tabaco
-         $stmtAreas = $conecta->prepare("SELECT * FROM area WHERE tabaco_idtabaco = ?");
-         $stmtAreas->bind_param("i", $tabaco['idtabaco']);
-         $stmtAreas->execute();
-         $resultAreas = $stmtAreas->get_result();
-
-         $areas = [];
-         while ($row = $resultAreas->fetch_assoc()) {
-             $areas[] = $row;
-         }
-
-     } else {
-         echo "<p>Nenhuma safra encontrada para o período selecionado.</p>";
+        $idtabaco = $tabaco['idtabaco'];
     }
+
+    // 2. Buscar as áreas relacionadas a esse tabaco
+    $stmtAreas = $conecta->prepare("SELECT * FROM area WHERE tabaco_idtabaco = ?");
+    $stmtAreas->bind_param("i", $idtabaco);
+    $stmtAreas->execute();
+    $resultAreas = $stmtAreas->get_result();
+
+    $areas = [];
+    while ($row = $resultAreas->fetch_assoc()) {
+        $areas[] = $row;
+    }
+
+
 }
 ?>
-
 
 
 <!DOCTYPE html>
