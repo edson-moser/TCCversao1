@@ -26,20 +26,26 @@ if ($produtor_id && $periodoSelecionado) {
         $tabaco = $resultTabaco->fetch_assoc();
         $idtabaco = $tabaco['idtabaco'];
     }
-
-    // 2. Buscar as áreas relacionadas a esse tabaco
-    $stmtAreas = $conecta->prepare("SELECT * FROM area WHERE tabaco_idtabaco = ?");
-    $stmtAreas->bind_param("i", $idtabaco);
-    $stmtAreas->execute();
-    $resultAreas = $stmtAreas->get_result();
-
-    $areas = [];
-    while ($row = $resultAreas->fetch_assoc()) {
-        $areas[] = $row;
-    }
-
-
 }
+// 2. Buscar as áreas relacionadas a esse tabaco e período
+$stmtAreas = $conecta->prepare("
+    SELECT area.* 
+    FROM area 
+    INNER JOIN tabaco ON area.tabaco_idtabaco = tabaco.idtabaco
+    WHERE area.tabaco_idtabaco = ? AND tabaco.periodoSafra = ?
+");
+
+$stmtAreas->bind_param("is", $idtabaco, $periodoSelecionado);
+$stmtAreas->execute();
+$resultAreas = $stmtAreas->get_result();
+
+$areas = [];
+while ($row = $resultAreas->fetch_assoc()) {
+    $areas[] = $row;
+}
+
+
+
 ?>
 
 

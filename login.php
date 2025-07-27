@@ -25,17 +25,13 @@ include('conexao.php');
 
     $email= $_POST['email'];
     $senha=  $_POST['senha'];
-   // $senha = (string) password_hash($senha, PASSWORD_DEFAULT);
 
-    $sql_code= "SELECT * FROM produtor where email= '$email' and senha='$senha'";
+    $sql_code= "SELECT * FROM produtor where email= '$email' limit 1";
+    $sql_exec=$conecta->query($sql_code) or die($conecta->error);
 
-    //die ($sql_code);
-
-    
-    $sql_query= $conecta->query($sql_code) or die("Falha na execussão no código SQL:" . mysqli->error);
-    $quantidade = $sql_query->num_rows;
- if($quantidade==1){
-    $usuario= $sql_query->fetch_assoc();
+   
+    $usuario= $sql_exec->fetch_assoc();
+ if(password_verify($senha,$usuario['senha'])){
 
     if(!isset($_SESSION)){
         session_start();
