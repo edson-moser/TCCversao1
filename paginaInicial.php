@@ -1,7 +1,25 @@
 <?php
+require 'conexao.php';
+require 'protect.php';
 
-include('protect.php')
+$idProdutor = $_SESSION['idprodutor'];
+
+$sql = "SELECT * FROM listatarefas WHERE produtor_idprodutor = ?";
+$stmt = $conecta->prepare($sql);
+$stmt->bind_param("i", $idProdutor);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$tarefas = [];
+while ($row = $result->fetch_assoc()) {
+    $tarefas[] = $row;
+}
+
+$total = count($tarefas);
+$concluidas = count(array_filter($tarefas, fn($t) => $t['conclusao']));
+$progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -26,7 +44,7 @@ include('protect.php')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-    <script src="paginaInicial.js"></script>
+    <!-- <script src="paginaInicial.js"></script> -->
 </head>
 
 <body>
@@ -158,49 +176,74 @@ include('protect.php')
   </div>
 </div>
       
-    <!--lista de tarefas-->
-    <div class="listaTarefas">
 
+  <!-- Lista de Tarefas -->
+<div id="lista" class="listaTarefas">
+  <section class="containerTarefas">
+    <h1>Lista de Tarefas</h1>
 
-        <section class="containerTarefas">
-            <h1>Lista de Tarefas:</h1>
-            <div id="taskInputContainer">
-                <input type="text" id="taskInput" placeholder="Digite a tarefa">
-                <button onclick="addTask()">+</button>
-            </div>
-            <ul id="taskList">
-            </ul>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-        </section>
+    <!-- Adicionar tarefa -->
+    <form method="post" action="cadastrarTarefa.php" class="add-task-form">
+      <input type="text" name="descricao" placeholder="Digite a tarefa" required>
+      <button type="submit">+</button>
+    </form>
 
+    <!-- Lista -->
+    <ul id="taskList">
+      <?php foreach ($tarefas as $tarefa): ?>
+        <li class="task-item">
+          <?php if (isset($_GET['editar']) && $_GET['id'] == $tarefa['idlistaTarefas']): ?>
+            <form method="post" action="cadastrarTarefa.php?id=<?= $tarefa['idlistaTarefas'] ?>&salvar=1" class="edit-form">
+              <input type="text" name="nova_descricao" value="<?= htmlspecialchars($tarefa['descricao']) ?>" required>
+              <button type="submit" class="save-btn">✔</button>
+              <a href="paginaInicial.php#lista" class="cancel-btn">✖</a>
+            </form>
+          <?php else: ?>
+            <span class="<?= $tarefa['conclusao'] ? 'completed-task' : '' ?>">
+              <?= htmlspecialchars($tarefa['descricao']) ?>
+            </span>
+            <span class="action-icons">
+              <a href="paginaInicial.php?editar=1&id=<?= $tarefa['idlistaTarefas'] ?>#lista" title="Editar">✎</a>
+              <a href="cadastrarTarefa.php?excluir=1&id=<?= $tarefa['idlistaTarefas'] ?>" onclick="return confirm('Deseja excluir esta tarefa?');" title="Excluir">🗑</a>
+              <a href="cadastrarTarefa.php?toggle=1&id=<?= $tarefa['idlistaTarefas'] ?>" title="Concluir ou desmarcar">
+                <?= $tarefa['conclusao'] ? '✖' : '✔' ?>
+              </a>
+            </span>
+          <?php endif; ?>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+
+    <!-- Barra de Progresso -->
+    <div class="progress-container">
+      <div class="progress-bar" style="width: <?= $progresso ?>%;"></div>
     </div>
-    
-      
-    <!--quem somos nós-->
-    <div id="quemSomos">
+  </section>
+</div>
 
-        <footer class="quem-somos">
 
-            <h2>Quem Somos Nós:</h2>
-            <div class="container">
-                <div class="pessoa">
-                    <img src="imagemEdson.jpeg" alt="Foto do Criador 1">
-                    <h3>Edson Moser</h3>
-                    <p>Email: <a href="mailto:criador1@gmail.com">edsonmoser97@gmail.com</a></p>
-                </div>
-                <div class="pessoa">
-                    <img src="imagemMiguel.jpeg" alt="Foto do Criador 2">
-                    <h3>Miguel Franz Marchi</h3>
-                    <p>Email: <a href="mailto:criador2@gmail.com">miguelfmarchi@gmail.com</a></p>
-                </div>
+<!-- Quem somos nós -->
+<div id="quemSomos">
+    <footer class="quem-somos">
+        <h2>Quem Somos Nós:</h2>
+        <div class="container">
+            <div class="pessoa">
+                <img src="imagemEdson.jpeg" alt="Foto do Criador 1">
+                <h3>Edson Moser</h3>
+                <p>Email: <a href="mailto:edsonmoser97@gmail.com">edsonmoser97@gmail.com</a></p>
             </div>
-            <p class="descricao">
-                Facilitamos a gestão da agricultura familiar, conectando produtores a ferramentas para um cultivo sustentável e eficiente.
-            </p>
-        </footer>
-    </div>
+            <div class="pessoa">
+                <img src="imagemMiguel.jpeg" alt="Foto do Criador 2">
+                <h3>Miguel Franz Marchi</h3>
+                <p>Email: <a href="mailto:miguelfmarchi@gmail.com">miguelfmarchi@gmail.com</a></p>
+            </div>
+        </div>
+        <p class="descricao">
+            Facilitamos a gestão da agricultura familiar, conectando produtores a ferramentas para um cultivo sustentável e eficiente.
+        </p>
+    </footer>
+</div>
+
 </body>
 
 </html>
