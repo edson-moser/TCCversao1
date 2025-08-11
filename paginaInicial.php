@@ -177,15 +177,15 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
 </div>
       
 
-  <!-- Lista de Tarefas -->
+<!-- Lista de Tarefas -->
 <div id="lista" class="listaTarefas">
   <section class="containerTarefas">
     <h1>Lista de Tarefas</h1>
 
     <!-- Adicionar tarefa -->
-    <form method="post" action="cadastrarTarefa.php" class="add-task-form">
-      <input type="text" name="descricao" placeholder="Digite a tarefa" required>
-      <button type="submit">+</button>
+    <form method="post" action="cadastrarTarefa.php" class="add-task-form" id="taskInputContainer">
+      <input type="text" name="descricao" placeholder="Digite a tarefa" id="taskInput" required>
+      <button type="submit" title="Adicionar tarefa">+</button>
     </form>
 
     <!-- Lista -->
