@@ -111,23 +111,23 @@ $mensagem = $_GET['mensagem'] ?? '';
 
             <div class="input-box">
                 <label class="form-label">TOTAL DE PÉS PLANTADOS</label>
-                <input type="number" value="<?= $tabaco['total'] ?? '' ?>" name="total" class="form-control">
+                <input type="number" value="<?= $tabaco['total'] ?? '' ?>" name="total" class="form-control" placeholder="total de pés">
             </div>
             <div class="input-box">
                 <label class="form-label">VALOR TOTAL DA VENDA</label>
-                <input type="number" value="<?= $tabaco['precoTotal'] ?? '' ?>" name="precoTotal" class="form-control">
+                <input type="number" value="<?= $tabaco['precoTotal'] ?? '' ?>" name="precoTotal" class="form-control" placeholder="R$">
             </div>
             <div class="input-box">
                 <label class="form-label">QUILOS PRODUZIDOS</label>
-                <input type="number" value="<?= $tabaco['kilos'] ?? '' ?>" name="kilos" class="form-control">
+                <input type="number" value="<?= $tabaco['kilos'] ?? '' ?>" name="kilos" class="form-control"placeholder="kg">
             </div>
             <div class="input-box">
                 <label class="form-label">TOTAL DE ESTUFADAS</label>
-                <input type="number" value="<?= $tabaco['estufadas'] ?? '' ?>" name="estufadas" class="form-control">
+                <input type="number" value="<?= $tabaco['estufadas'] ?? '' ?>" name="estufadas" class="form-control"placeholder="1,2,3,4,5.....">
             </div>
             <div class="input-box">
                 <label class="form-label">TOTAL DE HECTARES</label>
-                <input type="number" value="<?= $tabaco['totalHectares'] ?? '' ?>" name="totalHectares" class="form-control">
+                <input type="number" value="<?= $tabaco['totalHectares'] ?? '' ?>" name="totalHectares" class="form-control"placeholder="1,2,3,4,5.....">
             </div>
         </div>
         <button type="submit" class="btn-default"><i class="fa-solid fa-check"></i> SALVAR DADOS DA SAFRA</button>
@@ -138,10 +138,10 @@ $mensagem = $_GET['mensagem'] ?? '';
         <input type="hidden" name="periodoEscondido" value="<?= $periodoSelecionado ?>">
 
         <div id="input_container">
-            <div class="input-box">
-                <label class="form-label">Selecionar Área para Editar:</label>
+            <div class="input-box" id="campo_area">
+                <label class="form-label">Adicionar área ou click e selecione uma área:</label>
                 <select name="idareaSelecionada" onchange="location = '?periodoSafra=<?= urlencode($periodoSelecionado) ?>&idarea=' + this.value" class="form-control">
-                    <option value="">Selecione a área</option>
+                    <option value="">Nova área:</option>
                     <?php foreach ($areasEdicao as $a): ?>
                         <option value="<?= $a['idarea'] ?>" <?= ($dadosArea && $dadosArea['idarea'] == $a['idarea']) ? 'selected' : '' ?>>
                             <?= htmlspecialchars($a['nome']) ?>
