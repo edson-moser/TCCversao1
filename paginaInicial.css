@@ -54,6 +54,9 @@ hr.divisor {
     height: 610px;
     margin: 0 auto;
     position: relative;
+    display: block;              /* força ele ficar abaixo do input */
+    margin-top: 15px;
+    border-radius: 4%;    
 }
 
 #carouselExampleIndicators .carousel-inner {
