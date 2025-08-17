@@ -65,8 +65,7 @@
     gap: 32px;
     background-color: #F5F1E6; /* Cor de fundo clara (bege claro) */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0);
 }
 
 #form_header {
@@ -162,6 +161,8 @@
     padding: 10px 20px;
     cursor: pointer;
     font-weight: 600;
+    display: block;              /* força ele ficar abaixo do input */
+    margin-top: 15px;            /* adiciona espaço acima */
 }
 
 .btn-default:hover {
@@ -272,4 +273,8 @@
   .input-box {
     width: 100%;
   }
+.btn-default {
+  display: block;      /* força o botão ficar em linha separada */
+  margin-top: 15px !important;  /* adiciona espaço acima do botão */
+}
 }
