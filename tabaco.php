@@ -10,7 +10,7 @@ $tabaco = [];
 $areasSafra = [];
 $idtabaco = null;
 
-// Busca o tabaco a Inserir
+// Buscar tabaco da safra
 if ($produtor_id && $periodoSelecionado) {
     $stmtTabaco = $conecta->prepare("SELECT * FROM tabaco WHERE produtor_idprodutor = ? AND periodoSafra = ?");
     $stmtTabaco->bind_param("is", $produtor_id, $periodoSelecionado);
@@ -26,8 +26,10 @@ if ($produtor_id && $periodoSelecionado) {
         $tabaco = $resultTabaco->fetch_assoc();
         $idtabaco = $tabaco['idtabaco'];
     }
+}
 
-    // Buscar áreas dessa safra
+// Buscar áreas da safra
+if ($idtabaco) {
     $stmtAreasSafra = $conecta->prepare("SELECT * FROM area WHERE tabaco_idtabaco = ?");
     $stmtAreasSafra->bind_param("i", $idtabaco);
     $stmtAreasSafra->execute();
@@ -37,13 +39,14 @@ if ($produtor_id && $periodoSelecionado) {
     }
 }
 
-$areasEdicao = $conecta->query("SELECT idarea, nome FROM area")->fetch_all(MYSQLI_ASSOC);
+$areasEdicao = $areasSafra; 
 
 $dadosArea = null;
-if (isset($_GET['idarea'])) {
-    $idarea = $_GET['idarea'];
-    $stmt = $conecta->prepare("SELECT * FROM area WHERE idarea = ?");
-    $stmt->bind_param("i", $idarea);
+$idareaSelecionada = $_POST['idarea'] ?? $_GET['idarea'] ?? null;
+
+if ($idareaSelecionada && $idtabaco) {
+    $stmt = $conecta->prepare("SELECT * FROM area WHERE idarea = ? AND tabaco_idtabaco = ?");
+    $stmt->bind_param("ii", $idareaSelecionada, $idtabaco);
     $stmt->execute();
     $dadosArea = $stmt->get_result()->fetch_assoc();
 }
@@ -61,6 +64,7 @@ $mensagem = $_GET['mensagem'] ?? '';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
     <script src="tabaco.js"></script>
+    <script src="ajaxPeriodo.js"></script>
     <link rel="icon" sizes="32x32" href="NaturisLogo.png">
     <title>Tabaco - Naturis</title>
 </head>
@@ -99,7 +103,7 @@ $mensagem = $_GET['mensagem'] ?? '';
             <script>
                 const select = document.getElementById("periodoSafra");
                 const selectedPeriodo = "<?= $periodoSelecionado ?? '' ?>";
-                for (let ano = 1950; ano < 2080; ano++) {
+                for (let ano = 2000; ano < 2080; ano++) {
                     const valor = `${ano}-${ano + 1}`;
                     const option = document.createElement("option");
                     option.value = valor;
@@ -119,28 +123,31 @@ $mensagem = $_GET['mensagem'] ?? '';
             </div>
             <div class="input-box">
                 <label class="form-label">QUILOS PRODUZIDOS</label>
-                <input type="number" value="<?= $tabaco['kilos'] ?? '' ?>" name="kilos" class="form-control"placeholder="kg">
+                <input type="number" value="<?= $tabaco['kilos'] ?? '' ?>" name="kilos" class="form-control" placeholder="kg">
             </div>
             <div class="input-box">
                 <label class="form-label">TOTAL DE ESTUFADAS</label>
-                <input type="number" value="<?= $tabaco['estufadas'] ?? '' ?>" name="estufadas" class="form-control"placeholder="1,2,3,4,5.....">
+                <input type="number" value="<?= $tabaco['estufadas'] ?? '' ?>" name="estufadas" class="form-control" placeholder="1,2,3,4,5.....">
             </div>
             <div class="input-box">
                 <label class="form-label">TOTAL DE HECTARES</label>
-                <input type="number" value="<?= $tabaco['totalHectares'] ?? '' ?>" name="totalHectares" class="form-control"placeholder="1,2,3,4,5.....">
+                <input type="number" value="<?= $tabaco['totalHectares'] ?? '' ?>" name="totalHectares" class="form-control" placeholder="1,2,3,4,5.....">
             </div>
         </div>
         <button type="submit" class="btn-default"><i class="fa-solid fa-check"></i> SALVAR DADOS DA SAFRA</button>
     </form>
 
     <!-- Form Área -->
-    <form method="POST" action="cadastrarArea.php">
-        <input type="hidden" name="periodoEscondido" value="<?= $periodoSelecionado ?>">
+   <form method="POST" action="cadastrarArea.php">
+    <input type="hidden" name="periodoEscondido" value="<?= $periodoSelecionado ?>">
+    <input type="hidden" id="produtorId" value="<?= $_SESSION['idprodutor'] ?>">
+    <input type="hidden" name="idareaEscondida" value="<?= $dadosArea['idarea'] ?? '' ?>">
 
-        <div id="input_container">
-            <div class="input-box" id="campo_area">
-                <label class="form-label">Adicionar área ou click e selecione uma área:</label>
-                <select name="idareaSelecionada" onchange="location = '?periodoSafra=<?= urlencode($periodoSelecionado) ?>&idarea=' + this.value" class="form-control">
+    <div id="input_container">
+        <div class="input-box" id="campo_area">
+           <label class="form-label">Adicionar área ou clique e selecione uma área:</label>
+             <div id="selectAreas">
+                <select name="idarea" class="form-control" onchange="window.location='tabaco.php?periodoSafra=<?= urlencode($periodoSelecionado) ?>&idarea='+this.value">
                     <option value="">Nova área:</option>
                     <?php foreach ($areasEdicao as $a): ?>
                         <option value="<?= $a['idarea'] ?>" <?= ($dadosArea && $dadosArea['idarea'] == $a['idarea']) ? 'selected' : '' ?>>
@@ -149,8 +156,9 @@ $mensagem = $_GET['mensagem'] ?? '';
                     <?php endforeach; ?>
                 </select>
             </div>
+         </div>
 
-            <input type="hidden" name="idarea" value="<?= $dadosArea['idarea'] ?? '' ?>">
+
 
             <?php
             $campos = [
