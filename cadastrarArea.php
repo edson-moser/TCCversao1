@@ -5,7 +5,6 @@ session_start();
 $produtor_id = $_SESSION['idprodutor'] ?? null;
 $periodo = $_POST['periodoEscondido'] ?? null;
 
-
 $stmt = $conecta->prepare("SELECT idtabaco FROM tabaco WHERE periodoSafra = ? AND produtor_idprodutor = ?");
 $stmt->bind_param("si", $periodo, $produtor_id);
 $stmt->execute();
@@ -18,12 +17,8 @@ if (!$idtabaco) {
 }
 
 if (isset($_POST['salvar'])) {
-    
-    $idarea = !empty($_POST['idarea']) ? $_POST['idarea'] : null;
-
-
-
-
+    // pega idarea do select ou do hidden (se estiver editando)
+    $idarea = $_POST['idareaEscondida'] ?? ($_POST['idarea'] ?? null);
 
     if ($idarea) {
         // Atualizar área
@@ -47,7 +42,7 @@ if (isset($_POST['salvar'])) {
         );
         $acaoMsg = "atualizada";
     } else {
-        // Cadastra área
+        // Cadastrar nova área
         $sql = "INSERT INTO area (nome, qtdPes, hectares, dataInicio, dataFim, variedades, produtos, pragasDoencas, agrotoxicos, mediaFolhas, colheitas, tabaco_idtabaco)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conecta->prepare($sql);
@@ -75,17 +70,20 @@ if (isset($_POST['salvar'])) {
         $msg = "Erro ao salvar a área.";
     }
 
-    header("Location: tabaco.php?mensagem=" . urlencode($msg));
+    header("Location: tabaco.php?periodoSafra=" . urlencode($periodo) . "&mensagem=" . urlencode($msg));
     exit;
 }
 
-if (isset($_POST['excluir']) && !empty($_POST['idarea'])) {
-    $stmt = $conecta->prepare("DELETE FROM area WHERE idarea = ?");
-    $stmt->bind_param("i", $_POST['idarea']);
-    $stmt->execute();
+if (isset($_POST['excluir'])) {
+    $idarea = $_POST['idareaEscondida'] ?? ($_POST['idarea'] ?? null);
+    if ($idarea) {
+        $stmt = $conecta->prepare("DELETE FROM area WHERE idarea = ?");
+        $stmt->bind_param("i", $idarea);
+        $stmt->execute();
 
-    $msg = 'Área excluída com sucesso.';
-    header("Location: tabaco.php?mensagem=" . urlencode($msg));
-    exit;
+        $msg = 'Área excluída com sucesso.';
+        header("Location: tabaco.php?periodoSafra=" . urlencode($periodo) . "&mensagem=" . urlencode($msg));
+        exit;
+    }
 }
 ?>
