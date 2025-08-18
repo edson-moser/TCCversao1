@@ -16,8 +16,8 @@ function changeType(inputId, selectId) {
       datasets: [{
         label: 'Quantidades de pés plantados',
         data: [50000, 19000, 30000, 22000, 43000, 67000],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(106, 228, 167, 0.5)',
+        borderColor: 'rgba(33, 102, 67, 0.5)',
         borderWidth: 1
       }]
     },
