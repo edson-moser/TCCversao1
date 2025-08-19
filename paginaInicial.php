@@ -1,6 +1,6 @@
 <?php
 require 'conexao.php';
-require 'protect.php';
+//require 'protect.php';
 
 $idProdutor = $_SESSION['idprodutor'];
 
@@ -143,16 +143,6 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
         </select>
         <button onclick="adicionarItemRegistro()">Adicionar</button>
       </div>
-
-          
-    <div class="registro-right">
-      <h3>Registros</h3>
-      <ul id="lista-registros"></ul>
-      <h4 id="saldo-total">Saldo Total: R$ 0,00</h4>
-    </div>
-  </div>
-</div>
-
 
       <h3>Filtrar por Data</h3>
       <div class="filtro-data">
