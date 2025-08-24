@@ -1,69 +1,73 @@
 <?php
-require_once "conexao.php"; 
+require_once "conexao.php";
 
-header("Content-Type: application/json");
+header('Content-Type: application/json');
 
-$acao = $_POST["acao"] ?? $_GET["acao"] ?? null;
+$acao = $_POST['acao'] ?? $_GET['acao'] ?? '';
 
-if (!$acao) {
-    echo json_encode(["erro" => "Nenhuma ação informada"]);
-    exit;
+if ($acao === "criar") {
+    // Criar nova transação
+    $produtor_id = intval($_POST['produtor_id']);
+    $valor = floatval($_POST['valor']);
+    $sinal = $_POST['sinal'] === '-' ? '-' : '+';
+    $descricao = $_POST['descricao'];
+    $data = $_POST['data'];
+    $cultura = $_POST['cultura'];
+    $seletor = $_POST['seletor']; // substitui categoria
+
+    $sql = "INSERT INTO transacao (valor, sinal, descricao, dataOperacao, produtor_idprodutor, culturas, seletor) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conecta->prepare($sql);
+    $stmt->bind_param("dsssiss", $valor, $sinal, $descricao, $data, $produtor_id, $cultura, $seletor);
+    $ok = $stmt->execute();
+
+    echo json_encode(["sucesso" => $ok, "id" => $conecta->insert_id]);
 }
 
-switch ($acao) {
-    case "criar":
-        $valor = $_POST["valor"];
-        $sinal = $_POST["sinal"]; 
-        $descricao = $_POST["descricao"];
-        $dataOperacao = $_POST["data"];
-        $cultura = $_POST["cultura"];
-        $categoria = $_POST["categoria"];
-        $produtor_id = $_POST["produtor_id"]; 
+elseif ($acao === "listar") {
+    // Listar transações de um produtor
+    $produtor_id = intval($_GET['produtor_id']);
+    $sql = "SELECT * FROM transacao WHERE produtor_idprodutor = ? ORDER BY dataOperacao DESC";
+    $stmt = $conecta->prepare($sql);
+    $stmt->bind_param("i", $produtor_id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $dados = $resultado->fetch_all(MYSQLI_ASSOC);
 
-        $sql = "INSERT INTO transacao (valor, sinal, descricao, dataOperacao, produtor_idprodutor, culturas, seletor) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $ok = $stmt->execute([$valor, $sinal, $descricao, $dataOperacao, $produtor_id, $cultura, $categoria]);
+    echo json_encode($dados);
+}
 
-        echo json_encode(["sucesso" => $ok]);
-        break;
+elseif ($acao === "editar") {
+    // Editar transação
+    $id = intval($_POST['id']);
+    $valor = floatval($_POST['valor']);
+    $sinal = $_POST['sinal'] === '-' ? '-' : '+';
+    $descricao = $_POST['descricao'];
+    $data = $_POST['data'];
+    $cultura = $_POST['cultura'];
+    $seletor = $_POST['seletor'];
 
-    case "listar":
-        $produtor_id = $_GET["produtor_id"]; 
-        $sql = "SELECT * FROM transacao WHERE produtor_idprodutor = ? ORDER BY dataOperacao DESC";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$produtor_id]);
-        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($dados);
-        break;
+    $sql = "UPDATE transacao 
+            SET valor=?, sinal=?, descricao=?, dataOperacao=?, culturas=?, seletor=? 
+            WHERE idtransacao=?";
+    $stmt = $conecta->prepare($sql);
+    $stmt->bind_param("dsssssi", $valor, $sinal, $descricao, $data, $cultura, $seletor, $id);
+    $ok = $stmt->execute();
 
-    case "editar":
-        $id = $_POST["id"];
-        $valor = $_POST["valor"];
-        $sinal = $_POST["sinal"];
-        $descricao = $_POST["descricao"];
-        $dataOperacao = $_POST["data"];
-        $cultura = $_POST["cultura"];
-        $categoria = $_POST["categoria"];
+    echo json_encode(["sucesso" => $ok]);
+}
 
-        $sql = "UPDATE transacao 
-                   SET valor=?, sinal=?, descricao=?, dataOperacao=?, culturas=?, seletor=? 
-                 WHERE idtransacao=?";
-        $stmt = $conn->prepare($sql);
-        $ok = $stmt->execute([$valor, $sinal, $descricao, $dataOperacao, $cultura, $categoria, $id]);
+elseif ($acao === "deletar") {
+    // Deletar transação
+    $id = intval($_POST['id']);
+    $sql = "DELETE FROM transacao WHERE idtransacao=?";
+    $stmt = $conecta->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $ok = $stmt->execute();
 
-        echo json_encode(["sucesso" => $ok]);
-        break;
+    echo json_encode(["sucesso" => $ok]);
+}
 
-    case "excluir":
-        $id = $_POST["id"];
-        $sql = "DELETE FROM transacao WHERE idtransacao=?";
-        $stmt = $conn->prepare($sql);
-        $ok = $stmt->execute([$id]);
-
-        echo json_encode(["sucesso" => $ok]);
-        break;
-
-    default:
-        echo json_encode(["erro" => "Ação inválida"]);
+else {
+    echo json_encode(["erro" => "Ação inválida"]);
 }
