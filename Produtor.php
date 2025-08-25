@@ -64,13 +64,15 @@ $produtor_id = $_SESSION['idprodutor'] ?? null;
 
     <div class="container">
     <h2 class="titulo-eucalipto">Perfil do Agricultor</h2>
-
-    <div class="profile-img">
+<form method="post" action="cadastrar_produtor.php">
+   <!--DESMARCAR DEPOIS DA FEIRA E EXCLUIR a imagem
+ <div class="profile-img">
         <input type="file" id="imgUpload" accept="image/*" />
-        <label for="imgUpload" id="imgLabel">Adicionar Imagem</label>
-    </div>
-
-    <form method="post" action="cadastrar_produtor.php">
+         <label for="imgUpload" id="imgLabel">Adicionar Imagem</label> 
+    </div>-->
+<div id="perfil-container">
+    <img src="imgFeira.png" alt="Foto de perfil" class="perfil">
+</div>
         <div class="form-group">
             <label for="nome">Nome completo</label>
             <input type="text" value="<?=$pdp['nome'] ?>" id="nome" name="nome" placeholder="Seu nome completo" disabled />
