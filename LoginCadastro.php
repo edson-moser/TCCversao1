@@ -17,7 +17,7 @@
     <div class="container">
         <div class="content first-content">
             <div class="first-column">
-                <!-- ✅ LOGO ADICIONADA E CENTRALIZADA -->
+               
                 <img src="NaturisLogo.png" alt="Logo" class="logo">
              
                 <h2 class="title title-primary">Bem-vindo produtor!</h2>
@@ -55,7 +55,7 @@
         </div><!-- first content -->
         <div class="content second-content">
             <div class="first-column">
-                <!-- ✅ LOGO ADICIONADA E CENTRALIZADA -->
+              
                 <img src="NaturisLogo.png" alt="Logo" class="logo">
 
                 <h2 class="title title-primary">Olá produtor!</h2>

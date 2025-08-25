@@ -89,8 +89,21 @@ h2::after {
   display: none;
 }
 
+/* IMAGEM DA FEIRA EXCLUIR POS FEIRA*/
+.perfil {
+  width: 150px;        /* largura do círculo */
+  height: 150px;       /* altura do círculo */
+  border-radius: 50%;  /* deixa a borda arredondada em círculo */
+  object-fit: cover;   /* faz a imagem preencher sem deformar */
+}
+#perfil-container {
+  display: flex;
+  justify-content: center; /* centraliza na horizontal */
+  margin: 20px 0;
+}
+
 .profile-img label {
-  display: inline-block;
+  display: inline-block; 
   width: 130px;
   height: 130px;
   border-radius: 50%;

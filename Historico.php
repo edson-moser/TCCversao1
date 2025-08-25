@@ -60,27 +60,24 @@
         <div class="container">
       
           <form id="invoice-form">
-            <table>
-              <thead>
-                <tr>
-                  <th>Período</th>
-                  <!-- <th>Ano</th> -->
-                  <th>Documento de Histórico</th>
-                </tr>
-              </thead>
-              <tbody id="invoice-body">
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
-        </div>
-      </div>
-      
+  <table>
+    <thead>
+      <tr>
+        <th>Período</th>
+        <!-- <th>Ano</th> -->
+        <th>Documento de Histórico</th>
+      </tr>
+    </thead>
+    <tbody id="invoice-body">
+      <tr>
+        <td>2000/2001</td>
+        <td>
+          <a href="safra_2000_2001.pdf" download>Relatório Safra 2000/2001</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
 
 </body>
 </html>
