@@ -258,3 +258,84 @@ function limparFiltro() {
 
 atualizarSaldos();
 //filtrarPorData();
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tabela = document.querySelector("#tabela-transacoes tbody");
+  const btnAdicionar = document.getElementById("btn-adicionar");
+
+  // Função para carregar lista
+  function carregarTransacoes() {
+    fetch("saldo_crud.php?acao=ler")
+      .then(r => r.json())
+      .then(dados => {
+        tabela.innerHTML = "";
+        dados.forEach(transacao => {
+          let tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${transacao.idtransacao}</td>
+            <td>${transacao.valor}</td>
+            <td>${transacao.sinal}</td>
+            <td>${transacao.descricao}</td>
+            <td>${transacao.dataOperacao}</td>
+            <td>${transacao.culturas}</td>
+            <td>${transacao.seletor}</td>
+            <td>
+              <button onclick="editarTransacao(${transacao.idtransacao})">Editar</button>
+              <button onclick="deletarTransacao(${transacao.idtransacao})">Excluir</button>
+            </td>
+          `;
+          tabela.appendChild(tr);
+        });
+      });
+  }
+
+  // Adicionar transação
+  btnAdicionar.addEventListener("click", () => {
+    const dados = new FormData();
+    dados.append("acao", "criar");
+    dados.append("produtor_id", document.getElementById("input-produtor-id").value);
+    dados.append("valor", document.getElementById("input-valor").value);
+    dados.append("sinal", document.getElementById("input-sinal").value);
+    dados.append("descricao", document.getElementById("input-descricao").value);
+    dados.append("data", document.getElementById("input-data").value);
+    dados.append("cultura", document.getElementById("input-cultura").value);
+    dados.append("seletor", document.getElementById("input-seletor").value);
+
+    fetch("saldo_crud.php", { method: "POST", body: dados })
+      .then(r => r.json())
+      .then(res => {
+        if (res.sucesso) {
+          alert("Transação adicionada!");
+          carregarTransacoes();
+        } else {
+          alert("Erro ao adicionar.");
+        }
+      });
+  });
+
+  // Deletar transação
+  window.deletarTransacao = (id) => {
+    if (!confirm("Tem certeza que deseja excluir?")) return;
+    const dados = new FormData();
+    dados.append("acao", "deletar");
+    dados.append("id", id);
+
+    fetch("saldo_crud.php", { method: "POST", body: dados })
+      .then(r => r.json())
+      .then(res => {
+        if (res.sucesso) {
+          carregarTransacoes();
+        } else {
+          alert("Erro ao excluir.");
+        }
+      });
+  };
+
+  carregarTransacoes();
+});
