@@ -164,6 +164,8 @@ async function adicionarItemRegistro() {
 
   const res = await fetch("saldo_crud.php", { method: "POST", body: formData });
   const dados = await res.json();
+  exibirRegistros()
+
 
   if (dados.sucesso) {
     
@@ -180,10 +182,12 @@ async function adicionarItemRegistro() {
     document.getElementById('filtro-data-fim').value = "";
     document.getElementById('filtro-cultura').value = "todos";
     exibirRegistros();
+    
   } else {
     alert("Erro ao adicionar registro");
   }
   carregarRegistros();
+ 
 }
 
 function exibirRegistros(filtrados = null) {
@@ -228,6 +232,7 @@ async function excluirRegistro(id) {
 
   const res = await fetch("saldo_crud.php", { method: "POST", body: formData });
   const dados = await res.json();
+  exibirRegistros();
 
   if (dados.sucesso) {
     carregarRegistros();
