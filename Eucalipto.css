@@ -45,6 +45,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -112,7 +114,11 @@ form {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   color: #4C8F6E;
-  min-width: 100px;
+  width: 150px;
+}
+
+.input-area{
+  width: 600px;
 }
 
 .input-area select {
