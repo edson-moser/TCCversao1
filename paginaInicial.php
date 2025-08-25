@@ -1,6 +1,6 @@
 <?php
 require 'conexao.php';
-//require 'protect.php';
+require 'protect.php';
 
 $idProdutor = $_SESSION['idprodutor'];
 
