@@ -102,7 +102,7 @@ function deleteTask(id) {
 // --------------------- SALDO ---------------------
 
 let registros = [];
-const produtorId = 1; // ⚠️ Trocar pelo id do produtor logado via sessão
+//const produtorId = 1; 
 
 function formatarMoeda(valor) {
   return `R$ ${valor.toFixed(2).replace('.', ',')}`;
@@ -159,18 +159,31 @@ async function adicionarItemRegistro() {
   formData.append("descricao", descricao);
   formData.append("data", data);
   formData.append("cultura", cultura);
-  formData.append("categoria", categoria);
+  formData.append("seletor", categoria);
   formData.append("produtor_id", produtorId);
 
   const res = await fetch("saldo_crud.php", { method: "POST", body: formData });
   const dados = await res.json();
 
   if (dados.sucesso) {
-    document.getElementById('form-saldo').reset();
-    carregarRegistros();
+    
+    document.getElementById('input-valor').value = "";
+    document.getElementById('input-tipo').value = "positivo";
+    document.getElementById('input-descricao').value = "";
+    document.getElementById('input-data').value = "";
+    document.getElementById('input-cultura').value = "ambos";
+    document.getElementById('input-categoria').value = "insumos";
+    
+    await carregarRegistros(); 
+
+    document.getElementById('filtro-data-inicio').value = "";
+    document.getElementById('filtro-data-fim').value = "";
+    document.getElementById('filtro-cultura').value = "todos";
+    exibirRegistros();
   } else {
     alert("Erro ao adicionar registro");
   }
+  carregarRegistros();
 }
 
 function exibirRegistros(filtrados = null) {
@@ -198,7 +211,7 @@ function exibirRegistros(filtrados = null) {
     const botaoExcluir = document.createElement('button');
     botaoExcluir.textContent = '🗑️';
     botaoExcluir.classList.add('botao-excluir');
-    botaoExcluir.onclick = () => excluirRegistro(registro.idtransacao || registro.id);
+    botaoExcluir.onclick = () => excluirRegistro(registro.idsaldo);
 
     li.appendChild(detalhes);
     li.appendChild(botaoExcluir);
@@ -210,7 +223,7 @@ async function excluirRegistro(id) {
   if (!confirm("Deseja realmente excluir este registro?")) return;
 
   const formData = new FormData();
-  formData.append("acao", "excluir");
+  formData.append("acao", "deletar");
   formData.append("id", id);
 
   const res = await fetch("saldo_crud.php", { method: "POST", body: formData });
@@ -218,9 +231,15 @@ async function excluirRegistro(id) {
 
   if (dados.sucesso) {
     carregarRegistros();
+    document.getElementById('filtro-data-inicio').value = "";
+    document.getElementById('filtro-data-fim').value = "";
+    document.getElementById('filtro-cultura').value = "todos";
+    exibirRegistros();
   } else {
     alert("Erro ao excluir registro");
   }
+
+
 }
 
 // Carregar ao abrir a página

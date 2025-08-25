@@ -60,7 +60,7 @@ elseif ($acao === "editar") {
 elseif ($acao === "deletar") {
     // Deletar transação
     $id = intval($_POST['id']);
-    $sql = "DELETE FROM transacao WHERE idtransacao=?";
+    $sql = "DELETE FROM transacao WHERE idsaldo=?";
     $stmt = $conecta->prepare($sql);
     $stmt->bind_param("i", $id);
     $ok = $stmt->execute();

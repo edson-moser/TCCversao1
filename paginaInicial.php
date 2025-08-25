@@ -1,6 +1,6 @@
 <?php
 require 'conexao.php';
-//require 'protect.php';
+require 'protect.php';
 
 $idProdutor = $_SESSION['idprodutor'];
 
@@ -44,7 +44,10 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-    <!-- <script src="paginaInicial.js"></script> -->
+    <script>
+      const produtorId = <?= json_encode($_SESSION['idprodutor']) ?>;
+    </script>
+    <script src="paginaInicial.js"></script>
 </head>
 
 <body>
@@ -243,6 +246,8 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
         </p>
     </footer>
 </div>
+
+
 
 </body>
 
