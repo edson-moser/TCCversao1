@@ -168,9 +168,9 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
     <div class="registro-right">
       <div class="painel-saldo">
         <h3>Resumo</h3>
-        <p>Saldo Total: <span id="saldo-total">R$ 0,00</span></p>
-        <p>Saldo Eucalipto: <span id="saldo-eucalipto">R$ 0,00</span></p>
-        <p>Saldo Tabaco: <span id="saldo-tabaco">R$ 0,00</span></p>
+        <p>Saldo Total: <span id="saldo-total">R$ 900,00</span></p>
+        <p>Saldo Eucalipto: <span id="saldo-eucalipto">R$ 400,00</span></p>
+        <p>Saldo Tabaco: <span id="saldo-tabaco">R$ 500,00</span></p>
       </div>
 
       <h3>Histórico</h3>
