@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="LoginCadastro.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <!--<link rel="icon" sizes="32X32" href="NaturisLogo.png">!-->
 </head>
 <body>
 
@@ -51,8 +50,8 @@
                     
                     <button type="submit" class="btn btn-second">Cadastrar</button>        
                 </form>
-            </div><!-- second column -->
-        </div><!-- first content -->
+            </div>
+        </div>
         <div class="content second-content">
             <div class="first-column">
               
@@ -80,8 +79,8 @@
                     <a class="password" href="#">Esqueceu a senha?</a>
                     <button type="submit" name="login" class="btn btn-second">Entrar</button>
                 </form>
-            </div><!-- second column -->
-        </div><!-- second-content -->
+            </div>
+        </div>
     </div>
 </div>
 

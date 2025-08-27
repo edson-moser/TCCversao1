@@ -108,7 +108,6 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
             </div>
         </div>
     
-        <!-- Controles de navegação DENTRO do carrossel -->
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
@@ -122,7 +121,6 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
     <div class="registro-container">
   <h1>Saldo da Safra</h1>
   <div class="registro-grid">
-    <!-- Coluna de Inserção e Filtros -->
     <div class="registro-left">
       <h3>Adicionar Valor</h3>
       <div class="registro-form">
@@ -164,7 +162,6 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
       </div>
     </div>
 
-    <!-- Coluna de Resultado e Histórico -->
     <div class="registro-right">
       <div class="painel-saldo">
         <h3>Resumo</h3>

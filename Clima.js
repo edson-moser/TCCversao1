@@ -1,5 +1,4 @@
 const apiKey = "3cb9652558a9a1b7382af14be964f0ae";
-//const apiCountryURL = "https://flagsapi.com/";
 const apiUnsplash = "https://source.unsplash.com/1600x900/?";
 
 const cityInput = document.querySelector("#city-input");
@@ -21,7 +20,6 @@ const loader = document.querySelector("#loader");
 const suggestionContainer = document.querySelector("#suggestions");
 const suggestionButtons = document.querySelectorAll("#suggestions button");
 
-// Loader
 const toggleLoader = () => {
   loader.classList.toggle("hide");
 };

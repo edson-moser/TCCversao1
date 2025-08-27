@@ -27,10 +27,9 @@ function updateTaskList() {
     tasks.forEach(task => {
         const li = document.createElement("li");
         li.classList.add("task-item");
-        // Verifica se a tarefa está em edição para definir o conteúdo do span como um input
         const taskContent = editingTaskId === task.id ? `<input type="text" id="editingTaskInput" value="${task.text}">` : `<span class="${task.completed ? "completed-task" : ""}"> ${task.text}</span`;
-        editIcon = editingTaskId === task.id ? "&#10004;" : "&#9998;"; // Altera o icone do botão de acordo com o estado de edição
-        const completionIcon = task.completed ? "&#10060;" : "&#10004;"; // Altera o ícone do botão de acordo com o estado de conclusão
+        editIcon = editingTaskId === task.id ? "&#10004;" : "&#9998;"; 
+        const completionIcon = task.completed ? "&#10060;" : "&#10004;";
         li.innerHTML = `
     ${taskContent}
     <span>
@@ -56,7 +55,7 @@ function updateProgress() {
 
 
 function toggleTaskCompletion(id) {
-    //const task = tasks.find(task => task.id = id);
+    
     var task = null;
     var ind = 0;
     for(i = 0; i < tasks.length; i++){
@@ -78,17 +77,17 @@ function toggleTaskCompletion(id) {
 function editTask(id) {
     const task = tasks.find(task => task.id === id);
     if (task) {
-        // Verifica se a tarefa já está em edição para salvar as alterações
+        
         if (editingTaskId === task.id) {
             const editingTaskInput = document.getElementById("editingTaskInput");
             const newText = editingTaskInput.value.trim();
             if (newText !== "") {
                 task.text = newText;
-                editingTaskId = null; // sai do modo de edição
+                editingTaskId = null; 
                 updateTaskList();
             }
         } else {
-            editingTaskId = task.id; // Entra no modo de edição
+            editingTaskId = task.id; 
             updateTaskList();
         }
     }
@@ -99,10 +98,10 @@ function deleteTask(id) {
 
     updateTaskList();
 }
-// --------------------- SALDO ---------------------
+//  SALDO 
 
 let registros = [];
-//const produtorId = 1; 
+
 
 function formatarMoeda(valor) {
   return `R$ ${valor.toFixed(2).replace('.', ',')}`;
@@ -247,7 +246,6 @@ async function excluirRegistro(id) {
 
 }
 
-// Carregar ao abrir a página
 document.addEventListener("DOMContentLoaded", carregarRegistros);
 
 
@@ -281,7 +279,6 @@ function limparFiltro() {
 }
 
 atualizarSaldos();
-//filtrarPorData();
 
 
 
@@ -319,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Adicionar transação
+ 
   btnAdicionar.addEventListener("click", () => {
     const dados = new FormData();
     dados.append("acao", "criar");
@@ -343,8 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  // Deletar transação
-  window.deletarTransacao = (id) => {
+ window.deletarTransacao = (id) => {
     if (!confirm("Tem certeza que deseja excluir?")) return;
     const dados = new FormData();
     dados.append("acao", "deletar");

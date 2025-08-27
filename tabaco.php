@@ -89,7 +89,7 @@ $mensagem = $_GET['mensagem'] ?? '';
 <main id="form_container">
     <h2 class="titulo-Tabaco">ADICIONAR INFORMAÇÕES DA PRODUÇÃO DE TABACO:</h2>
 
-    <!-- Form Safra -->
+    <!-- Safra -->
     <form action="cadastrarTabaco.php" method="post">
         <div id="input_container">
             <div class="input-box">
@@ -137,7 +137,7 @@ $mensagem = $_GET['mensagem'] ?? '';
         <button type="submit" class="btn-default"><i class="fa-solid fa-check"></i> SALVAR DADOS DA SAFRA</button>
     </form>
 
-    <!-- Form Área -->
+    <!--  Área -->
    <form method="POST" action="cadastrarArea.php">
     <input type="hidden" name="periodoEscondido" value="<?= $periodoSelecionado ?>">
     <input type="hidden" id="produtorId" value="<?= $_SESSION['idprodutor'] ?>">

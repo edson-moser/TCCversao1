@@ -17,7 +17,6 @@ if (!$idtabaco) {
 }
 
 if (isset($_POST['salvar'])) {
-    // pega idarea do select ou do hidden (se estiver editando)
     $idarea = $_POST['idareaEscondida'] ?? ($_POST['idarea'] ?? null);
 
     if ($idarea) {
@@ -73,7 +72,7 @@ if (isset($_POST['salvar'])) {
     header("Location: tabaco.php?periodoSafra=" . urlencode($periodo) . "&mensagem=" . urlencode($msg));
     exit;
 }
-
+//exclui a area
 if (isset($_POST['excluir'])) {
     $idarea = $_POST['idareaEscondida'] ?? ($_POST['idarea'] ?? null);
     if ($idarea) {

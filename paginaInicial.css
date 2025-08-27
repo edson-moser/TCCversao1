@@ -54,7 +54,7 @@ hr.divisor {
     height: 610px;
     margin: 0 auto;
     position: relative;
-    display: block;              /* força ele ficar abaixo do input */
+    display: block;              
     margin-top: 15px;
     border-radius: 4%;    
 }
@@ -110,7 +110,6 @@ h3 {
 
 /* LISTA DE TAREFAS */
 
-/* Container da lista de tarefas */
 .listaTarefas {
     width: 100%;
     height: auto;
@@ -130,7 +129,6 @@ h3 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Formulário de adicionar tarefa */
 #taskInputContainer {
     display: flex;
     gap: 10px;
@@ -179,7 +177,7 @@ h3 {
     background-color: #24523b;
 }
 
-/* Itens da lista de tarefas */
+
 .task-item {
     background-color: #fff;
     color: #7B5F28;
@@ -198,7 +196,7 @@ h3 {
     transform: scale(1.01);
 }
 
-/* Campo de edição */
+
 .edit-form input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -225,14 +223,12 @@ h3 {
     text-decoration: none;
 }
 
-/* Texto concluído */
 .completed-task {
     text-decoration: line-through;
     color: #999;
     font-style: italic;
 }
 
-/* Ícones de ação */
 .action-icons {
     display: flex;
     gap: 12px;
@@ -260,7 +256,6 @@ h3 {
     opacity: 0.7;
 }
 
-/* Barra de Progresso */
 .progress-container {
     height: 20px;
     background-color: #d9d9d9;

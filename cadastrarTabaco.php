@@ -14,7 +14,7 @@ $dados = [
 ];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $produtor_id) {
-    // Dados do formulário
+   
     $tabaco_id = $_POST['tabaco_idtabaco'] ?? null;
     $periodo = $_POST['periodoSafra'] ?? '';
     $total_plantado = floatval($_POST['total'] ?? 0);
@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $produtor_id) {
     $estufadas = intval($_POST['estufadas'] ?? 0);
     $hectares = floatval($_POST['totalHectares'] ?? 0);
 
-    // Verifica se já existe safra para esse período
     $sqlVerifica = "SELECT idtabaco FROM tabaco WHERE periodoSafra = ? AND produtor_idprodutor = ?";
     $stmt = $conecta->prepare($sqlVerifica);
     $stmt->bind_param("si", $periodo, $produtor_id);
@@ -31,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $produtor_id) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Já existe: atualizar
+        // Já existe atualiza
         $row = $result->fetch_assoc();
         $tabaco_id = $row['idtabaco'];
 
@@ -41,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $produtor_id) {
         $stmt->bind_param("iiddssii", $total_plantado, $estufadas, $kilos, $hectares, $precoTotal, $periodo, $tabaco_id, $produtor_id);
 
         if ($stmt->execute()) {
-            // Preenche os dados para exibir no formulário
+          
             $dados = [
                 'idtabaco' => $tabaco_id,
                 'periodoSafra' => $periodo,
@@ -57,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $produtor_id) {
             echo "<p style='color:red;'>Erro ao atualizar.</p>";
         }
     } else {
-        // Não existe: inserir novo
+        // Não existe inseri novo
         $sqlInsert = "INSERT INTO tabaco (total, estufadas, kilos, totalHectares, precoTotal, produtor_idprodutor, periodoSafra)
                       VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conecta->prepare($sqlInsert);

@@ -4,7 +4,7 @@ require 'protect.php';
 
 $idProdutor = $_SESSION['idprodutor'] ?? null;
 
-// --- ADICIONAR TAREFA ---
+// ADICIONAR TAREFA 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['descricao'])) {
     $descricao = trim($_POST['descricao']);
     if ($descricao !== '') {
@@ -17,7 +17,7 @@ exit;
     }
 }
 
-// --- EXCLUIR TAREFA ---
+// EXCLUIR TAREFA
 if (isset($_GET['id']) && isset($_GET['excluir'])) {
     $id = (int)$_GET['id'];
     $sql = "DELETE FROM listatarefas WHERE idlistaTarefas = ? AND produtor_idprodutor = ?";
@@ -28,7 +28,7 @@ if (isset($_GET['id']) && isset($_GET['excluir'])) {
 exit;
 }
 
-// --- CONCLUIR/DESCONCLUIR ---
+//  CONCLUIR e DESCONCLUIR 
 if (isset($_GET['id']) && isset($_GET['toggle'])) {
     $id = (int)$_GET['id'];
     $sql = "UPDATE listatarefas SET conclusao = NOT conclusao WHERE idlistaTarefas = ? AND produtor_idprodutor = ?";
@@ -39,7 +39,7 @@ if (isset($_GET['id']) && isset($_GET['toggle'])) {
 exit;
 }
 
-// --- EDITAR: EXIBIR FORMULÁRIO ---
+//  EDITAR FORMULÁRIO 
 if (isset($_GET['id']) && isset($_GET['editar'])) {
     $id = (int)$_GET['id'];
     $stmt = $conecta->prepare("SELECT descricao FROM listatarefas WHERE idlistaTarefas = ? AND produtor_idprodutor = ?");
@@ -56,7 +56,7 @@ if (isset($_GET['id']) && isset($_GET['editar'])) {
 exit;
 }
 
-// --- SALVAR NOVA DESCRIÇÃO ---
+// SALVAR NOVA DESCRIÇÃO 
 if (isset($_GET['id']) && isset($_GET['salvar']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = (int)$_GET['id'];
     $novaDescricao = trim($_POST['nova_descricao']);
@@ -70,7 +70,6 @@ if (isset($_GET['id']) && isset($_GET['salvar']) && $_SERVER['REQUEST_METHOD'] =
 exit;
 }
 
-// --- BUSCAR TAREFAS E CALCULAR PROGRESSO ---
 $sql = "SELECT * FROM listatarefas WHERE produtor_idprodutor = ?";
 $stmt = $conecta->prepare($sql);
 $stmt->bind_param("i", $idProdutor);
