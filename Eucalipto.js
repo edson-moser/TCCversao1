@@ -1,16 +1,16 @@
 function changeType(inputId, selectId) {
     const input = document.getElementById(inputId);
     const select = document.getElementById(selectId);
-    const selectedType = select.value;  // Obtém o valor selecionado no dropdown
+    const selectedType = select.value;  
   
-    // Atualiza o tipo do input de acordo com a opção escolhida
+    
     input.type = selectedType;
   }
 
   var ctx = document.getElementsByClassName("line-chart")
 
   const meuGrafico = new Chart(ctx, {
-    type: 'bar', // tipos: 'bar', 'line', 'pie', etc.
+    type: 'bar', 
     data: {
       labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
       datasets: [{
@@ -29,12 +29,12 @@ function changeType(inputId, selectId) {
         }
       },
       animation: {
-        duration: 2000,  // Duração total da animação (em milissegundos)
-        easing: 'easeOutBounce',  // Tipo de easing para a animação
+        duration: 2000,  
+        easing: 'easeOutBounce',  
         delay: function(context) {
           var delay = 0;
           if (context.type === 'data' && context.mode === 'default' && context.datasetIndex === 0) {
-            delay = context.dataIndex * 200;  // Adiciona um delay incremental para cada barra
+            delay = context.dataIndex * 200;  
           }
           return delay;
         }

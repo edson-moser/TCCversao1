@@ -13,7 +13,7 @@ if ($acao === "criar") {
     $descricao = $_POST['descricao'];
     $data = $_POST['data'];
     $cultura = $_POST['cultura'];
-    $seletor = $_POST['seletor']; // substitui categoria
+    $seletor = $_POST['seletor']; 
 
     $sql = "INSERT INTO transacao (valor, sinal, descricao, dataOperacao, produtor_idprodutor, culturas, seletor) 
             VALUES (?, ?, ?, ?, ?, ?, ?)";

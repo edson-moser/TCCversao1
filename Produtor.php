@@ -1,7 +1,4 @@
 <?php
-
-
-
 include('protect.php');
 include('conexao.php');
 $produtor_id = $_SESSION['idprodutor'] ?? null;
@@ -155,23 +152,19 @@ $estados = [
 <!-- Script para alternar entre editar e salvar -->
 <script>
     document.getElementById("btnAlterar").addEventListener("click", function () {
-        // Habilita todos os campos do formulário
         document.querySelectorAll("form input, form select").forEach(el => {
             el.disabled = false;
         });
 
-        // Alterna os botões
         document.getElementById("btnAlterar").style.display = "none";
         document.getElementById("btnSalvar").style.display = "inline-block";
     });
 
     document.getElementById("btnSalvar").addEventListener("click", function () {
-        // Garante que tudo está habilitado no momento do envio
         document.querySelectorAll("form input, form select").forEach(el => {
             el.disabled = false;
         });
 
-        // Envia o formulário manualmente
         document.querySelector("form").submit();
     });
 </script>

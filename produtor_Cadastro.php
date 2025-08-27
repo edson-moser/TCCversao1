@@ -1,12 +1,12 @@
 <?php 
 require 'conexao.php';
 
-// Capturar os dados do formulário
+
 $nome = $_POST["nome"];
 $email = $_POST["email"];
 $senha = $_POST["senha"];
 $confirma_senha = $_POST["confirma_senha"];
-// Verificar se as senhas coincidem
+
 if ($senha != $confirma_senha) {
     echo "Erro: As senhas não coincidem.";
     exit;
@@ -15,7 +15,7 @@ if ($senha != $confirma_senha) {
 $criptografia= password_hash($senha, PASSWORD_DEFAULT);
 
 
-// Preparar o INSERT corretamente com placeholders
+
 $stmt = $conecta->prepare("INSERT INTO produtor (nome, email, senha) VALUES ('$nome','$email', '$criptografia')");
 
 if (!$stmt) {
@@ -25,7 +25,7 @@ if (!$stmt) {
 
 
 
-// Executar e verificar
+
 if ($stmt->execute()) {
     if(!isset($_SESSION)){
         session_start();

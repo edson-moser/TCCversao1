@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Poppins:wght@400;500&display=swap');
 
-/* NAVBAR */
 .navbar {
   background-color: #dfdbce !important;
   font-family: 'Poppins', sans-serif;
@@ -29,7 +28,6 @@
   height: auto;
 }
 
-/* Responsividade da logo */
 @media (max-width: 768px) {
   .imagemBarra {
     width: 180px;
@@ -50,7 +48,6 @@
 }
 
 
-/* Título */
 .titulo-eucalipto {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 500;
@@ -74,14 +71,14 @@
 }
 
 
-/* Formulário em grid */
+
 form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
-/* Responsividade para o formulário */
+
 @media (max-width: 768px) {
   form {
     grid-template-columns: 1fr;
@@ -94,7 +91,7 @@ form {
 }
 
 
-/* Campo de entrada */
+
 .input-area {
   display: flex;
   align-items: center;
@@ -142,7 +139,7 @@ form {
 }
 
 
-/* Campo de data */
+
 .input-area.date {
   grid-column: 1 / -1;
 }
@@ -151,7 +148,7 @@ form {
   margin-top: 20px;
 }
 
-/* Botão */
+
 .confirm-button {
   grid-column: 1 / -1;
   text-align: center;
@@ -176,7 +173,7 @@ form {
 }
 
 
-/* Gráfico */
+
 .grafico {
   width: 80%;
   max-width: 100%;

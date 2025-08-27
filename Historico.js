@@ -12,7 +12,7 @@
       if (!ano) return;
 
 
-      // Cria nova linha
+      
       const novaLinha = document.createElement("tr");
 
       novaLinha.innerHTML = `

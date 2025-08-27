@@ -1,4 +1,4 @@
-// Previsualização da imagem de perfil
+
 const imgInput = document.getElementById('imgUpload');
 const imgLabel = document.getElementById('imgLabel');
 
@@ -32,7 +32,7 @@ imgInput.addEventListener('change', function () {
     e.target.value = value;
   });
 
-// Mostrar/ocultar botões e ativar/desativar campos
+
 const btnAlterar = document.getElementById('btnAlterar');
 const btnSalvar = document.getElementById('btnSalvar');
 const formInputs = document.querySelectorAll('input:not([type="submit"]):not([type="file"]), select');

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Poppins:wght@400;500&display=swap');
 
 
-/* NAVBAR */
+
 .navbar {
   background-color: #dfdbce !important;
   font-family: 'Poppins', sans-serif;
@@ -30,7 +30,7 @@
   height: auto;
 }
 
-/* Responsividade da logo */
+
 @media (max-width: 768px) {
   .imagemBarra {
     width: 180px;
@@ -38,7 +38,7 @@
   }
 }
 
-   /* Estilo geral */
+  
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #F5F1E6;
@@ -46,7 +46,7 @@ body {
   padding: 0;
 }
 
-/* Container principal */
+
 .container {
   max-width: 700px;
   margin: 40px auto;
@@ -56,7 +56,7 @@ body {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Título */
+
 h2 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 500;
@@ -79,7 +79,7 @@ h2::after {
   bottom: -10px;
 }
 
-/* Imagem do perfil */
+
 .profile-img {
   text-align: center;
   margin-bottom: 24px;
@@ -118,7 +118,7 @@ h2::after {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Campos do formulário */
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -156,7 +156,7 @@ input:focus {
   border: 2px solid #4C8F6E;
 }
 
-/* Botões */
+
   .buttons {
     display: flex;
     flex-direction: column;
@@ -166,7 +166,7 @@ input:focus {
   }
 
 
-/* Botões principais */
+
 button.btn-action {
   flex: 1;
   min-width: 100px;
@@ -186,7 +186,7 @@ button.btn-action:hover {
   background-color: #1F4B37;
 }
 
-/* Botões como links */
+
 .link-button {
   background: none;
   border: none;
@@ -221,9 +221,7 @@ select:focus {
 
 
 
-/* Responsividade */
 
-  /* Responsividade */
   @media (max-width: 768px) {
 
     

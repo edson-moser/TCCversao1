@@ -28,7 +28,6 @@
     height: auto;
   }
   
-  /* Responsividade da logo */
   @media (max-width: 768px) {
     .imagemBarra {
       width: 180px;
@@ -63,7 +62,7 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    background-color: #F5F1E6; /* Cor de fundo clara (bege claro) */
+    background-color: #F5F1E6; 
     padding: 20px;
     box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0);
 }
@@ -75,9 +74,9 @@
 }
 
 #form_title {
-    font-family: 'Alegreya Sans SC', sans-serif; /* Fonte Alegreya Sans SC */
+    font-family: 'Alegreya Sans SC', sans-serif; 
     font-weight: 500;
-    color: #4C8F6E; /* Verde suave */
+    color: #4C8F6E; 
     position: relative;
 }
 
@@ -87,12 +86,12 @@
     width: 100px;
     height: 3px;
     border-radius: 30px;
-    background-color: #4C8F6E; /* Verde suave */
+    background-color: #4C8F6E; 
     left: 0;
     bottom: 0;
 }
 
-/* Formulário */
+
 #form {
     display: flex;
     flex-direction: column;
@@ -106,7 +105,7 @@
 }
 
 .form-label {
-    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+    font-family: 'Poppins', sans-serif; 
     font-size: 12px;
     color: gray;
     font-weight: 500;
@@ -133,25 +132,25 @@
     width: 100%;
     border: none;
     border-radius: 8px;
-    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
-    color: #A1D3A6; /* Verde claro no texto dentro do input */
+    font-family: 'Poppins', sans-serif; 
+    color: #A1D3A6; 
 }
 
 .form-control::placeholder {
-    color: #A1D3A6; /* Verde claro para o texto do placeholder também */
+    color: #A1D3A6; 
 }
 
 .form-control:focus {
     outline: none;
-    border: 2px solid #4C8F6E; /* Cor verde para os inputs focados */
+    border: 2px solid #4C8F6E; 
 }
 
-/* Estilo de foco para a caixa de entrada */
+
 .input-box .input-field:focus-within {
     outline: 2px solid #4C8F6E;
 }
 
-/* Botões */
+
 .btn-default {
     background-color: #2F6A4A;
     color: white;
@@ -161,8 +160,8 @@
     padding: 10px 20px;
     cursor: pointer;
     font-weight: 600;
-    display: block;              /* força ele ficar abaixo do input */
-    margin-top: 15px;            /* adiciona espaço acima */
+    display: block;              
+    margin-top: 15px;            
 }
 
 .btn-default:hover {
@@ -209,7 +208,7 @@
     background-color: #7DAF8D;
 }
 
-/* Responsividade */
+
 @media screen and (max-width: 500px) {
     #form_container {
         width: 100%;
@@ -262,7 +261,7 @@
   border: 2px solid #4C8F6E;
 }
 
-/* Responsividade para campos de área também */
+
 @media screen and (max-width: 500px) {
   #input_container {
     display: flex;
@@ -274,7 +273,7 @@
     width: 100%;
   }
 .btn-default {
-  display: block;      /* força o botão ficar em linha separada */
-  margin-top: 15px !important;  /* adiciona espaço acima do botão */
+  display: block;      
+  margin-top: 15px !important;  
 }
 }

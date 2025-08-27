@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Poppins:wght@400;500&display=swap');
 
-/* NAVBAR */
+
 .navbar {
   background-color: #dfdbce !important;
   font-family: 'Poppins', sans-serif;
@@ -29,7 +29,7 @@
   height: auto;
 }
 
-/* Responsividade da logo */
+
 @media (max-width: 768px) {
   .imagemBarra {
     width: 180px;
@@ -97,7 +97,7 @@
     background-color: #3b7058;
   }
   
-  /* Responsividade */
+ 
   @media screen and (max-width: 768px) {
     .container {
       padding: 24px;
