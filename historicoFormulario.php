@@ -160,13 +160,14 @@ $filename = 'historico_safra_' . $safe . '.pdf';
   <title>Histórico da Safra <?= htmlspecialchars($periodoSelecionado) ?></title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
+   
     body { 
         padding: 20px; 
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #f4f6f8;
         color: #333;
     }
-    h2, h3 { color: #2c3e50; margin-bottom: 20px; }
+    h2, h3 { color: #4C8F6E; margin-bottom: 20px; }
     .area-block { border: 1px solid #ddd; padding: 16px; border-radius: 10px; background: #fff; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: transform .15s; }
     .area-block:hover { transform: translateY(-2px); }
     .label { font-weight: 600; color: #34495e; }
