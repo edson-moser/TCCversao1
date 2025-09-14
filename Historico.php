@@ -75,10 +75,7 @@ $result = $stmt->get_result();
               <td><?php echo htmlspecialchars($periodo); ?></td>
               <td>
                 <!-- abre na mesma aba -->
-               <a href="historicoFormulario.php?periodo=<?php echo urlencode($row['periodoSafra']); ?>" 
-   class="btn btn-primary btn-sm">
-   Ver Formulário
-</a>
+              <a href="historicoFormulario.php?periodo=<?= urlencode($periodo) ?>&pdf=1" target="_blank" class="btn btn-primary btn-sm">Gerar PDF</a>
 
 
                 <!--
