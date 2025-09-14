@@ -2,6 +2,8 @@
 require 'conexao.php';
 include('protect.php');
 
+$periodo = $_POST['periodoSafra'] ?? '';
+
 $produtor_id = $_SESSION['idprodutor'] ?? null;
 $dados = [
     'idtabaco' => '',
@@ -50,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $produtor_id) {
                 'estufadas' => $estufadas,
                 'totalHectares' => $hectares
             ];
-            header("Location: tabaco.php");
-            exit;
+        header("Location: tabaco.php?periodoSafra=" . urlencode($periodo));
+exit();
         } else {
             echo "<p style='color:red;'>Erro ao atualizar.</p>";
         }
@@ -73,11 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $produtor_id) {
                 'estufadas' => $estufadas,
                 'totalHectares' => $hectares
             ];
-            header("Location: tabaco.php");
-            exit;
+        header("Location: tabaco.php?periodoSafra=" . urlencode($periodo));
+exit();
         } else {
             echo "<p style='color:red;'>Erro ao salvar.</p>";
         }
     }
+    
 }
 ?>

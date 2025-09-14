@@ -17,16 +17,28 @@ if ($produtor_id && $periodoSelecionado) {
     $stmtTabaco->execute();
     $resultTabaco = $stmtTabaco->get_result();
 
-    if ($resultTabaco->num_rows === 0) {
+    if ($resultTabaco && $resultTabaco->num_rows > 0) {
+        // existe: pega o primeiro registro
+        $tabaco = $resultTabaco->fetch_assoc();
+        if ($tabaco && isset($tabaco['idtabaco'])) {
+            $idtabaco = (int) $tabaco['idtabaco'];
+        }
+    } else {
+        // não existe: insere e obtém id
         $stmtInsert = $conecta->prepare("INSERT INTO tabaco (produtor_idprodutor, periodoSafra) VALUES (?, ?)");
         $stmtInsert->bind_param("is", $produtor_id, $periodoSelecionado);
         $stmtInsert->execute();
-        $idtabaco = $stmtInsert->insert_id;
-    } else {
-        $tabaco = $resultTabaco->fetch_assoc();
-        $idtabaco = $tabaco['idtabaco'];
+        $idtabaco = $stmtInsert->insert_id ? (int) $stmtInsert->insert_id : null;
+        // opcional: recarregar $tabaco se quiser usar os campos imediatamente
+        if ($idtabaco) {
+            $stmtReload = $conecta->prepare("SELECT * FROM tabaco WHERE idtabaco = ?");
+            $stmtReload->bind_param("i", $idtabaco);
+            $stmtReload->execute();
+            $tabaco = $stmtReload->get_result()->fetch_assoc();
+        }
     }
 }
+
 
 // Buscar áreas da safra
 if ($idtabaco) {
@@ -52,6 +64,37 @@ if ($idareaSelecionada && $idtabaco) {
 }
 
 $mensagem = $_GET['mensagem'] ?? '';
+
+$totalPes = 0;
+$totalHectares = 0;
+$totalEstufadas = 0;
+
+if ($idtabaco) {
+    $stmtSoma = $conecta->prepare("
+        SELECT 
+            SUM(qtdPes) AS totalPes, 
+            SUM(hectares) AS totalHectares 
+        FROM area 
+        WHERE tabaco_idtabaco = ?
+    ");
+    $stmtSoma->bind_param("i", $idtabaco);
+    $stmtSoma->execute();
+    $resultSoma = $stmtSoma->get_result();
+    if ($row = $resultSoma->fetch_assoc()) {
+        $totalPes = $row['totalPes'] ?? 0;
+        $totalHectares = $row['totalHectares'] ?? 0;
+        $totalEstufadas = $row['totalEstufadas'] ?? 0;
+    }
+    if ($idtabaco) {
+    $stmtUpdate = $conecta->prepare("
+        UPDATE tabaco
+        SET total = ?, totalHectares = ?
+        WHERE idtabaco = ?
+    ");
+    $stmtUpdate->bind_param("dii", $totalPes, $totalHectares, $idtabaco);
+    $stmtUpdate->execute();
+}
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -91,6 +134,9 @@ $mensagem = $_GET['mensagem'] ?? '';
 
     <!-- Safra -->
     <form action="cadastrarTabaco.php" method="post">
+        <!-- Guardar o período selecionado -->
+        <input type="hidden" name="redirect" value="tabaco.php?periodoSafra=<?= $periodoSelecionado ?>">
+
         <div id="input_container">
             <div class="input-box">
                 <label for="periodoSafra" class="form-label">Período</label>
@@ -115,27 +161,29 @@ $mensagem = $_GET['mensagem'] ?? '';
 
             <div class="input-box">
                 <label class="form-label">TOTAL DE PÉS PLANTADOS</label>
-                <input type="number" value="<?= $tabaco['total'] ?? '' ?>" name="total" class="form-control" placeholder="total de pés">
+                <input type="number" value="<?= $totalPes ?? '' ?>" name="total" class="form-control" placeholder="total de pés"  readonly>
             </div>
             <div class="input-box">
                 <label class="form-label">VALOR TOTAL DA VENDA</label>
-                <input type="number" value="<?= $tabaco['precoTotal'] ?? '' ?>" name="precoTotal" class="form-control" placeholder="R$">
+                <input type="number" value="<?= $tabaco['precoTotal'] ?? '' ?>" name="precoTotal" class="form-control" placeholder="R$" >
             </div>
+            <div class="input-box">
+                <label class="form-label">TOTAL DE ESTUFADAS</label>
+                <input type="number" value="<?= $tabaco['estufadas'] ?? '' ?>" name="estufadas" class="form-control" placeholder="1,2,3,4,5.....">
+            </div>            
             <div class="input-box">
                 <label class="form-label">QUILOS PRODUZIDOS</label>
                 <input type="number" value="<?= $tabaco['kilos'] ?? '' ?>" name="kilos" class="form-control" placeholder="kg">
             </div>
             <div class="input-box">
-                <label class="form-label">TOTAL DE ESTUFADAS</label>
-                <input type="number" value="<?= $tabaco['estufadas'] ?? '' ?>" name="estufadas" class="form-control" placeholder="1,2,3,4,5.....">
-            </div>
-            <div class="input-box">
                 <label class="form-label">TOTAL DE HECTARES</label>
-                <input type="number" value="<?= $tabaco['totalHectares'] ?? '' ?>" name="totalHectares" class="form-control" placeholder="1,2,3,4,5.....">
+                <input type="number" value="<?= $totalHectares ?? '' ?>" name="totalHectares" class="form-control" placeholder="1,2,3,4,5....." readonly>
             </div>
         </div>
         <button type="submit" class="btn-default"><i class="fa-solid fa-check"></i> SALVAR DADOS DA SAFRA</button>
     </form>
+
+
 
     <!--  Área -->
    <form method="POST" action="cadastrarArea.php">

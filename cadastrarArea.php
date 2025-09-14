@@ -25,7 +25,7 @@ if (isset($_POST['salvar'])) {
                 WHERE idarea=?";
         $stmt = $conecta->prepare($sql);
         $stmt->bind_param(
-            "sissssssiiii",
+            "sissssssssii",
             $_POST['nome'],
             $_POST['qtdPes'],
             $_POST['hectares'],
@@ -46,7 +46,7 @@ if (isset($_POST['salvar'])) {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conecta->prepare($sql);
         $stmt->bind_param(
-            "sissssssiiii",
+            "sissssssssii",
             $_POST['nome'],
             $_POST['qtdPes'],
             $_POST['hectares'],
