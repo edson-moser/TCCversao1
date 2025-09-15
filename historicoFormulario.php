@@ -1,8 +1,8 @@
 <?php
-// historicoFormulario.php
+
 include('protect.php');
 require 'conexao.php';
- require_once 'vendor/autoload.php'; // usar composer
+ require_once 'vendor/autoload.php'; 
     use Dompdf\Dompdf;
     use Dompdf\Options;
 
@@ -48,11 +48,9 @@ if ($produtor_id && $periodoSelecionado) {
     }
 }
 
-// Se pediu PDF, gera e envia
 if (isset($_GET['pdf']) && $_GET['pdf'] == '1') {
    
 
-    // Proteções numéricas para não quebrar por divisão por zero
     $kilos = floatval($tabaco['kilos'] ?? 0);
     $totalPes = floatval($tabaco['total'] ?? 0);
     $precoTotal = floatval($tabaco['precoTotal'] ?? 0);
