@@ -168,6 +168,11 @@ $progresso = $total > 0 ? ($concluidas / $total) * 100 : 0;
         <p>Saldo Total: <span id="saldo-total">R$ 900,00</span></p>
         <p>Saldo Eucalipto: <span id="saldo-eucalipto">R$ 400,00</span></p>
         <p>Saldo Tabaco: <span id="saldo-tabaco">R$ 500,00</span></p>
+
+        <button id="btn-atualizar-saldo" type="button" onclick="carregarRegistros()" style="margin-top:10px;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;background:#2F6544;color:white;">
+          Atualizar Saldo
+        </button>
+
       </div>
 
       <h3>Histórico</h3>

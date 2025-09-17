@@ -100,7 +100,213 @@ function deleteTask(id) {
 }
 //  SALDO 
 
+
+// garante que 'produtorId' já esteja definido no head pelo PHP
 let registros = [];
+
+// formatação
+function formatarMoeda(valor) {
+  return `R$ ${valor.toFixed(2).replace('.', ',')}`;
+}
+
+// Carrega os registros do back-end e atualiza interface
+async function carregarRegistros() {
+  try {
+    const res = await fetch(`saldo_crud.php?acao=listar&produtor_id=${produtorId}`);
+    if (!res.ok) throw new Error("Erro na resposta do servidor");
+    registros = await res.json();
+    atualizarSaldos();
+    exibirRegistros();
+  } catch (err) {
+    console.error("Erro ao carregar registros:", err);
+    alert("Erro ao carregar registros. Veja console para detalhes.");
+  }
+}
+
+function atualizarSaldos() {
+  let saldoEucalipto = 0;
+  let saldoTabaco = 0;
+
+  registros.forEach(r => {
+    // compatibiliza campos (você usa às vezes 'sinal'/'tipo' e 'cultura'/'culturas')
+    const sinal = r.sinal || (r.tipo === 'positivo' ? '+' : '-');
+    const cultura = r.culturas || r.cultura || 'ambos';
+    const valor = Number(r.valor) || 0;
+    const valorComSinal = (sinal === '+' ? 1 : -1) * Math.abs(valor);
+
+    if (cultura === 'eucalipto') {
+      saldoEucalipto += valorComSinal;
+    } else if (cultura === 'tabaco') {
+      saldoTabaco += valorComSinal;
+    } else { // ambos
+      saldoEucalipto += valorComSinal / 2;
+      saldoTabaco += valorComSinal / 2;
+    }
+  });
+
+  const saldoTotal = saldoEucalipto + saldoTabaco;
+
+  // ID correto: 'saldo-total' (corrigido)
+  const elTotal = document.getElementById('saldo-total');
+  const elEuca = document.getElementById('saldo-eucalipto');
+  const elTab = document.getElementById('saldo-tabaco');
+
+  if (elTotal) elTotal.textContent = formatarMoeda(saldoTotal);
+  if (elEuca) elEuca.textContent = formatarMoeda(saldoEucalipto);
+  if (elTab) elTab.textContent = formatarMoeda(saldoTabaco);
+}
+
+async function adicionarItemRegistro() {
+  const valor = parseFloat(document.getElementById('input-valor').value.replace(',', '.'));
+  const tipo = document.getElementById('input-tipo').value;
+  const descricao = document.getElementById('input-descricao').value.trim();
+  const data = document.getElementById('input-data').value;
+  const cultura = document.getElementById('input-cultura').value;
+  const categoria = document.getElementById('input-categoria').value;
+
+  if (isNaN(valor) || descricao === "" || data === "" || !cultura) {
+    alert("Por favor, preencha todos os campos corretamente.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("acao", "criar");
+  formData.append("valor", valor);
+  formData.append("sinal", tipo === "positivo" ? "+" : "-");
+  formData.append("descricao", descricao);
+  formData.append("data", data);
+  formData.append("cultura", cultura);
+  formData.append("seletor", categoria);
+  formData.append("produtor_id", produtorId);
+
+  try {
+    const res = await fetch("saldo_crud.php", { method: "POST", body: formData });
+    const dados = await res.json();
+
+    if (dados.sucesso) {
+      // limpa inputs
+      document.getElementById('input-valor').value = "";
+      document.getElementById('input-tipo').value = "positivo";
+      document.getElementById('input-descricao').value = "";
+      document.getElementById('input-data').value = "";
+      document.getElementById('input-cultura').value = "ambos";
+      document.getElementById('input-categoria').value = "insumos";
+
+      // recarrega do servidor e atualiza interface
+      await carregarRegistros();
+
+      // limpa filtros visuais
+      document.getElementById('filtro-data-inicio').value = "";
+      document.getElementById('filtro-data-fim').value = "";
+      document.getElementById('filtro-cultura').value = "todos";
+    } else {
+      alert("Erro ao adicionar registro");
+      console.error(dados);
+    }
+  } catch (err) {
+    console.error("Erro ao adicionar registro:", err);
+    alert("Erro ao adicionar registro. Veja console para detalhes.");
+  }
+}
+
+function exibirRegistros(filtrados = null) {
+  const lista = document.getElementById('lista-registro');
+  lista.innerHTML = "";
+
+  const listaFinal = filtrados || registros;
+
+  if (!listaFinal || listaFinal.length === 0) {
+    lista.innerHTML = "<li>Nenhum registro encontrado.</li>";
+    return;
+  }
+
+  listaFinal.slice().reverse().forEach(registro => {
+    const li = document.createElement('li');
+    const sinal = registro.sinal || (registro.tipo === 'positivo' ? '+' : '-');
+    const valorAbs = Math.abs(Number(registro.valor) || 0);
+    li.classList.add(sinal === '+' ? 'registro-positivo' : 'registro-negativo');
+
+    const detalhes = document.createElement('div');
+    detalhes.className = 'detalhes-registro';
+    detalhes.innerHTML = `
+      <span><strong>${sinal} ${formatarMoeda(valorAbs)}</strong> - ${registro.descricao} (${registro.culturas || registro.cultura || ''})</span>
+      <small>${registro.dataOperacao || registro.data || ''}</small>
+    `;
+
+    const botaoExcluir = document.createElement('button');
+    botaoExcluir.textContent = '🗑️';
+    botaoExcluir.classList.add('botao-excluir');
+    botaoExcluir.onclick = () => excluirRegistro(registro.idsaldo || registro.id || registro.idtransacao);
+
+    li.appendChild(detalhes);
+    li.appendChild(botaoExcluir);
+    lista.appendChild(li);
+  });
+}
+
+async function excluirRegistro(id) {
+  if (!confirm("Deseja realmente excluir este registro?")) return;
+
+  const formData = new FormData();
+  formData.append("acao", "deletar");
+  formData.append("id", id);
+
+  try {
+    const res = await fetch("saldo_crud.php", { method: "POST", body: formData });
+    const dados = await res.json();
+
+    if (dados.sucesso) {
+      await carregarRegistros(); // recarrega do servidor
+      document.getElementById('filtro-data-inicio').value = "";
+      document.getElementById('filtro-data-fim').value = "";
+      document.getElementById('filtro-cultura').value = "todos";
+    } else {
+      alert("Erro ao excluir registro");
+      console.error(dados);
+    }
+  } catch (err) {
+    console.error("Erro ao excluir registro:", err);
+    alert("Erro ao excluir registro. Veja console para detalhes.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", carregarRegistros);
+
+// FILTROS (aplica filtro sobre a lista já carregada)
+function filtrarPorData() {
+  const dataInicio = document.getElementById('filtro-data-inicio').value;
+  const dataFim = document.getElementById('filtro-data-fim').value;
+  const culturaFiltro = document.getElementById('filtro-cultura').value;
+
+  let filtrados = registros.filter(r => {
+    const dataRegistro = new Date(r.data || r.dataOperacao);
+    const dentroDoPeriodo =
+      (!dataInicio || new Date(dataInicio) <= dataRegistro) &&
+      (!dataFim || new Date(dataFim) >= dataRegistro);
+
+    const culturaCondicional =
+      culturaFiltro === "todos" ||
+      r.cultura === culturaFiltro ||
+      r.culturas === culturaFiltro ||
+      (culturaFiltro === "ambos" && (r.cultura === "ambos" || r.culturas === "ambos"));
+
+    return dentroDoPeriodo && culturaCondicional;
+  });
+
+  exibirRegistros(filtrados);
+}
+
+// limpa filtro e mostra tudo (se quiser reconsultar do servidor, usar o botão Atualizar)
+function limparFiltro() {
+  document.getElementById('filtro-data-inicio').value = "";
+  document.getElementById('filtro-data-fim').value = "";
+  document.getElementById('filtro-cultura').value = "todos";
+  exibirRegistros();
+}
+
+
+
+/*let registros = [];
 
 
 function formatarMoeda(valor) {
@@ -278,7 +484,7 @@ function limparFiltro() {
   exibirRegistros();
 }
 
-atualizarSaldos();
+atualizarSaldos();*/
 
 
 
