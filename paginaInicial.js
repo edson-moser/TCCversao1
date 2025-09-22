@@ -101,15 +101,15 @@ function deleteTask(id) {
 //  SALDO 
 
 
-// garante que 'produtorId' já esteja definido no head pelo PHP
+
 let registros = [];
 
-// formatação
+
 function formatarMoeda(valor) {
   return `R$ ${valor.toFixed(2).replace('.', ',')}`;
 }
 
-// Carrega os registros do back-end e atualiza interface
+
 async function carregarRegistros() {
   try {
     const res = await fetch(`saldo_crud.php?acao=listar&produtor_id=${produtorId}`);
@@ -128,7 +128,6 @@ function atualizarSaldos() {
   let saldoTabaco = 0;
 
   registros.forEach(r => {
-    // compatibiliza campos (você usa às vezes 'sinal'/'tipo' e 'cultura'/'culturas')
     const sinal = r.sinal || (r.tipo === 'positivo' ? '+' : '-');
     const cultura = r.culturas || r.cultura || 'ambos';
     const valor = Number(r.valor) || 0;
@@ -138,7 +137,7 @@ function atualizarSaldos() {
       saldoEucalipto += valorComSinal;
     } else if (cultura === 'tabaco') {
       saldoTabaco += valorComSinal;
-    } else { // ambos
+    } else { 
       saldoEucalipto += valorComSinal / 2;
       saldoTabaco += valorComSinal / 2;
     }
@@ -146,7 +145,7 @@ function atualizarSaldos() {
 
   const saldoTotal = saldoEucalipto + saldoTabaco;
 
-  // ID correto: 'saldo-total' (corrigido)
+
   const elTotal = document.getElementById('saldo-total');
   const elEuca = document.getElementById('saldo-eucalipto');
   const elTab = document.getElementById('saldo-tabaco');
@@ -184,7 +183,7 @@ async function adicionarItemRegistro() {
     const dados = await res.json();
 
     if (dados.sucesso) {
-      // limpa inputs
+     
       document.getElementById('input-valor').value = "";
       document.getElementById('input-tipo').value = "positivo";
       document.getElementById('input-descricao').value = "";
@@ -192,10 +191,10 @@ async function adicionarItemRegistro() {
       document.getElementById('input-cultura').value = "ambos";
       document.getElementById('input-categoria').value = "insumos";
 
-      // recarrega do servidor e atualiza interface
+      
       await carregarRegistros();
 
-      // limpa filtros visuais
+      
       document.getElementById('filtro-data-inicio').value = "";
       document.getElementById('filtro-data-fim').value = "";
       document.getElementById('filtro-cultura').value = "todos";
@@ -272,7 +271,7 @@ async function excluirRegistro(id) {
 
 document.addEventListener("DOMContentLoaded", carregarRegistros);
 
-// FILTROS (aplica filtro sobre a lista já carregada)
+
 function filtrarPorData() {
   const dataInicio = document.getElementById('filtro-data-inicio').value;
   const dataFim = document.getElementById('filtro-data-fim').value;
@@ -296,7 +295,7 @@ function filtrarPorData() {
   exibirRegistros(filtrados);
 }
 
-// limpa filtro e mostra tudo (se quiser reconsultar do servidor, usar o botão Atualizar)
+
 function limparFiltro() {
   document.getElementById('filtro-data-inicio').value = "";
   document.getElementById('filtro-data-fim').value = "";

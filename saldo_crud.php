@@ -129,7 +129,7 @@ elseif ($acao === "deletar") {
     }
 
     // OBS: aqui usamos idtransacao (nome do PK na tabela 'transacao')
-    $sql = "DELETE FROM transacao WHERE idtransacao=?";
+    $sql = "DELETE FROM transacao WHERE idsaldo=?";
     $stmt = $conecta->prepare($sql);
     if (!$stmt) {
         http_response_code(500);
