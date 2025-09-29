@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+<link rel="stylesheet" href="ResetarSenha.css">
 <head>
     <meta charset="UTF-8">
     <title>Redefinir Senha</title>

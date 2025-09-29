@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src = "RecuperarSenha.js"></script>
+    <link rel="stylesheet" href="RecuperarSenha.css">
 </head>
 <body>
     <div class = "grid-vertical">
@@ -19,7 +20,7 @@
             </form>
         </div>
         <div class= "group-buttons">
-            <a class = "button button-primary" onclick = "recoveryPassword()"  href="recovery-password-message.html">Recuperar senha</a>
+            <a class="button button-primary" onclick="recuperarSenha()">Recuperar senha</a>
             <a class = "button button-secondary" href="login.html">Cancelar</a>
         </div>
     </div>

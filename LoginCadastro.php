@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -76,7 +75,7 @@
                         <input name="senha" type="password" placeholder="Senha">
                     </label>
                 
-                    <a class="password" href="#">Esqueceu a senha?</a>
+                    <a class="password" href="RecuperarSenha.php">Esqueceu a senha?</a>
                     <button type="submit" name="login" class="btn btn-second">Entrar</button>
                 </form>
             </div>

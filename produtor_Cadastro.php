@@ -7,16 +7,17 @@ $email = $_POST["email"];
 $senha = $_POST["senha"];
 $confirma_senha = $_POST["confirma_senha"];
 
-if ($senha != $confirma_senha) {
-    echo "Erro: As senhas não coincidem.";
-    exit;
+if ($senha !== $confirma_senha) {
+    // Senhas não conferem
+    exit('Senhas não conferem!');
 }
 
-$criptografia= password_hash($senha, PASSWORD_DEFAULT);
+// Use password_hash para salvar a senha
+$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-
-
-$stmt = $conecta->prepare("INSERT INTO produtor (nome, email, senha) VALUES ('$nome','$email', '$criptografia')");
+// Agora salve $senha_hash no banco, não $senha
+$stmt = $conecta->prepare("INSERT INTO produtor (nome, email, senha) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $nome, $email, $senha_hash);
 
 if (!$stmt) {
     echo "Erro na preparação do cadastro: " . $conecta->error;
@@ -27,14 +28,22 @@ if (!$stmt) {
 
 
 if ($stmt->execute()) {
+    // Busca o usuário recém cadastrado
+    $stmt2 = $conecta->prepare("SELECT idprodutor, nome FROM produtor WHERE email = ?");
+    $stmt2->bind_param("s", $email);
+    $stmt2->execute();
+    $stmt2->bind_result($idprodutor, $nome);
+    $stmt2->fetch();
+    $stmt2->close();
+
     if(!isset($_SESSION)){
         session_start();
-
     }
-    $_SESSION['idprodutor']= $usuario['idprodutor'];
-    $_SESSION['nome']= $usuario['nome'];
+    $_SESSION['idprodutor']= $idprodutor;
+    $_SESSION['nome']= $nome;
 
     header("Location: LoginCadastro.php");
+    exit;
 } else {
     if ($conecta->errno === 1062) { 
         echo "Erro: Este e-mail já está cadastrado.";
