@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 header('Content-Type: application/json');
 
 // Recebe o e-mail
@@ -17,7 +20,7 @@ if ($conn->connect_error) {
 }
 
 // Verifica se o e-mail existe
-$stmt = $conn->prepare("SELECT id FROM produtor WHERE email = ?");
+$stmt = $conn->prepare("SELECT idprodutor FROM produtor WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->store_result();
@@ -41,12 +44,19 @@ if ($stmt->num_rows > 0) {
     $mensagem = "Olá! Para redefinir sua senha, clique no link abaixo:\n$link\nEste link expira em 1 hora.";
     $headers = "From: no-reply@seusite.com\r\n";
 
-    mail($email, $assunto, $mensagem, $headers);
-
-    echo json_encode(['sucesso' => true]);
+    // mail($email, $assunto, $mensagem, $headers);
+    echo json_encode(['sucesso' => true, 'link' => $link]);
+    exit;
 } else {
     echo json_encode(['sucesso' => false, 'mensagem' => 'E-mail não encontrado.']);
 }
 
 $stmt->close();
 $conn->close();
+?>
+<script>
+// RecuperarSenha.js
+if (res.sucesso) {
+    window.location.href = res.link;
+}
+</script>

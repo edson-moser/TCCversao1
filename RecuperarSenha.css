@@ -1,0 +1,132 @@
+/* FONTES */
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Anton&family=Lilita+One&family=Poppins&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #7B5F28;
+    background-color: #F5F1E6;
+    margin: 0;
+    padding: 0;
+}
+
+.recuperar-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 32px 28px 24px 28px;
+    background: #dfdbce;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recuperar-container h2 {
+    font-family: 'Lilita One', sans-serif;
+    color: #2F6544;
+    margin-bottom: 18px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.recuperar-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.recuperar-form label {
+    color: #503602;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.recuperar-form input[type="email"] {
+    padding: 10px 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #7B5F28;
+    transition: border 0.2s;
+}
+
+.recuperar-form input[type="email"]:focus {
+    border-color: #6DAA7F;
+    outline: none;
+}
+
+.recuperar-form button {
+    background-color: #2F6544;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.recuperar-form button:hover {
+    background-color: #24523b;
+}
+
+.mensagem-sucesso {
+    margin-top: 14px;
+    color: #2e7d32;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mensagem-erro {
+    margin-top: 14px;
+    color: #c62828;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.centraliza-tela {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F5F1E6;
+}
+
+.cancelar-link {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    color: #2F6544;
+    background: #F5F1E6;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.cancelar-link:hover {
+    background: #cccccc;
+}
+
+@media (max-width: 480px) {
+    .recuperar-container {
+        max-width: 95vw;
+        padding: 18px 6vw;
+    }
+}
+
+.email{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    color: #503602;
+    margin-top: 10px;
+}

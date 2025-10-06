@@ -20,7 +20,7 @@ function recuperarSenha() {
     .then(r => r.json())
     .then(res => {
         if (res.sucesso) {
-            window.location.href = "recovery-password-message.html";
+            window.location.href = res.link;
         } else {
             alert(res.mensagem || "E-mail não encontrado.");
         }
