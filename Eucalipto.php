@@ -1,5 +1,4 @@
 <?php
-
 include('protect.php')
 ?>
 
@@ -52,10 +51,10 @@ include('protect.php')
 
   <div class="form-container">
     <h2 class="titulo-eucalipto">ADICIONAR INFORMAÇÕES DA PRODUÇÃO DE EUCALIPTO:</h2>
-    <form>
+    <form id="eucalipto-form">
 
       <div class="input-area">
-        <input type="number" id="input1" placeholder="Quantidade de pés">
+        <input type="number" id="input1" placeholder="Quantidade de pés" min="0" step="1">
         <select id="select1" onchange="changeType('input1', 'select1')">
           <option value="number">Por Hectare</option>
           <option value="number">Por metro quadrado</option>
@@ -63,7 +62,7 @@ include('protect.php')
       </div>
 
       <div class="input-area">
-        <input type="number" id="input2" placeholder="Tamanho da Área">
+        <input type="number" id="input2" placeholder="Tamanho da Área" min="0" step="0.01">
         <select id="select2" onchange="changeType('input2', 'select2')">
           <option value="number">Por Hectare</option>
           <option value="number">Por metro quadrado</option>
@@ -71,13 +70,9 @@ include('protect.php')
       </div>
 
       <div class="input-area">
-        <input type="date" id="input3" placeholder="Data de Ínicio">
+        <!-- campo único de data de plantio -->
+        <input type="date" id="inputDate" placeholder="Data de plantio" aria-label="Data de plantio">
       </div>
-
-      <div class="input-area">
-        <input type="date" id="input4" placeholder="Data de finalização">
-      </div>
-
 
       <div class="confirm-button">
         <button type="submit">Confirmar</button>
@@ -86,16 +81,21 @@ include('protect.php')
   </div>
 
   <div class="grafico">
-    <canvas class="line-chart" width="400" height="200"></canvas>
+    <canvas id="eucaliptoChart" class="line-chart" width="400" height="200"></canvas>
+
+    <?php
+    // pega o id do produtor da sessão — ajuste a chave se necessário
+    $produtorId = $_SESSION['id'] ?? $_SESSION['user_id'] ?? null;
+    ?>
+
+    <script>
+      const produtorId = <?php echo json_encode($produtorId); ?>;
+    </script>
+
     <script src="Eucalipto.js"></script>
   </div>
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
-
 </body>
 </html>
