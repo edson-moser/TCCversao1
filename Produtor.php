@@ -136,7 +136,7 @@ $estados = [
             <button type="button" id="btnSalvar" class="btn-action" style="display: none;">SALVAR DADOS</button>
 
             <button type="button" class="link-button" onclick="location.href='logout.php'">Sair do site</button>
-            <button type="button" class="link-button">Alterar Senha</button>
+            <button type="button" class="link-button" onclick="location.href='atualizarSenha.php'">Alterar Senha</button>
         </div>
     </form>
 </div>
