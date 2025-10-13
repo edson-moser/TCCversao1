@@ -117,6 +117,9 @@ form {
 
 .input-area{
   width: 600px;
+  display: flex;
+  justify-content: center;
+  
 }
 
 .input-area select {
@@ -142,7 +145,12 @@ form {
 
 
 .input-area.date {
-  grid-column: 1 / -1;
+  grid-column: 1 / -1; /* ocupa as duas colunas do form */
+  width: 100% !important;
+  display: flex;
+  justify-content: center; /* centraliza na página */
+  padding: 0;
+  box-shadow: none;
 }
 
 .titulo-eucalipto{
@@ -182,4 +190,37 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.date-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px; /* largura alinhada aos campos acima */
+  max-width: calc(100% - 40px);
+  margin-top: 0.5rem;
+}
+
+.label-date { display: block; margin-bottom: 0.25rem; font-weight: 400; }
+
+.date-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-row .form-control {
+  min-width: 160px;
+  margin: 0 8px;
+}
+
+/* responsivo */
+@media (max-width: 768px) {
+  .date-area { width: 100%; padding: 0 12px; }
+  .date-row .form-control { min-width: 120px; }
+}
+
+@media (max-width: 480px) {
+  .date-row .form-control { min-width: 120px; }
 }

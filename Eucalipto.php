@@ -69,9 +69,21 @@ include('protect.php')
         </select>
       </div>
 
-      <div class="input-area">
-        <!-- campo único de data de plantio -->
-        <input type="date" id="inputDate" placeholder="Data de plantio" aria-label="Data de plantio">
+      <div class="input-area date">
+        <div class="date-area text-center">
+          <label for="inputDate" class="label-date">Data de plantio/corte do eucalipto</label>
+          <div class="form-row justify-content-center align-items-center date-row">
+            <div class="col-auto">
+              <input type="date" id="inputDate" class="form-control" aria-label="Data de plantio">
+            </div>
+            <div class="col-auto">
+              <select id="inputDateType" class="form-control" aria-label="Tipo de ação">
+                <option value="plantio">Plantio (inserir)</option>
+                <option value="corte">Corte (excluir)</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="confirm-button">
